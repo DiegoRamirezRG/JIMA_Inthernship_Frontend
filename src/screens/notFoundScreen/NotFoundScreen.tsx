@@ -1,5 +1,5 @@
 import React from 'react'
-import './notFoundScreen.scss'
+import './NotFoundScreen.scss'
 import blob from './assets/blob.svg'
 import animation from './assets/404.json'
 import { MaxContainerComponent } from '../../components/generalComponents/maxContainerComponent/MaxContainerComponent'

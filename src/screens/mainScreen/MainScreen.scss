@@ -1,0 +1,35 @@
+@import '../../utils/sassConfig/colors';
+@import '../../utils/sassConfig/fonts';
+
+
+.mainScreenRealContainer{
+    width: 100%;
+    height: 100%;
+    background-color: $iris;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    position: relative;
+
+    .sidebarMenu{
+        height: 100%;
+        width: 20%;
+    }
+
+    .contentContainer{
+        height: 98.5%;
+        background-color: $flash_white;
+        border-radius: 50px 0px 0px 0px;
+        position: absolute;
+        right: 0px;
+        transition: all 0.5s cubic-bezier(0.52, 0, 0.02, 0.96) 0.2s;
+
+        &.open{
+            width: 83%;
+        }
+
+        &.close{
+            width: 95%;
+        }
+    }
+}
