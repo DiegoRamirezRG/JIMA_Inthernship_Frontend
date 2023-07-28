@@ -1,0 +1,66 @@
+
+@use '../../../utils/sassConfig/mediaqueries' as screen_size;
+@import '../../../utils/sassConfig/colors';
+
+.inputComponentContainer{
+
+    &:not(:first-child){
+        margin-top: 40px;
+    }
+
+    @include screen_size.xs{
+        &:not(:first-child){
+            margin-top: 20px;
+        }
+    }
+
+    p{
+        margin: 0;
+        font-family: 'Segoe UI', sans-serif;
+        font-weight: normal;
+        font-size: 25px;
+
+        @include screen_size.xs{
+            font-size: 20px;
+        }
+    }
+
+    .inputContainer{
+        display: flex;
+        flex-direction: row;
+        padding: 0px;
+        width: 100%;
+        padding: 0px 10px;
+        box-sizing: border-box;
+        border-radius: 10px;
+        border: 1px solid $grey;
+        margin-top: 15px;
+
+        .inputSection{
+            width: 90%;
+
+            input{
+                width: 100%;
+                height: 50px;
+                font-size: 20px;
+                border: none;
+                outline: none;
+                background-color: transparent;
+            }
+        }
+
+        .iconSection{
+            width: 10%;
+            font-size: 35px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: $grey;
+
+            &:hover{
+                cursor: pointer;
+                color: darken($grey, 10%);
+            }
+        }
+    }
+}
