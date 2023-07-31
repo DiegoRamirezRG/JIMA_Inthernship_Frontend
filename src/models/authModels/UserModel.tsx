@@ -13,8 +13,8 @@ export interface UserModel{
     Correo_Electronico:   string;
     Rol:                  string;
     Active:               boolean;
-    Imagen:               string;
+    Imagen:               string | null;
     Creado_En:            string;
-    Actualizado_EN:       string;
+    Actualizado_EN:       string | null;
     jwt:                  string;
 }

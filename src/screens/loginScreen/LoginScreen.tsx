@@ -1,15 +1,32 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import { MaxContainerComponent } from '../../components/generalComponents/maxContainerComponent/MaxContainerComponent'
 import { InputComponent } from '../../components/generalComponents/inputComponent/InputComponent'
 import { IoEyeOffOutline } from "react-icons/io5";
 
 import './LoginScreen.scss'
 import { useAuthLoginHook } from '../../hooks/auth/useAuthLoginHook';
+import AuthContext from '../../contexts/authContext/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 export const LoginScreen = () => {
 
-    const { email, hanldeEmailType, handlePasswordType, password, showPassword, handleShowPassword } = useAuthLoginHook();
+    const { email, hanldeEmailType, handlePasswordType, password, showPassword, handleShowPassword, handleButtonGetAuth } = useAuthLoginHook();
+    const {state, validateToken} = useContext(AuthContext);
+    const navigate = useNavigate();
+    
+    useEffect(() => {
+        const awaitFunction = async () => {
+            if(localStorage.getItem('token') != null || localStorage.getItem('token') != ''){
+                const isValid = await validateToken();
 
+                if(isValid){
+                    navigate('/home');
+                }
+            }
+        }
+        awaitFunction();
+    }, [state])
+    
 
     return (
         <MaxContainerComponent>
@@ -27,7 +44,7 @@ export const LoginScreen = () => {
                         <InputComponent placeholder="nombre@ejemplo.com" type='text' value={email} title={'Correo electrónico'} handleState={hanldeEmailType}/>
                         <InputComponent placeholder="Contraseña" type='password' value={password} title={'Contraseña'} icon={<IoEyeOffOutline onClick={(e) => handleShowPassword('password')}/>} handleState={handlePasswordType} showPassword={showPassword}/>
 
-                        <button>Iniciar sesión</button>
+                        <button onClick={handleButtonGetAuth}>Iniciar sesión</button>
                     </div>
                     <div className="actionsSection">
                         <a href="#">Recuperar contraseña</a>

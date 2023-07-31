@@ -12,4 +12,6 @@ export interface AuthContextState {
 export interface AuthContextInterface {
     state: AuthContextState;
     dispatch: React.Dispatch<AuthContextActions>;
+    getAuthFuncion?: any;
+    validateToken?: any;
 }
