@@ -2,21 +2,35 @@
 
 @font-face {
     font-family: 'Quicksand';
-    src: url('../../assets/fonts/quicksand/Quicksand_Light.otf') format('opentype');
+    src: url('../../assets/fonts/quicksand/Quicksand-Light.ttf') format('opentype');
     font-weight: 300;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'Quicksand';
-    src: url('../../assets/fonts/quicksand/Quicksand_Book.otf') format('opentype');
+    src: url('../../assets/fonts/quicksand/Quicksand-Regular.ttf') format('opentype');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'Quicksand';
-    src: url('../../assets/fonts/quicksand/Quicksand_Bold.otf') format('opentype');
+    src: url('../../assets/fonts/quicksand/Quicksand-Medium.ttf') format('opentype');
+    font-weight: 550;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Quicksand';
+    src: url('../../assets/fonts/quicksand/Quicksand-SemiBold.ttf') format('opentype');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Quicksand';
+    src: url('../../assets/fonts/quicksand/Quicksand-Bold.ttf') format('opentype');
     font-weight: bold;
     font-style: normal;
 }

@@ -16,7 +16,7 @@ export const LoginScreen = () => {
     
     useEffect(() => {
         const awaitFunction = async () => {
-            if(localStorage.getItem('token') != null || localStorage.getItem('token') != ''){
+            if(localStorage.getItem('token') != null && localStorage.getItem('token') != ''){
                 const isValid = await validateToken();
 
                 if(isValid){

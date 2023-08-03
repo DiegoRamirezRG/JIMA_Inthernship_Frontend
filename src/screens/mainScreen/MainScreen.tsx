@@ -1,24 +1,11 @@
-import React from 'react'
-import { MaxContainerComponent } from '../../components/generalComponents/maxContainerComponent/MaxContainerComponent'
+import React from 'react';
 import './MainScreen.scss'
-import { useState } from 'react';
+import { NavigationComponent } from '../../components/generalComponents/navigationComponent/NavigationComponent';
 
 export const MainScreen = () => {
-
-    const [closeMenu, setCloseMenu] = useState<boolean>(false);
-
     return (
-        <MaxContainerComponent>
-            <div className="mainScreenRealContainer">
-
-                <div className="sidebarMenu">
-                    <button onClick={(e) => { setCloseMenu(!closeMenu) }}>Close me</button>
-                </div>
-
-                <div className={`contentContainer ${closeMenu === false ? 'close' :  'open'}`}>
-
-                </div>
-            </div>
-        </MaxContainerComponent>
+        <NavigationComponent>
+            <h1>MainScreen</h1>
+        </NavigationComponent>
     )
 }

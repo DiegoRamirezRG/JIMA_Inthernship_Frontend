@@ -16,26 +16,6 @@
 
     //Just to identificated the size
 
-    @include screen_size.xl{
-        background-color: green;
-    }
-
-    @include screen_size.lg{
-        background-color: navy;
-    }
-
-    @include screen_size.md{
-        background-color: aliceblue;
-    }
-
-    @include screen_size.sm{
-        background-color: brown;
-    }
-
-    @include screen_size.xs{
-        background-color: black;
-    }
-
     .sideCardCredentials{
         width: 30%;
         height: 100%;
