@@ -1,0 +1,202 @@
+@use '../../utils/sassConfig/mediaqueries' as screen_size;
+
+@import '../../utils/sassConfig/colors';
+@import '../../utils/sassConfig/fonts';
+
+.realLoginContainer{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+
+    background-color: #6941C6;
+
+    //Just to identificated the size
+
+    @include screen_size.xl{
+        background-color: green;
+    }
+
+    @include screen_size.lg{
+        background-color: navy;
+    }
+
+    @include screen_size.md{
+        background-color: aliceblue;
+    }
+
+    @include screen_size.sm{
+        background-color: brown;
+    }
+
+    @include screen_size.xs{
+        background-color: black;
+    }
+
+    .sideCardCredentials{
+        width: 30%;
+        height: 100%;
+        box-sizing: border-box;
+        background-color: white;
+        position: absolute;
+        right: 0px;
+        border-radius: 30px 0px 0px 30px;
+        transition: 0.2s all ease-in-out;
+        padding: 0 50px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+
+        @include screen_size.xs{
+            width: 90%;
+            height: 90%;
+            position: relative;
+            border-radius: 20px;
+            padding: 0 30px;
+        }
+
+        @include screen_size.sm{
+            width: 80%;
+            height: 90%;
+            position: relative;
+            border-radius: 20px;
+        }
+
+        @include screen_size.md{
+            width: 50%;
+        }
+
+        @include screen_size.lg{
+            width: 45%;
+        }
+
+        @include screen_size.xl{
+            width: 35%;
+        }
+
+        .logoSection{
+            width: 70%;
+            margin-top: 25px;
+        }
+
+        .instructionsSection{
+            h2{
+                font-family: 'Segoe UI', sans-serif;
+                font-weight: bold;
+                font-size: 50px;
+                margin: 0;
+
+                @include screen_size.xs{
+                    font-size: 35px;
+                }
+
+                @include screen_size.md{
+                    font-size: 40px;
+                }
+            }
+
+            p{
+                font-family: 'Quicksand', sans-serif;
+                font-weight: 300;
+                font-size: 25px;
+                color: $grey;
+                margin: 0;
+
+                @include screen_size.xs{
+                    font-size: 20px;
+                }
+            }
+        }
+
+        .inputsSection{
+
+            button{
+                background-color: $iris;
+                border-radius: 10px;
+                width: 100%;
+                border: none;
+                font-family: 'Quicksand', sans-serif;
+                font-weight: bold;
+                color: white;
+                font-size: 25px;
+                box-sizing: border-box;
+                padding: 14px 0px;
+                margin-top: 50px;
+
+                &:hover{
+                    cursor: pointer;
+                    background-color: darken($iris, 10%);
+                }
+
+                @include screen_size.xs{
+                    font-size: 20px;
+                }
+
+                @include screen_size.md{
+                    font-size: 20px;
+                }
+            }
+        }
+
+        .actionsSection{
+            height: 15%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-direction: column;
+
+            a{
+                text-decoration: none;
+                font-family: 'Quicksand', sans-serif;
+                font-weight: normal;
+                font-size: 25px;
+                color: $iris;
+                transition: 0.2s all ease-in-out;
+
+                &:hover{
+                    color: $bootstrap_danger;
+                    text-decoration: underline;
+                }
+
+                @include screen_size.xs{
+                    font-size: 20px;
+                }
+
+                @include screen_size.md{
+                    font-size: 20px;
+                }
+            }
+
+            button{
+                background-color: transparent;
+                border: 3px solid $iris;
+                border-radius: 50px;
+                font-family: 'Quicksand', sans-serif;
+                font-weight: bold;
+                font-size: 25px;
+                color: $iris;
+                box-sizing: border-box;
+                padding: 10px 15px;
+                transition: 0.2s all ease-in-out;
+
+                &:hover{
+                    background-color: $iris;
+                    color: white;
+                    cursor: pointer;
+                }
+
+                @include screen_size.xs{
+                    font-size: 20px;
+                }
+
+                @include screen_size.md{
+                    font-size: 20px;
+                }
+            }
+        }
+    
+    }
+}
