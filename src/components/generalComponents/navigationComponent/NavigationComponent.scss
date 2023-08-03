@@ -1,0 +1,300 @@
+@use '../../../utils/sassConfig/mediaqueries' as screen_size;
+
+@import '../../../utils/sassConfig/colors';
+@import '../../../utils/sassConfig/fonts';
+
+
+.mainScreenRealContainer{
+    width: 100%;
+    height: 100%;
+    background-color: $iris;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    position: relative;
+
+    .sidebarMenu{
+        height: 100%;
+        width: 20%;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        box-sizing: border-box;
+
+        @include screen_size.xl{
+            width: 25%;
+        }
+
+        @include screen_size.lg{
+            width: 25%;
+        }
+
+        @include screen_size.md{
+            width: 32%;
+        }
+
+        @include screen_size.sm{
+            width: 45%;
+        }
+
+        @include screen_size.xs{
+            width: 90%;
+        }
+
+        .buttonSection{
+            position: absolute;
+            z-index: 10;
+            font-size: 60px;
+            width: 70px;
+            height: 70px;
+            top: 47px;
+            left: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            transition: all 0.5s cubic-bezier(0.52, 0, 0.02, 0.96) 0.2s;
+
+            &:hover{
+                cursor: pointer;
+            }
+
+            .icon{
+                position: absolute;
+                transition: transform 0.5s cubic-bezier(0.52, 0, 0.02, 0.96),
+                opacity 0.5s ease-in-out;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                &.hide{
+                    opacity: 0;
+                    transform: scale(0);
+                }
+
+                @include screen_size.xs{
+                    &:first-child{
+                        color: black;
+                    }
+                }
+            }
+        }
+
+        .menuSection{
+            width: 95%;
+            max-height: 82%;
+            margin-top: 40%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            margin-left: 7px;
+
+            @include screen_size.xs{
+                margin-top: 40%;
+                max-height: 80%;
+
+                @media screen and (min-width: 382px) and (max-width: 575px) {
+                    margin-top: 25%;
+                }
+            }
+
+            .optionsArticles{
+                height: 65%;
+                width: 90%;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .helpersArticles{
+                height: 25%;
+                width: 90%;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+
+                .dividerDesingDiv{
+                    margin-left: 10px;
+                    height: 5px;
+                    width: 50px;
+                    border-radius: 10px;
+                    background-color: white;
+                }
+
+                .userInformationComponent{
+                    width: 100%;
+                    height: 35%;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+
+                    .imageUserSection{
+                        height: 100%;
+                        aspect-ratio: 1;
+                        margin-left: 1px;
+                        border-radius: 10px;
+
+                        img{
+                            width: 100%;
+                            border-radius: 10px;
+                        }
+                    }
+
+                    .informationUserSection{
+                        width: 75%;
+                        height: 100%;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        transition: opacity 0.2s, letter-spacing 0.2s;
+                        
+                        @include screen_size.lg{
+                            width: 70%;
+                        }
+
+                        @include screen_size.md{
+                            width: 70%;
+                        }
+
+                        @include screen_size.sm{
+                            width: 68%;
+                        }
+
+                        &.menuOpened{
+                            animation: fadeIn 0.5s 0.3s forwards;
+                        }
+
+                        &.menuClosed{
+                            animation: fadeIn 0.5s 0.3s backwards;
+                            display: none;
+                        }
+
+                        p{
+                            margin: 0px;
+                            padding: 0px;
+
+                            &:first-child{
+                                font-family: 'Quicksand', sans-serif;
+                                font-weight: 600;
+                                font-size: 28px;
+                                color: white;
+
+                                @include screen_size.lg{
+                                    font-size: 25px;
+                                }
+
+                                @include screen_size.md{
+                                    font-size: 25px;
+                                }
+
+                                @include screen_size.sm{
+                                    font-size: 25px;
+                                }
+                            }
+
+                            &:last-child{
+                                font-family: 'Quicksand', sans-serif;
+                                font-weight: 550;
+                                font-size: 20px;
+                                color: white;
+
+                                @include screen_size.lg{
+                                    font-size: 17px;
+                                }
+
+                                @include screen_size.md{
+                                    font-size: 17px;
+                                }
+
+                                @include screen_size.sm{
+                                    font-size: 17px;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .contentContainer{
+        height: 98.5%;
+        background-color: $flash_white;
+        border-radius: 50px 0px 0px 0px;
+        position: absolute;
+        right: 0px;
+        transition: all 0.5s cubic-bezier(0.52, 0, 0.02, 0.96) 0.2s;
+
+        
+
+        @include screen_size.xxl{
+            &.open{
+                width: 80%;
+            }
+    
+            &.close{
+                width: 95%;
+            }
+        }
+
+        @include screen_size.xl{
+            &.open{
+                width: 75%;
+            }
+    
+            &.close{
+                width: 93.5%;
+            }
+        }
+    
+        @include screen_size.lg{
+            &.open{
+                width: 75%;
+            }
+    
+            &.close{
+                width: 92.5%;
+            }
+        }
+    
+        @include screen_size.md{
+            &.open{
+                width: 70%;
+            }
+    
+            &.close{
+                width: 90.5%;
+            }
+        }
+    
+        @include screen_size.sm{
+            &.open{
+                width: 87.5%;
+                right: -30%;
+            }
+    
+            &.close{
+                width: 87.5%;
+            }
+        }
+    
+        @include screen_size.xs{
+            &.open{
+                width: 100%;
+                right: -85%;
+            }
+    
+            &.close{
+                width: 100%;
+            }
+        }
+    }
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}

@@ -28,7 +28,7 @@ export const AuthProvider = ({children}: any) => {
         });
     }
 
-    const getValidateToken = async () => {
+    const getValidateToken = async () => {        
         return new Promise<boolean>(async (resolve, reject) => {
             try {
                 const response = await serverRestApi.get<Response>(`/api/auth/validateToken/${localStorage.getItem('token')}`);
@@ -59,12 +59,15 @@ export const AuthProvider = ({children}: any) => {
     }
 
     useEffect(() => {
-
         const awaitFunction = async () => {
             try {
-                const isValid = await getValidateToken();
-                if(isValid){
-                    await getUserByToken()
+                if(localStorage.getItem('token') != ''  && localStorage.getItem('token') != null){                    
+                    const isValid = await getValidateToken();
+                    if(isValid){
+                        await getUserByToken()
+                    }else{
+                        localStorage.clear();
+                    }
                 }
             } catch (error) {
                 console.error('Error fetching data:', error);
