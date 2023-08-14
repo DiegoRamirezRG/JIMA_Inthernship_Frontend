@@ -1,0 +1,169 @@
+@use '../../../utils/sassConfig/mediaqueries' as screen_size;
+
+@import '../../../utils/sassConfig/colors';
+@import '../../../utils/sassConfig/fonts';
+
+.UserCardContainer{
+    width: 100%;
+    height: 90px;
+    background-color: $white;
+    border-radius: 5px;
+    overflow: hidden;
+    box-sizing: border-box;
+    padding: 6px 10px;
+    display: flex;
+    flex-direction: row;
+    transition: all 0.2s ease-in-out;
+
+    @include screen_size.xs{
+        height: 70px;
+    }
+
+    &:hover{
+        cursor: pointer;
+        background-color: lighten($iris, 35%);
+    }
+
+    .UserImage{
+        height: 100%;
+
+        img{
+            height: 100%;
+            aspect-ratio: 1;
+            border-radius: 5px;
+        }
+    }
+
+    .sideSection{
+        display: flex;
+        flex-direction: row;
+        box-sizing: border-box;
+        margin-left: 30px;
+        width: 90%;
+        justify-content: space-between;
+
+        .UserInformation{
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 550;
+            height: 90%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            width: 70%;
+            justify-content: center;
+
+            @include screen_size.xl{
+                width: 70%;
+            }
+
+            @include screen_size.lg{
+                width: 90%;
+            }
+
+            @include screen_size.md{
+                width: 90%;
+            }
+
+            @include screen_size.sm{
+                width: 90%;
+            }
+            @include screen_size.xs{
+                width: 100%;
+            }
+    
+            p{
+                padding: 0px;
+                margin: 0px;
+    
+                &:first-child{
+                    font-size: 25px;
+
+                    @include screen_size.xl{
+                        font-size: 23px;
+                    }
+
+                    @include screen_size.xs{
+                        font-size: 20px;
+                    }
+                }
+    
+                &:last-child{
+                    font-size: 20px;
+                    
+                    @include screen_size.xl{
+                        font-size: 18px;
+                    }
+
+                    @include screen_size.xs{
+                        font-size: 15px;
+                    }
+                }
+            }
+        }
+    
+        .UserStatus{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: start;
+            gap: 10px;
+            width: 20%;
+
+            @include screen_size.xl{
+                width: 25%;
+            }
+
+            @include screen_size.lg{
+                width: 10%;
+            }
+
+            @include screen_size.md{
+                width: 10%;
+            }
+
+            @include screen_size.sm{
+                width: 10%;
+            }
+
+            @include screen_size.xs{
+                display: none;
+            }
+            
+            .indicatorCircle{
+                width: 20px !important;
+                height: 20px;
+                border-radius: 50%;
+    
+                &.active{
+                    background-color: lighten($bootstrap_success, 10%);
+                }
+
+                &.inactive{
+                    background-color: lighten($bootstrap_danger, 10%);
+                }
+            }
+    
+            .informationSection{
+                font-family: 'Quicksand', sans-serif;
+                font-weight: 550;
+                font-size: 20px;
+
+                @include screen_size.xl{
+                    font-size: 17px;
+                }
+
+                @include screen_size.lg{
+                    display: none;
+                }
+
+                @include screen_size.md{
+                    display: none;
+                }
+
+                @include screen_size.sm{
+                    display: none;
+                }
+            }
+        }
+    }
+}

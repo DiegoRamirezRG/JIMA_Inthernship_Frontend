@@ -20,6 +20,7 @@ export const LoginScreen = () => {
                 const isValid = await validateToken();
 
                 if(isValid){
+                    localStorage.setItem('showedPage', '0');
                     navigate('/home');
                 }
             }
