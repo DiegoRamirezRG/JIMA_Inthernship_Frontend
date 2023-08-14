@@ -1,0 +1,39 @@
+@use '../../../utils/sassConfig/mediaqueries' as screen_size;
+@import '../../../utils/sassConfig/colors';
+@import '../../../utils/sassConfig/fonts';
+
+.paginationContainer{
+    height: 100%;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+
+    .paginationBtn{
+        height: 40px;
+        aspect-ratio: 1;
+        background-color: $timberwolf;
+        font-family: 'Quicksand', sans-serif;
+        font-weight: 550;
+        font-size: 25px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 5px;
+        transition: all 0.2s ease-in-out;
+
+        @include screen_size.xs{
+            font-size: 20px;
+        }
+
+        &:hover{
+            cursor: pointer;
+            background-color: darken($timberwolf, 15%);
+        }
+
+        &.current{
+            background-color: $onyx;
+            color: white;
+        }
+    }
+}

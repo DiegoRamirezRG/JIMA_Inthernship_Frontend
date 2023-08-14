@@ -1,0 +1,55 @@
+@use '../../../utils/sassConfig/mediaqueries' as screen_size;
+
+@import '../../../utils/sassConfig/fonts';
+@import '../../../utils/sassConfig/colors';
+
+.filterButton{
+    width: fit-content;
+    height: fit-content;
+    padding: 7px 25px;
+    border-radius: 100px;
+
+    font-family: 'Quicksand', sans-serif;
+    font-weight: normal;
+    font-size: 25px;
+    transition: all 0.2s ease-in-out;
+    border: 1px solid transparent;
+
+    @include screen_size.xl{
+        font-size: 20px;
+    }
+
+    @include screen_size.lg{
+        font-size: 17px;
+    }
+
+    @include screen_size.md{
+        font-size: 17px;
+    }
+
+    @include screen_size.sm{
+        font-size: 17px;
+    }
+
+    @include screen_size.xs{
+        font-size: 17px;
+    }
+
+    &.active{
+        background-color: lighten($bootstrap_primary, 35%);
+        color: $bootstrap_primary;
+        font-weight: 550;
+    }
+
+    &:hover{
+        cursor: pointer;
+
+        &:not(.active){
+            background-color: darken($ligth_blue, 10%);
+        }
+    }
+
+    &:not(.active){
+        border: 1px solid darken($ligth_blue, 10%);
+    }
+}

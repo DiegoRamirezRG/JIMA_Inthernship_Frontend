@@ -6,6 +6,7 @@ import { MainScreen } from '../screens/mainScreen/MainScreen'
 import { ProtectedRoute } from './protectedRoute/ProtectedRoute'
 import { SettingsScreen } from '../screens/settingsScreen/SettingsScreen'
 import { Admin_UserScreen } from '../screens/admin_UserScreen/Admin_UserScreen'
+import { Admin_UserCreateScree } from '../screens/admin_UserCreateScreen/Admin_UserCreateScree'
 
 
 const generalRoutes = [
@@ -37,7 +38,13 @@ const administrativeRoutes = [
         element: <ProtectedRoute>
             <Admin_UserScreen/>
         </ProtectedRoute>,
-    }
+    },
+    {
+        path: "/admin_users/create",
+        element: <ProtectedRoute>
+            <Admin_UserCreateScree/>
+        </ProtectedRoute>,
+    },
 ]
 
 
