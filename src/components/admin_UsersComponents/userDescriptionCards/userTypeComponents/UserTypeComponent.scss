@@ -1,0 +1,17 @@
+.maximunUserTypeContainer{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    margin-top: 40px;
+
+    .centeredContainer{
+        box-sizing: border-box;
+        padding: 15px 25px;
+        width: 80%;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px 50px;
+    }
+}

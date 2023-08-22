@@ -1,0 +1,168 @@
+
+@import '../../../utils/sassConfig/colors';
+@import '../../../utils/sassConfig/fonts';
+
+.extHeaderContainer{
+    box-sizing: border-box;
+    padding: 0px 30px;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+
+    p{
+        margin: 0px;
+        padding: 10px 0px;
+
+        font-family: 'Quicksand', sans-serif;
+        font-weight: 600;
+        font-size: 25px;
+    }
+}
+
+.userCardDetailedContainer{
+    width: 100%;
+    height: auto;
+    box-sizing: border-box;
+    padding: 15px 25px;
+    border-radius: 15px;
+    border: 3px solid $ghostWhite;
+}
+
+.editBtn{
+    display: flex;
+    box-sizing: border-box;
+    padding: 7px 16px;
+    border-radius: 50px;
+    outline: none;
+    border: 3px solid $cool_grey;
+    background-color: transparent;
+    font-size: 23px;
+    justify-content: center;
+    align-items: center;
+    color: $cool_grey;
+
+    transition: 0.1s all ease-in-out;
+
+    &:hover{
+        cursor: pointer;
+        background-color: $cool_grey;
+        color: white;
+    }
+
+    p{
+        margin: 0px 24px 0px 0px;
+        padding: 0px;
+
+        font-family: 'Quicksand', sans-serif;
+        font-weight: 600;
+        font-size: 20px;
+    }
+}
+
+.profilePresentationContainer{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0px;
+    padding: 0px;
+    align-items: center;
+
+    .imageSection{
+        height: 100%;
+        aspect-ratio: 1;
+        img{
+            height: 100px;
+            aspect-ratio: 1;
+            border-radius: 50%;
+        }
+    }
+
+    .infoSection{
+        width: 100%;
+        box-sizing: border-box;
+        padding: 0px 15px 0px 15px;
+
+        p{
+            padding: 0px;
+            margin: 0px;
+
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 600;
+
+            &:first-child{
+                font-size: 30px;
+            }
+
+            &:nth-child(2){
+                font-size: 20px;
+            }
+
+            &:last-child{
+                font-size: 20px;
+            }
+        }
+    }
+}
+
+.internalHeader{
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .internalTitle{
+        font-family: 'Quicksand', sans-serif;
+        font-weight: 600;
+        font-size: 25px;
+    }
+}
+
+.internalContentSection{
+    width: 80%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px 50px;
+}
+
+.detailedInputComponent{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    label{
+        font-family: 'Quicksand', sans-serif;
+        font-weight: 600;
+        font-size: 15px;
+        color: $cool_grey;
+        padding-left: 20px;
+    }
+
+    input{
+        border: none;
+        background-color: transparent;
+        outline: none;
+
+        font-family: 'Quicksand', sans-serif;
+        font-weight: 550;
+        font-size: 20px;
+        border-radius: 50px;
+        padding: 5px 0px 3px 20px;
+
+        &:focus{
+            outline: 2px solid $ghostWhite;
+        }
+    }
+}
+
+.selecterBtns{
+    margin-top: 25px;
+    margin-bottom: 15px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -1,0 +1,40 @@
+@import '../../../utils/sassConfig/colors.scss';
+@import '../../../utils/sassConfig/fonts';
+
+.scrollHelperContainer{
+    box-sizing: border-box;
+    padding: 10px 26px;
+    border-radius: 50px;
+    width: fit-content;
+    transition: 0.3s all ease-in-out;
+
+    &:hover{
+        cursor: pointer;
+        background-color: lighten($grey, 15%);
+        color: white;
+    }
+
+    &.selected{
+        background-color: lighten($bootstrap_primary, 35%);
+        p{
+            font-weight: 600;
+            color: $bootstrap_primary;
+        }
+
+        &:hover{
+            background-color: darken($bootstrap_primary, 10%);
+            p{
+                color: white;
+            }
+        }
+    }
+
+    p{
+        padding: 0px;
+        margin: 0px;
+
+        font-family: 'Quicksand';
+        font-weight: normal;
+        font-size: 25px;
+    }
+}
