@@ -17,7 +17,7 @@ export interface defaultProps{
 export interface inputProps{
     label: string;
     placeholder?: string;
-    name: keyof UserModelPersonCreate | keyof AddressModelCreate | keyof administrativeCrate | keyof teacherCreate | keyof studentCreate | keyof parentCreate;
+    name?: keyof UserModelPersonCreate | keyof AddressModelCreate | keyof administrativeCrate | keyof teacherCreate | keyof studentCreate | keyof parentCreate;
     onChange?: (name: keyof UserModelPersonCreate , value: any) => void;
     handleRolInfo?: (name: keyof administrativeCrate | keyof teacherCreate | keyof studentCreate | keyof parentCreate, value: string) => void
     onChangeAddress?: (name: keyof AddressModelCreate, value: any) => void;
@@ -29,7 +29,8 @@ export interface inputProps{
 
 export interface infoCardInterface{
     person: UserModelPersonCreate;
-    inputHandler: (name: keyof UserModelPersonCreate, value: any) => void 
+    inputHandler: (name: keyof UserModelPersonCreate, value: any) => void;
+    editable?: boolean;
 }
 
 export interface domCardInterface{
@@ -38,6 +39,7 @@ export interface domCardInterface{
     countries: optionSelect[];
     states: optionSelect[] | null;
     cities: optionSelect[] | null;
+    editable?: boolean;
 }
 
 export interface medCardInterface extends infoCardInterface{

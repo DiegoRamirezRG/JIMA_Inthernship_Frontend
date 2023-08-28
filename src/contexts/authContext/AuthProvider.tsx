@@ -50,7 +50,6 @@ export const AuthProvider = ({children}: any) => {
         }
 
         const user = response.data.data as UserModel;
-        console.log(user);
         
         dispatch({
             type: 'getAuthorized',

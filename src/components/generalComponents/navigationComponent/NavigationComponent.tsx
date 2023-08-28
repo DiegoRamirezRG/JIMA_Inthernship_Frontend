@@ -21,7 +21,6 @@ export const NavigationComponent = ({children}: any) => {
     useEffect(() => {
         if(state.loggedUser != null){
             setName(state.loggedUser.Nombre.split(" ")[0]+' '+state.loggedUser.Apellido_Paterno);
-            console.log(name);
         }
     }, [state.loggedUser])
     

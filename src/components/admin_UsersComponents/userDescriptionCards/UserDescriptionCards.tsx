@@ -35,12 +35,14 @@ export const UserDescriptionCards_ProfilePresentation = (person: UserModelPerson
     )
 }
 
-export const UserDescriptionCards_Information = ({inputHandler, person}: infoCardInterface) => {
+export const UserDescriptionCards_Information = ({inputHandler, person, editable}: infoCardInterface) => {
     return (
         <DefaultCard hasActionBtn={false} hasTitle={false}>
             <div className="internalHeader">
                 <p className='internalTitle'>Información</p>
-                <EditBtn/>
+                {
+                    editable ? <EditBtn/> : <></>
+                }
             </div>
             <div className="internalContentSection">
                 <InputComp id='id_name_creation' label='Nombre' name='Nombre' placeholder='Nombre' type='text' value={person.Nombre as string} onChange={inputHandler}/>
@@ -57,12 +59,14 @@ export const UserDescriptionCards_Information = ({inputHandler, person}: infoCar
     )
 }
 
-export const UserDescriptionCards_Credenciales = ({inputHandler, person}: infoCardInterface) => {
+export const UserDescriptionCards_Credenciales = ({inputHandler, person, editable}: infoCardInterface) => {
     return (
         <DefaultCard hasActionBtn={false} hasTitle={false}>
             <div className="internalHeader">
                 <p className='internalTitle'>Credenciales</p>
-                <EditBtn/>
+                {
+                    editable ? <EditBtn/> : <></>
+                }
             </div>
             <div className="internalContentSection">
                 <InputComp id='id_email_creation' label='Correo electronico' name='Correo_Electronico' placeholder='Correo Electronico' type='email' value={person.Correo_Electronico as string} onChange={inputHandler}/>
@@ -72,12 +76,14 @@ export const UserDescriptionCards_Credenciales = ({inputHandler, person}: infoCa
     )
 }
 
-export const UserDescriptionCards_Dom = ({ address, inputHandler, countries, cities, states}: domCardInterface) => {
+export const UserDescriptionCards_Dom = ({ address, inputHandler, countries, cities, states, editable}: domCardInterface) => {
     return (
         <DefaultCard hasActionBtn={false} hasTitle={false}>
             <div className="internalHeader">
                 <p className='internalTitle'>Dirección</p>
-                <EditBtn/>
+                {
+                    editable ? <EditBtn/> : <></>
+                }
             </div>
             <div className="internalContentSection">
                 <SelectComp id='id_country_creation' label='País' name='Pais' placeholder='Pais' type='text' onChangeAddress={inputHandler} opts={countries}/>
@@ -93,12 +99,14 @@ export const UserDescriptionCards_Dom = ({ address, inputHandler, countries, cit
     )
 }
 
-export const UserDescriptionCards_InfMedic = ({ person, inputHandler, handleAlergies, alergies, deleteAlergieHandler }: medCardInterface) => {
+export const UserDescriptionCards_InfMedic = ({ person, inputHandler, handleAlergies, alergies, deleteAlergieHandler, editable }: medCardInterface) => {
     return (
         <DefaultCard hasActionBtn={false} hasTitle={false}>
             <div className="internalHeader">
                 <p className='internalTitle'>Información Medica</p>
-                <EditBtn/>
+                {
+                    editable ? <EditBtn/> : <></>
+                }
             </div>
             <div className="internalContentSection">
                 <SelectComp id='id_bloodType_creation' label='Tipo de Sangre' name='Tipo_De_Sagre' placeholder='Tipo de Sangre' type='text' opts={blootTypes} {...person.Tipo_De_Sagre != null && person.Tipo_De_Sagre != '' ? {value: person.Tipo_De_Sagre} : ''} onChange={inputHandler}/>
@@ -109,7 +117,7 @@ export const UserDescriptionCards_InfMedic = ({ person, inputHandler, handleAler
     )
 }
 
-export const UserTypeSelecctions = ({person, inputHandler, rolInfo, handleRolInfo}: userTypeSelecter) => {
+export const UserTypeSelecctions = ({person, inputHandler, rolInfo, handleRolInfo, editable }: userTypeSelecter) => {
 
     const [indexindRender, setIndexindRender] = useState<number>(0);
 
@@ -137,13 +145,15 @@ export const UserTypeSelecctions = ({person, inputHandler, rolInfo, handleRolInf
         <DefaultCard hasActionBtn={false} hasTitle={false}>
             <div className="internalHeader">
                 <p className='internalTitle'>Tipo de perfil</p>
-                <EditBtn/>
+                {
+                    editable ? <EditBtn/> : <></>
+                }
             </div>
             <div className="selecterBtns">
                 {
                     //Ocultar padres
                     renderOpts.map((option, index) => (
-                        <SelecterBtnsComponent title={option} index={index} currentIndex={indexindRender} changeIndex={handleIndexRender}/>
+                        <SelecterBtnsComponent title={option} index={index} currentIndex={indexindRender} changeIndex={handleIndexRender} key={index}/>
                     ))
                 }
             </div>

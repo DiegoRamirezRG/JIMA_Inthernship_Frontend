@@ -70,9 +70,7 @@ export const AlergiesComponent = ({ alergies, handleAlergies, deleteAlergie }: p
     });
 
     const validateAlergie = ({ Nombre, Descripcion }: AlergiesModel) => {
-        return new Promise((resolve, reject) => {
-            console.log(Nombre!.trim().length <= 0);
-            
+        return new Promise((resolve, reject) => {            
             if(Nombre!.trim().length <= 0){
                 reject(new Error('El titulo no puede ser vacio'));
             }else{

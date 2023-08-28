@@ -1,0 +1,58 @@
+.generalModalContainer{
+    display: none;
+    position: fixed;
+    z-index: 99;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.5);
+
+    &.show{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        animation: fadeInAnimation 0.3s;
+    }
+
+    &.hide{
+        animation: fadeInAnimation 0.3s;
+        animation-fill-mode: forwards;
+    }
+
+    .modalContainer{
+        width: 500px;
+        background-color: white;
+        border-radius: 8px;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        max-height: 90%;
+        box-sizing: border-box;
+        padding: 16px;
+
+        &.modal-sm{
+            width: 300px;
+        }
+
+        &.modal-lg{
+            width: 800px;
+        }
+
+        &.modal-xl{
+            width: 1140px;
+        }
+    }
+}
+
+@keyframes fadeInAnimation {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}

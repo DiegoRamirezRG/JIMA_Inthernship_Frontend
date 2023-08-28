@@ -19,3 +19,16 @@ export const showErrorTost = ({text, position}: props) => {
         theme: "dark",
     });
 }
+
+export const showSuccessToast = ({ text, position }: props) => {
+    toast.success(text, {
+        position: position,
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+    });
+}

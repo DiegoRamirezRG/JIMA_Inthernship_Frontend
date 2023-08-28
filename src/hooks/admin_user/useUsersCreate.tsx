@@ -3,6 +3,10 @@ import { UserModelPersonCreate, roles } from '../../models/authModels/UserModel'
 import { AddressModelCreate } from '../../models/addressModels/AddressModel';
 import { AlergiesModel, AlergiesModelCreate } from '../../models/alergiesModel/AlergiesModel';
 import { administrativeCrate, parentCreate, studentCreate, teacherCreate } from '../../models/userTypesModels/UserTypesModel';
+import { showErrorTost, showSuccessToast } from '../../components/generalComponents/toastComponent/ToastComponent';
+import { validate_adress, validate_alergies, validate_user, validate_userType } from './helpers/informationValidator';
+import { serverRestApi } from '../../utils/apiConfig/apiServerConfig';
+import { Response } from '../../models/responsesModels/responseModel';
 
 export const useUsersCreate = () => {
 
@@ -77,6 +81,51 @@ export const useUsersCreate = () => {
         }
     }
 
+    const handle_validate = async () => {    
+        return new Promise(async (resolve, reject) => {
+            try {
+                await validate_user(newUserState);
+                await validate_adress(newAddressModel);
+
+                if(AlergiesModel!.length > 0){
+                    await validate_alergies(AlergiesModel!);
+                }
+
+                await validate_userType({user: newUserState, userType: selectedRolInfo});
+                
+                resolve(true);
+            } catch (error: any) {
+                reject(new Error(error.message));
+            }
+        })
+    }
+
+    const handleRegister = async (confirmPassword: string) => {
+        return new Promise(async (resolve, reject) => {
+            if(confirmPassword === 'Arandas2021'){
+                const response = await serverRestApi.post<Response>('/api/users/create', {
+                    "user": {
+                        ...newUserState
+                    },
+                    "address": {
+                        ...newAddressModel
+                    },
+                    "alergies": AlergiesModel,
+                    "type": {
+                        ...selectedRolInfo
+                    }
+                }, {
+                    headers:{
+                        Authorization: localStorage.getItem('token')
+                    }
+                });
+                resolve(response.data);
+            }else{
+                reject(new Error('Las contraseñas no coinciden'));
+            }
+        })
+    }
+
     useEffect(() => {
         setSelectedRolInfo(getInitialDataOfRol(newUserState.Rol));
     }, [newUserState.Rol]);
@@ -91,7 +140,9 @@ export const useUsersCreate = () => {
         handleAlergies,
         deleteAlergie,
         selectedRolInfo,
-        handleTypeInfo
+        handleTypeInfo,
+        handle_validate,
+        handleRegister
     }
 
 }

@@ -1,9 +1,13 @@
 import { AiOutlineEdit } from "react-icons/ai"
 import { defaultProps } from "../helpers/interfaces/userDescriptionInterface"
 
-export const EditBtn = () => {
+interface btnProps{
+    funct?: () => any;
+}
+
+export const EditBtn = ({ funct }:btnProps) => {
     return (
-        <button className='editBtn'>
+        <button className='editBtn' onClick={funct}>
             <p>Editar</p>
             <AiOutlineEdit/>
         </button>
@@ -23,7 +27,7 @@ export const DefaultCard = ({children, hasTitle, hasActionBtn, btnFunc, btnText,
                     }
                     {
                         hasActionBtn 
-                        ? <EditBtn/>
+                        ? <EditBtn funct={btnFunc ? btnFunc : () => {}}/>
                         : <></>
                     }
                 </div>

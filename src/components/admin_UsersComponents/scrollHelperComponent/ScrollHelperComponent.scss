@@ -3,14 +3,14 @@
 
 .scrollHelperContainer{
     box-sizing: border-box;
-    padding: 10px 26px;
+    padding: 7px 26px;
     border-radius: 50px;
     width: fit-content;
     transition: 0.3s all ease-in-out;
 
     &:hover{
         cursor: pointer;
-        background-color: lighten($grey, 15%);
+        background-color: lighten($rebecca_purple, 15%);
         color: white;
     }
 
@@ -22,7 +22,7 @@
         }
 
         &:hover{
-            background-color: darken($bootstrap_primary, 10%);
+            background-color: darken($rebecca_purple, 10%);
             p{
                 color: white;
             }
