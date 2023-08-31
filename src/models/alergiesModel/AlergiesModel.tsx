@@ -1,6 +1,6 @@
 export interface AlergiesModel{
     Nombre: string;
-    Descripcion?: string;
+    Descripcion?: string | null;
 }
 
 export interface AlergiesModelCreate{

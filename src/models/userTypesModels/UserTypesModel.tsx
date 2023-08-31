@@ -4,7 +4,7 @@ export interface administrative{
     Codigo_De_Administrativo:   string;
     NSS:                        string;
     Fecha_De_Contratacion:      string;
-    URL:                        string;
+    URL:                        string | null;
 }
 
 export interface teacher{
@@ -13,14 +13,14 @@ export interface teacher{
     Codigo_De_Profesor:         string;
     NSS:                        string;
     Fecha_De_Contratacion:      string;
-    URL:                        string;
+    URL:                        string | null;
 }
 
 export interface student{
     ID_Estudiante:  string;  
     FK_Persona:     string;  
     Matricula:      string;  
-    URL:            string;  
+    URL:            string | null;  
     Titulado:       boolean;  
 }
 

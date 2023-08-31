@@ -40,3 +40,20 @@ export interface UserModelPersonCreate{
 export type gender = 'Masculino' | 'Femenino' | 'Otro';
 export type blood = 'A' | 'B' | 'AB' | 'O' | 'A+' | 'A-' | 'B+' | 'B-' | 'AB+' | 'AB-' | 'O+' | 'O-';
 export type roles = 'Estudiante' | 'Profesor' | 'Administrativo' | 'Padre';
+
+export interface SingleUser {
+    Nombre:               string    | null;
+    Apellido_Paterno:     string    | null;
+    Apellido_Materno:     string    | null;
+    CURP:                 string    | null;
+    Genero:               string    | null;
+    Fecha_De_Nacimiento:  string    | null;
+    Tipo_De_Sagre:        string    | null;
+    Numero_De_Emergencia: number    | null;
+    Numero_De_Telefono:   number    | null;
+    Nacionalidad:         string    | null;
+    Correo_Electronico:   string    | null;
+    Rol:                  roles    | null;
+    Active:               number    | null;
+    Imagen:               string    | null;
+}

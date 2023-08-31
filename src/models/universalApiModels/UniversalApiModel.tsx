@@ -1,7 +1,3 @@
-export interface GetAccess {
-    auth_token: string;
-}
-
 export interface Country {
     country_name:       string;
     country_short_name: string;
