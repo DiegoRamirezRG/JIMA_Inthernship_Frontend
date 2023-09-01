@@ -5,6 +5,7 @@ import { Credentials } from '../../models/credentialsModels/CredentialsModels';
 import { AlergiesModel } from '../../models/alergiesModel/AlergiesModel';
 import { serverRestApi } from '../../utils/apiConfig/apiServerConfig';
 import { Response } from '../../models/responsesModels/responseModel';
+import { administrative, student, teacher } from '../../models/userTypesModels/UserTypesModel';
 
 export const useUsersEdit = () => {
 
@@ -41,8 +42,9 @@ export const useUsersEdit = () => {
     });
 
     const [alergiesState, setAlergiesState] = useState<AlergiesModel[]>([
-        
-    ]);
+]);
+
+    const [selectedRolInfo, setSelectedRolInfo] = useState<administrative | teacher | student | any>();
 
     const [isUserInfoEdited, setIsUserInfoEdited] = useState(false);
     const [isCredentialsEdited, setIsCredentialsEdited] = useState(false);
@@ -59,18 +61,21 @@ export const useUsersEdit = () => {
         const resCred = serverRestApi.get<Response>(`/api/credentials/getCredentials/${user_id}`, { headers: { Authorization: localStorage.getItem('token') } });
         const resAddr = serverRestApi.get<Response>(`/api/address/getAddress/${user_id}`, { headers: { Authorization: localStorage.getItem('token') } });
         const resAler = serverRestApi.get<Response>(`/api/alergies/getAlergies/${user_id}`, { headers: { Authorization: localStorage.getItem('token') } });
+        const restRol = serverRestApi.get<Response>(`/api/roles/getInfo/${user_id}`, {headers: { Authorization: localStorage.getItem('token') } });
 
         const response = await Promise.all([
             resUser,
             resCred,
             resAddr,
-            resAler
+            resAler,
+            restRol
         ]);
 
         setUserState(response[0].data.data);
         setCredentialsState(response[1].data.data);
         setAddressState(response[2].data.data);
         setAlergiesState(response[3].data.data);
+        setSelectedRolInfo(response[4].data.data);
 
         setIsGettingInfoLoading(false);
     }
@@ -122,6 +127,7 @@ export const useUsersEdit = () => {
         credentialsState,
         addressState,
         alergiesState,
+        selectedRolInfo,
 
         //LOADER
         isGettingInfoLoading,

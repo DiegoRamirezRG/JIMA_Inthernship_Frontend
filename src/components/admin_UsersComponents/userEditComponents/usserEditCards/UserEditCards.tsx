@@ -10,6 +10,7 @@ import { useUniversalApi } from '../../../../hooks/useUniversalApi/useUniversalA
 import { AddNewOneBtn, AlergieInputs, AlergieInputsAdd, AlergiesComponent, NoAlergies } from '../../userDescriptionCards/alergiesComponent/AlergiesComponent'
 import { AlergiesModel } from '../../../../models/alergiesModel/AlergiesModel'
 import { roles } from '../../../../models/authModels/UserModel'
+import { administrative, student, teacher, parent } from "../../../../models/userTypesModels/UserTypesModel";
 
 export const UserProfile = ({ user, address }: UserProfileCard) => {
 
@@ -215,10 +216,10 @@ export const UserMedicEdit = ({ user, alergies }: MedicInformation) => {
 export const UserTypeRenderEdit = ({ rol, user }: RolesInformation) => {
 
     const renders = new Map<roles, JSX.Element>([
-        ['Administrativo', <AdministrativeTypeCard/>],
-        ['Profesor', <TeacherTypeCard/>],
-        ['Estudiante', <StudentTypeCard/>],
-        ['Padre', <ParentTypeCard/>],
+        ['Administrativo', <AdministrativeTypeCard rol={rol as administrative}/>],
+        ['Profesor', <TeacherTypeCard rol={rol as teacher}/>],
+        ['Estudiante', <StudentTypeCard rol={rol as student}/>],
+        ['Padre', <ParentTypeCard rol={rol as parent[]}/>],
     ]);
 
     return (
@@ -229,26 +230,107 @@ export const UserTypeRenderEdit = ({ rol, user }: RolesInformation) => {
 
 }
 
-const AdministrativeTypeCard = () => {
+const AdministrativeTypeCard = ({rol}: {rol: administrative}) => {
+
+    const [isEditableActive, setIsEditableActive] = useState(false);
+
+    const handleEditable = () => {
+        setIsEditableActive(!isEditableActive);
+    }
+
+    const dateObject = new Date(rol.Fecha_De_Contratacion!);
+    const formattedDate = dateObject.toISOString().substring(0, 10);
+
     return (
-        <div>Admin</div>
+        <DefaultCard hasTitle={false} hasActionBtn={false}>
+            <div className="internalHeader">
+                <p className='internalTitle'>Administrativo</p>
+                {
+                    !isEditableActive ? <EditBtn funct={handleEditable}/> : <></>
+                }
+            </div>
+            <div className="internalContentSection">
+                <InputEditComponent id='admin_code' inputType='text' label='Código de Administrativo' placeholder='Código de Administrativo' editActive={isEditableActive} name='Codigo_De_Administrativo' value={rol.Codigo_De_Administrativo} key={'admin_code'}/>
+                <InputEditComponent id='admin_nss' inputType='text' label='NSS' placeholder='NSS' editActive={isEditableActive} name='NSS' value={rol.NSS} key={'admin_nss'}/>
+                <InputEditComponent id='admin_hired' inputType='date' label='Fecha de contratación' placeholder='Fecha de contratación' editActive={isEditableActive} name='Fecha_De_Contratacion' value={formattedDate} key={'admin_date'}/>
+                <InputEditComponent id='admin_url' inputType='text' label='URL' placeholder='URL' editActive={isEditableActive} name='URL' value={rol.URL && rol.URL.toString() == 'null' ? '' : rol.URL!} key={'admin_url'}/>
+            </div>
+        </DefaultCard>
     )
 }
 
-const TeacherTypeCard = () => {
+const TeacherTypeCard = ({rol}: {rol: teacher}) => {
+
+    const [isEditableActive, setIsEditableActive] = useState(false);
+
+    const handleEditable = () => {
+        setIsEditableActive(!isEditableActive);
+    }
+
+    const dateObject = new Date(rol.Fecha_De_Contratacion!);
+    const formattedDate = dateObject.toISOString().substring(0, 10);
+
     return (
-        <div>Teacher</div>
+        <DefaultCard hasTitle={false} hasActionBtn={false}>
+            <div className="internalHeader">
+                <p className='internalTitle'>Profesor</p>
+                {
+                    !isEditableActive ? <EditBtn funct={handleEditable}/> : <></>
+                }
+            </div>
+            <div className="internalContentSection">
+                <InputEditComponent id='teacher_code' inputType='text' label='Código de Profesor' placeholder='Código de Profesor' editActive={isEditableActive} name='Codigo_De_Profesor' value={rol.Codigo_De_Profesor} key={'teacher_code'}/>
+                <InputEditComponent id='teacher_nss' inputType='text' label='NSS' placeholder='NSS' editActive={isEditableActive} name='NSS' value={rol.NSS} key={'teacher_nss'}/>
+                <InputEditComponent id='teacher_hired' inputType='date' label='Fecha de contratación' placeholder='Fecha de contratación' editActive={isEditableActive} name='Fecha_De_Contratacion' value={formattedDate} key={'teacher_date'}/>
+                <InputEditComponent id='teacher_url' inputType='text' label='URL' placeholder='URL' editActive={isEditableActive} name='URL' value={rol.URL && rol.URL.toString() == 'null' ? '' : rol.URL!} key={'teacher_url'}/>
+            </div>
+        </DefaultCard>
     )
 }
 
-const StudentTypeCard = () => {
+const StudentTypeCard = ({rol}: {rol: student}) => {
+
+    const [isEditableActive, setIsEditableActive] = useState(false);
+
+    const handleEditable = () => {
+        setIsEditableActive(!isEditableActive);
+    }
+
     return (
-        <div>Student</div>
+        <DefaultCard hasTitle={false} hasActionBtn={false}>
+            <div className="internalHeader">
+                <p className='internalTitle'>Estudiante</p>
+                {
+                    !isEditableActive ? <EditBtn funct={handleEditable}/> : <></>
+                }
+            </div>
+            <div className="internalContentSection">
+                <InputEditComponent id='student_code' inputType='text' label='Matricula' placeholder='Matricula' editActive={isEditableActive} name='Matricula' value={rol.Matricula} key={'student_code'}/>
+                <InputEditComponent id='student_url' inputType='text' label='URL' placeholder='URL' editActive={isEditableActive} name='URL' value={rol.URL && rol.URL.toString() == 'null' ? '' : rol.URL!} key={'student_url'}/>
+            </div>
+        </DefaultCard>
     )
 }
 
-const ParentTypeCard = () => {
+const ParentTypeCard = (rol: {rol: parent[]}) => {
+
+    const [isEditableActive, setIsEditableActive] = useState(false);
+
+    const handleEditable = () => {
+        setIsEditableActive(!isEditableActive);
+    }
+
     return (
-        <div>Parent</div>
+        <DefaultCard hasTitle={false} hasActionBtn={false}>
+            <div className="internalHeader">
+                <p className='internalTitle'>Padre</p>
+                {
+                    !isEditableActive ? <EditBtn funct={handleEditable}/> : <></>
+                }
+            </div>
+            <div className="internalContentSection">
+                
+            </div>
+        </DefaultCard>
     )
 }
