@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { DefaultCard, EditBtn } from '../../userDescriptionCards/defaultUI/DefaultUI'
 import defaultImg from '../../../../assets/img/default.jpg'
 import './UserEditCards.scss'
@@ -12,19 +12,26 @@ import { AlergiesModel } from '../../../../models/alergiesModel/AlergiesModel'
 import { roles } from '../../../../models/authModels/UserModel'
 import { administrative, student, teacher, parent } from "../../../../models/userTypesModels/UserTypesModel";
 
-export const UserProfile = ({ user, address }: UserProfileCard) => {
+export const UserProfile = ({ user, address, isUserImageEditing, imageSource, onSelectFile }: UserProfileCard) => {
 
     const [isEditableActive, setIsEditableActive] = useState(false);
+    const fileInputRef = useRef<HTMLInputElement | null>(null);
 
     const handleEditable = () => {
         setIsEditableActive(!isEditableActive);
     }
 
+    const handleButtonClick = () => {
+        if (fileInputRef.current) {
+            fileInputRef.current.click();
+        }
+    };
+
     return (
         <DefaultCard hasTitle={true} hasActionBtn={true} titleText='Perfil' btnText='Editar' btnFunc={handleEditable}>
             <div className="profileSection">
                 <div className="imageProfile">
-                    <img src={defaultImg} alt="" />
+                    <img src={ imageSource!= '' ? imageSource : defaultImg} alt="" />
                 </div>
                 <div className="infoSection">
                     <p>{user.Nombre} {user.Apellido_Paterno} {user.Apellido_Materno ? user.Apellido_Materno : ''}</p>
@@ -34,14 +41,30 @@ export const UserProfile = ({ user, address }: UserProfileCard) => {
                 {
                     isEditableActive
                     ? <div className="editBnts">
-                        <button>
-                            <IoCloudUpload/>
-                            Subir Imagen
-                        </button>
-                        <button>
-                            <IoSave/>
-                            Guardar
-                        </button>
+                        {
+                            !isUserImageEditing
+                            ? <>
+                            <button onClick={handleButtonClick}>
+                                <IoCloudUpload/>
+                                Subir Imagen
+                            </button>
+                            <input
+                                type="file"
+                                ref={fileInputRef}
+                                accept="image/*"
+                                style={{ display: 'none' }}
+                                onChange={onSelectFile}/>
+                            </>
+                            : <></>
+                        }
+                        {
+                            isUserImageEditing 
+                            ? <button>
+                                <IoSave/>
+                                Guardar
+                            </button>
+                            : <></>
+                        }
                     </div>
                     : <></>
                 }

@@ -7,6 +7,7 @@ import { UserAddressEdit, UserCredentialsEdit, UserInformationEdit, UserMedicEdi
 import { useUsersEdit } from '../../hooks/admin_user/useUsersEdit';
 import { LoadingComponent } from '../../components/generalComponents/loadingComponent/LoadingComponent';
 import { ModalComponent } from '../../components/generalComponents/modalComponent/ModalComponent';
+import { CropImageModal } from '../../components/admin_UsersComponents/userEditComponents/cropImageModal/CropImageModal';
 
 export const Admin_UserEditScreen = () => {
 
@@ -14,27 +15,20 @@ export const Admin_UserEditScreen = () => {
     const { 
         isGettingInfoLoading,
         
-        addressState, alergiesState, credentialsState, userState, selectedRolInfo,
+        addressState, alergiesState, credentialsState, userState, selectedRolInfo, imageSource, imageHelper,
         
         getEditableUser, 
 
-        handleEditAddress,handleEditCredentials,handleEditUser,
+        handleEditAddress,handleEditCredentials,handleEditUser, onSelectFile, handleCloseImageModal, setImageHelper,
 
         isAddressEdited, isAlergiesEdited, isCredentialsEdited, isUserInfoEdited, isImageEdited
 
     } = useUsersEdit();
 
-    const [userImageModal, setUserImageModal] = useState(false);
-
-    const handleModalState = () => {
-        setUserImageModal(!userImageModal);
-    }
-
     useEffect(() => {
         const awaitFunction = async () => {
             await getEditableUser(userId!);
         }
-
         awaitFunction();
     }, [])
     
@@ -58,7 +52,7 @@ export const Admin_UserEditScreen = () => {
                             isGettingInfoLoading
                             ? <LoadingComponent/>
                             : <>
-                                <UserProfile user={userState!} address={addressState!}/>
+                                <UserProfile user={userState!} address={addressState!} isUserImageEditing={isImageEdited} imageSource={imageHelper} onSelectFile={onSelectFile}/>
                                 <UserInformationEdit user={userState!}/>
                                 <UserCredentialsEdit cred={credentialsState!}/>
                                 <UserAddressEdit address={addressState!}/>
@@ -69,8 +63,8 @@ export const Admin_UserEditScreen = () => {
                     </div>
                 </div>
             </div>
-            <ModalComponent handleModalState={handleModalState} modalState={userImageModal}>
-
+            <ModalComponent handleModalState={handleCloseImageModal} modalState={isImageEdited} modalSize='modal-lg'>
+                <CropImageModal handleModalClose={handleCloseImageModal} imageSrc={imageSource}/>
             </ModalComponent>
         </NavigationComponent>
     )

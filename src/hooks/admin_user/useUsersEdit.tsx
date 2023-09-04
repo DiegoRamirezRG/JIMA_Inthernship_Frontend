@@ -41,10 +41,12 @@ export const useUsersEdit = () => {
         Calle: null,
     });
 
-    const [alergiesState, setAlergiesState] = useState<AlergiesModel[]>([
-]);
+    const [alergiesState, setAlergiesState] = useState<AlergiesModel[]>([]);
 
     const [selectedRolInfo, setSelectedRolInfo] = useState<administrative | teacher | student | any>();
+
+    const [imageSource, setImageSource] = useState('');
+    const [imageHelper, setImageHelper] = useState('');
 
     const [isUserInfoEdited, setIsUserInfoEdited] = useState(false);
     const [isCredentialsEdited, setIsCredentialsEdited] = useState(false);
@@ -113,6 +115,22 @@ export const useUsersEdit = () => {
         }))
     }
 
+    const onSelectFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files.length > 0) {
+            const reader = new FileReader()
+            reader.addEventListener('load', () =>
+                setImageSource(reader.result?.toString() || ''),
+            )
+            reader.readAsDataURL(e.target.files[0])
+            setIsImageEdited(true);
+        }
+    }
+
+    const handleCloseImageModal = () => {
+        setIsImageEdited(false);
+        setImageSource('');
+    }
+
     return {
         //GET STATES
         getEditableUser,
@@ -121,6 +139,9 @@ export const useUsersEdit = () => {
         handleEditUser, 
         handleEditCredentials, 
         handleEditAddress,
+        handleCloseImageModal,
+        onSelectFile,
+        setImageHelper,
 
         //STATES
         userState,
@@ -128,6 +149,9 @@ export const useUsersEdit = () => {
         addressState,
         alergiesState,
         selectedRolInfo,
+        imageSource,
+        imageHelper,
+
 
         //LOADER
         isGettingInfoLoading,

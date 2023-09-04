@@ -10,6 +10,9 @@ export interface UserInformation{
 
 export interface UserProfileCard extends UserInformation{
     address: AddressModel;
+    isUserImageEditing: boolean;
+    imageSource: string;
+    onSelectFile(e: React.ChangeEvent<HTMLInputElement>): void;
 }
 
 export interface CredentialsInformation{
