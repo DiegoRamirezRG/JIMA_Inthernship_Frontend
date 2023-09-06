@@ -8,6 +8,7 @@ import { useNavigationHelper } from '../../../hooks/navigationHelper/useNavigati
 import { RxGear } from 'react-icons/rx';
 import prof from '../../../assets/img/default.jpg'
 import './NavigationComponent.scss'
+import { API_ADDR, APT_PORT } from '../../../utils/env/config';
 
 export const NavigationComponent = ({children}: any) => {
 
@@ -54,7 +55,7 @@ export const NavigationComponent = ({children}: any) => {
                             <div className="dividerDesingDiv"></div>
                             <div className="userInformationComponent">
                                 <div className="imageUserSection">
-                                    <img src={ state.loggedUser?.Imagen != null ? state.loggedUser.Imagen: prof } alt="IMG" />
+                                    <img src={ state.loggedUser?.Imagen != null ? `http://${API_ADDR}:${APT_PORT}/images/user_profiles/${state.loggedUser.ID_Persona}/${state.loggedUser.Imagen}` : prof } alt="IMG" />
                                 </div>
                                 <div className={`informationUserSection ${closeMenu ? 'menuOpened' : 'menuClosed'}`}>
                                     <p>{name}</p>

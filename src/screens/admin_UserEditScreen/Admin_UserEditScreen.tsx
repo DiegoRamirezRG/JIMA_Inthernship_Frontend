@@ -8,22 +8,36 @@ import { useUsersEdit } from '../../hooks/admin_user/useUsersEdit';
 import { LoadingComponent } from '../../components/generalComponents/loadingComponent/LoadingComponent';
 import { ModalComponent } from '../../components/generalComponents/modalComponent/ModalComponent';
 import { CropImageModal } from '../../components/admin_UsersComponents/userEditComponents/cropImageModal/CropImageModal';
+import { ConfirmModal } from '../../components/generalComponents/confirmModal/ConfirmModal';
 
 export const Admin_UserEditScreen = () => {
 
     const { userId } = useParams();
+    const [sureModalState, setSureModalState] = useState(false);
+
     const { 
-        isGettingInfoLoading,
-        
-        addressState, alergiesState, credentialsState, userState, selectedRolInfo, imageSource, imageHelper,
-        
+        isGettingInfoLoading, isImageUpdateLoading,
+        addressState, alergiesState, credentialsState, userState, selectedRolInfo, imageSource, imageHelper, modalShow,
         getEditableUser, 
-
-        handleEditAddress,handleEditCredentials,handleEditUser, onSelectFile, handleCloseImageModal, setImageHelper,
-
-        isAddressEdited, isAlergiesEdited, isCredentialsEdited, isUserInfoEdited, isImageEdited
+        handleEditAddress,handleEditCredentials,handleEditUser, onSelectFile, handleCloseImageModal, imagehHelperSetting, handleCancelImageUpdate,
+        isAddressEdited, isAlergiesEdited, isCredentialsEdited, isUserInfoEdited, isImageEdited,
+        sendUserImageUpdate
 
     } = useUsersEdit();
+
+    const handleSureModalState = () => {
+        setSureModalState(!sureModalState);
+    }
+
+    const handleImageUpdate = async () => {
+        await sendUserImageUpdate(userId!);
+        handleSureModalState();
+    }
+
+    const confirmModals = new Map<string, JSX.Element>([
+        ['userImageUpdate', <ConfirmModal handleModalClose={handleSureModalState} updateFunction={async () => await handleImageUpdate()} loader={isImageUpdateLoading} />],
+    ])
+
 
     useEffect(() => {
         const awaitFunction = async () => {
@@ -31,7 +45,6 @@ export const Admin_UserEditScreen = () => {
         }
         awaitFunction();
     }, [])
-    
 
     return (
         <NavigationComponent>
@@ -52,7 +65,7 @@ export const Admin_UserEditScreen = () => {
                             isGettingInfoLoading
                             ? <LoadingComponent/>
                             : <>
-                                <UserProfile user={userState!} address={addressState!} isUserImageEditing={isImageEdited} imageSource={imageHelper} onSelectFile={onSelectFile}/>
+                                <UserProfile user_id={userId!} user={userState!} address={addressState!} isUserImageEditing={isImageEdited} imageSource={imageHelper} onSelectFile={onSelectFile} confirmModalState={handleSureModalState} cancelFileUpdate={handleCancelImageUpdate}/>
                                 <UserInformationEdit user={userState!}/>
                                 <UserCredentialsEdit cred={credentialsState!}/>
                                 <UserAddressEdit address={addressState!}/>
@@ -63,8 +76,16 @@ export const Admin_UserEditScreen = () => {
                     </div>
                 </div>
             </div>
-            <ModalComponent handleModalState={handleCloseImageModal} modalState={isImageEdited} modalSize='modal-lg'>
-                <CropImageModal handleModalClose={handleCloseImageModal} imageSrc={imageSource}/>
+            <ModalComponent handleModalState={handleCloseImageModal} modalState={isImageEdited && modalShow} modalSize='modal-lg'>
+                <CropImageModal handleModalClose={handleCloseImageModal} imageSrc={imageSource} handleCropedImage={imagehHelperSetting}/>
+            </ModalComponent>
+            <ModalComponent handleModalState={handleSureModalState} modalState={sureModalState}>
+            {
+                isImageEdited ? ( confirmModals.get('userImageUpdate') ) 
+                : (
+                    <></>
+                )
+            }
             </ModalComponent>
         </NavigationComponent>
     )

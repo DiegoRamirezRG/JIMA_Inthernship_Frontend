@@ -6,6 +6,7 @@ import { AlergiesModel } from '../../models/alergiesModel/AlergiesModel';
 import { serverRestApi } from '../../utils/apiConfig/apiServerConfig';
 import { Response } from '../../models/responsesModels/responseModel';
 import { administrative, student, teacher } from '../../models/userTypesModels/UserTypesModel';
+import { showErrorTost, showSuccessToast } from '../../components/generalComponents/toastComponent/ToastComponent';
 
 export const useUsersEdit = () => {
 
@@ -53,9 +54,11 @@ export const useUsersEdit = () => {
     const [isAddressEdited, setIsAddressEdited] = useState(false);
     const [isAlergiesEdited, setIsAlergiesEdited] = useState(false);
     const [isImageEdited, setIsImageEdited] = useState(false);
+    const [modalShow, setModalShow] = useState(false);
 
     //Loaders
     const [isGettingInfoLoading, setIsGettingInfoLoading] = useState(true);
+    const [isImageUpdateLoading, setIsImageUpdateLoading] = useState(false);
 
 
     const getEditableUser = async (user_id: string) => {
@@ -123,17 +126,83 @@ export const useUsersEdit = () => {
             )
             reader.readAsDataURL(e.target.files[0])
             setIsImageEdited(true);
+            setModalShow(true);
         }
     }
 
-    const handleCloseImageModal = () => {
+    const imagehHelperSetting = (image: string) => {
+        setImageHelper(image);
+    }
+
+    const handleCloseImageModal = (isSuccess? :boolean) => {
+        if(isSuccess){
+            setModalShow(false);
+        }else{
+            setIsImageEdited(false);
+            setImageSource('');
+        }
+    }
+
+    const handleCancelImageUpdate = () => {
         setIsImageEdited(false);
         setImageSource('');
+        setImageHelper('');
+    }
+
+    const sendUserImageUpdate = async (id_user: string) => {
+
+        setIsImageUpdateLoading(true);
+
+        if(imageHelper != ''){
+            const formData = new FormData();
+            
+            const file = dataURLtoFile(imageHelper, 'image.jpg');
+            formData.append('file', file);
+
+            await serverRestApi.post<Response>(`/api/users/profile/upload/${id_user}`, formData, { headers: { Authorization: localStorage.getItem('token') } })
+            .then((response) => {
+                if(response.data.success){
+                    handleCancelImageUpdate();
+                    showSuccessToast({position: 'top-center', text: response.data.message});
+
+                    setUserState((prevState) => ({
+                        ...prevState,
+                        Imagen: response.data.data
+                    }));
+                    
+                    setIsImageUpdateLoading(false);
+                }
+            })
+            .catch((err) => {
+                setIsImageUpdateLoading(false);
+                handleCancelImageUpdate();
+
+                if(err.response){
+                    showErrorTost({position: 'top-center', text: err.response.data.message})
+                }else{
+                    showErrorTost({position: 'top-center', text: err.message})
+                }
+            })
+
+        }
+    }
+
+    function dataURLtoFile(dataURL: string, filename: string): File {
+        const arr = dataURL.split(',');
+        const mime = arr[0].match(/:(.*?);/)![1];
+        const bstr = atob(arr[1]);
+        let n = bstr.length;
+        const u8arr = new Uint8Array(n);
+        while (n--) {
+            u8arr[n] = bstr.charCodeAt(n);
+        }
+        return new File([u8arr], filename, { type: mime });
     }
 
     return {
         //GET STATES
         getEditableUser,
+        isImageUpdateLoading,
 
         //EDIT STATE
         handleEditUser, 
@@ -141,7 +210,8 @@ export const useUsersEdit = () => {
         handleEditAddress,
         handleCloseImageModal,
         onSelectFile,
-        setImageHelper,
+        imagehHelperSetting,
+        handleCancelImageUpdate,
 
         //STATES
         userState,
@@ -151,6 +221,7 @@ export const useUsersEdit = () => {
         selectedRolInfo,
         imageSource,
         imageHelper,
+        modalShow,
 
 
         //LOADER
@@ -162,5 +233,8 @@ export const useUsersEdit = () => {
         isAddressEdited, 
         isAlergiesEdited,
         isImageEdited,
+
+        //SEND UPDATES
+        sendUserImageUpdate,
     }
 }

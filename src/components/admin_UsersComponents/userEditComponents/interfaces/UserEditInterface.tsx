@@ -9,10 +9,13 @@ export interface UserInformation{
 }
 
 export interface UserProfileCard extends UserInformation{
+    user_id: string;
     address: AddressModel;
     isUserImageEditing: boolean;
     imageSource: string;
     onSelectFile(e: React.ChangeEvent<HTMLInputElement>): void;
+    confirmModalState?: () => void;
+    cancelFileUpdate?: () => void;
 }
 
 export interface CredentialsInformation{

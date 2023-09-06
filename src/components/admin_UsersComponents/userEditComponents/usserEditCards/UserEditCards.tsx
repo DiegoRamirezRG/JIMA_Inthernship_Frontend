@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { DefaultCard, EditBtn } from '../../userDescriptionCards/defaultUI/DefaultUI'
 import defaultImg from '../../../../assets/img/default.jpg'
 import './UserEditCards.scss'
-import { IoCloudUpload, IoSave } from 'react-icons/io5'
+import { IoCloudUpload, IoSave, IoTrash } from 'react-icons/io5'
 import { InputEditComponent, SelectedEditComponent } from '../inputEditComponent/InputEditComponent'
 import { AddressInformation, CredentialsInformation, MedicInformation, RolesInformation, UserInformation, UserProfileCard } from '../interfaces/UserEditInterface'
 import { blootTypes, genderOpt } from '../../userDescriptionCards/helpers/static_objects/static_objects'
@@ -11,11 +11,14 @@ import { AddNewOneBtn, AlergieInputs, AlergieInputsAdd, AlergiesComponent, NoAle
 import { AlergiesModel } from '../../../../models/alergiesModel/AlergiesModel'
 import { roles } from '../../../../models/authModels/UserModel'
 import { administrative, student, teacher, parent } from "../../../../models/userTypesModels/UserTypesModel";
+import { API_ADDR, APT_PORT } from '../../../../utils/env/config'
 
-export const UserProfile = ({ user, address, isUserImageEditing, imageSource, onSelectFile }: UserProfileCard) => {
+export const UserProfile = ({ user, address, isUserImageEditing, imageSource, onSelectFile, confirmModalState, cancelFileUpdate, user_id }: UserProfileCard) => {
 
     const [isEditableActive, setIsEditableActive] = useState(false);
     const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+    const image = user.Imagen != null && user.Imagen != '' ? `http://${API_ADDR}:${APT_PORT}/images/user_profiles/${user_id}/${user.Imagen}` : imageSource;
 
     const handleEditable = () => {
         setIsEditableActive(!isEditableActive);
@@ -26,12 +29,12 @@ export const UserProfile = ({ user, address, isUserImageEditing, imageSource, on
             fileInputRef.current.click();
         }
     };
-
+    
     return (
         <DefaultCard hasTitle={true} hasActionBtn={true} titleText='Perfil' btnText='Editar' btnFunc={handleEditable}>
             <div className="profileSection">
                 <div className="imageProfile">
-                    <img src={ imageSource!= '' ? imageSource : defaultImg} alt="" />
+                    <img src={ image != '' ? image : defaultImg} alt="" />
                 </div>
                 <div className="infoSection">
                     <p>{user.Nombre} {user.Apellido_Paterno} {user.Apellido_Materno ? user.Apellido_Materno : ''}</p>
@@ -59,10 +62,16 @@ export const UserProfile = ({ user, address, isUserImageEditing, imageSource, on
                         }
                         {
                             isUserImageEditing 
-                            ? <button>
-                                <IoSave/>
-                                Guardar
-                            </button>
+                            ? <>
+                                <button className='saveBtn' onClick={confirmModalState ? confirmModalState : () => {}}>
+                                    <IoSave/>
+                                    Guardar
+                                </button>
+                                <button className='cancelBtn' onClick={cancelFileUpdate ? cancelFileUpdate : () => {}}>
+                                    <IoTrash/>
+                                    Cancelar
+                                </button>
+                            </>
                             : <></>
                         }
                     </div>

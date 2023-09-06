@@ -75,6 +75,26 @@
             font-size: 20px;
             transition: 0.2s all ease;
 
+            &.cancelBtn{
+                background-color: darken($bootstrap_danger, 15%) !important;
+                border: darken($bootstrap_danger, 15%) 2px solid !important;
+
+                &:hover{
+                    border: darken($bootstrap_danger, 5%) 2px solid !important;
+                    background-color: darken($bootstrap_danger, 5%) !important;
+                }
+            }
+
+            &.saveBtn{
+                border: $bootstrap_success 2px solid !important;
+                background-color: $bootstrap_success !important;
+
+                &:hover{
+                    border: darken($bootstrap_success, 10%) 2px solid !important;
+                    background-color: darken($bootstrap_success, 10%) !important;
+                }
+            }
+
             &:first-child{
                 border: darken($bootstrap_info, 15%) 2px solid;
                 background-color: darken($bootstrap_info, 15%);
@@ -82,16 +102,6 @@
                 &:hover{
                     border: darken($bootstrap_info, 5%) 2px solid;
                     background-color: darken($bootstrap_info, 5%);
-                }
-            }
-
-            &:last-child{
-                border: $bootstrap_success 2px solid;
-                background-color: $bootstrap_success;
-
-                &:hover{
-                    border: darken($bootstrap_success, 10%) 2px solid;
-                    background-color: darken($bootstrap_success, 10%);
                 }
             }
 

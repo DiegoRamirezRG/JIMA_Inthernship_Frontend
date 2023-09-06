@@ -115,4 +115,47 @@
             }
         }
     }
+
+    
+    .modal-footer{
+        box-sizing: border-box;
+        width: 100%;
+        margin-top: 20px;
+        display: flex;
+        justify-content: end;
+        align-items: center;
+        gap: 20px;
+
+        button{
+            box-sizing: border-box;
+            padding: 5px 20px;
+
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 550;
+            font-size: 20px;
+            border: none;
+            outline: none;
+            color: white;
+            border-radius: 5px;
+            transition: 0.15s all ease-in-out;
+
+            &:first-child{
+                background-color: lighten($bootstrap_success, 5%);
+
+                &:hover{
+                    cursor: pointer;
+                    background-color: $bootstrap_success;
+                }
+            }
+
+            &:last-child{
+                background-color: lighten($bootstrap_danger, 5%);
+
+                &:hover{
+                    cursor: pointer;
+                    background-color: $bootstrap_danger;
+                }
+            }
+        }
+    }
 }
