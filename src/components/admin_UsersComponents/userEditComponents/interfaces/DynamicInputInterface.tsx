@@ -13,7 +13,7 @@ export interface dynamicInput{
     name: keyof SingleUser | keyof Credentials | keyof AddressModel | keyof administrative | keyof teacher | keyof student;
     inputType: HTMLInputTypeAttribute;
     editActive: boolean;
-
+    onChange?: any;
 }
 
 export interface dynamicSelect{
@@ -23,4 +23,5 @@ export interface dynamicSelect{
     editActive: boolean;
     label: string;
     value: string;
+    onChange?: any;
 }

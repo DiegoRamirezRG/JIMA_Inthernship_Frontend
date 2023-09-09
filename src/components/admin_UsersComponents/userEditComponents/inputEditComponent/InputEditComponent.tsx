@@ -2,16 +2,16 @@ import React from 'react'
 import { dynamicInput, dynamicSelect } from '../interfaces/DynamicInputInterface'
 import Select from 'react-select'
 
-export const InputEditComponent = ({ id, placeholder, value, label, inputType, name, editActive }: dynamicInput) => {
+export const InputEditComponent = ({ id, placeholder, value, label, inputType, name, editActive, onChange }: dynamicInput) => {
     return (
         <div className="detailedInputComponent">
             <label htmlFor={id}>{label}</label>
-            <input type={inputType} placeholder={placeholder} id={id} value={value} name={name} disabled={!editActive}/>    
+            <input type={inputType} placeholder={placeholder} id={id} value={value} name={name} disabled={!editActive} onChange={ onChange ? (e) => onChange(e.target.name, e.target.value) : () => {} }/>    
         </div>
     )
 }
 
-export const SelectedEditComponent = ({ opts, editActive, id, name, label, value }: dynamicSelect) => {
+export const SelectedEditComponent = ({ opts, editActive, id, name, label, value, onChange }: dynamicSelect) => {
 
     return (
         <div className="detailedInputComponent">
@@ -21,7 +21,7 @@ export const SelectedEditComponent = ({ opts, editActive, id, name, label, value
                 isDisabled={!editActive}
                 name={name} 
                 options={opts}
-                onChange={() => {}}
+                onChange={onChange ? (e) => onChange(name, e?.label) : () => {}}
                 styles={{
                     control: (baseStyles, state) => ({
                         ...baseStyles,
