@@ -2,16 +2,21 @@ import React from 'react'
 import './UserCard.scss'
 import { persona } from '../../../models/usersModels/UserModel'
 import defaultImg from '../../../assets/img/default.jpg'
+import { useNavigate } from 'react-router-dom'
+import { API_ADDR, APT_PORT } from '../../../utils/env/config'
 
 interface props{
     user: persona
 }
 
 export const UserCard = ({user}: props) => {
+
+    const navigate = useNavigate();
+
     return (
-        <div className="UserCardContainer">
+        <div className="UserCardContainer" onClick={(e) => navigate(`/admin_users/edit/${user.ID_Persona}`)}>
             <div className="UserImage">
-                <img src={user.Imagen != null ? user.Imagen : defaultImg} alt="USER" />
+                <img src={user.Imagen != null ? `http://${API_ADDR}:${APT_PORT}/images/user_profiles/${user.ID_Persona}/${user.Imagen}` : defaultImg} alt="USER" />
             </div>
             <div className="sideSection">
                 <div className="UserInformation">

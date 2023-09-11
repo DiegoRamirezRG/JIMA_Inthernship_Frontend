@@ -1,0 +1,114 @@
+
+@import '../../utils/sassConfig/colors';
+@import '../../utils/sassConfig/fonts';
+
+.EditUserMaxContainer{
+    width: 75%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+
+    .headerTitle{
+        width: 100%;
+        box-sizing: border-box;
+        height: fit-content;
+        display: flex;
+        align-items: center;
+        margin: 0px;
+        padding: 0px;
+
+        h2{
+            font-family: 'Segoe UI', sans-serif;
+            font-weight: 600;
+            font-size: 50px;
+            margin: 0px;
+            padding: 0px;
+        }
+    }
+
+    .contentSection{
+        width: 100%;
+        height: 90%;
+        display: flex;
+        flex-direction: row;
+        box-sizing: border-box;
+        gap: 15px;
+
+        .scrollHelpers{
+            width: 25%;
+            height: 100%;
+            overflow: hidden;
+            border-right: 3px solid $ghostWhite;
+            box-sizing: border-box;
+            padding-left: 20px;
+            padding-top: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .mainContentArticle{
+            width: 75%;
+            height: 100%;
+            overflow-y: scroll;
+            overflow-x: hidden;
+            box-sizing: border-box;
+            padding: 15px 25px;
+
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+    }
+}
+
+.editing-btns{
+    box-sizing: border-box;
+    display: flex;
+    gap: 10px;
+
+    button{
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        border-radius: 20px;
+        color: white;
+        font-size: 20px;
+        transition: 0.2s all ease;
+        padding: 7px 16px;
+
+        &:first-child{
+            border: $bootstrap_success 2px solid !important;
+            background-color: $bootstrap_success !important;
+
+            &:hover{
+                cursor: pointer;
+                border: darken($bootstrap_success, 10%) 2px solid !important;
+                background-color: darken($bootstrap_success, 10%) !important;
+            }
+        }
+
+        &:last-child{
+            background-color: darken($bootstrap_danger, 15%) !important;
+            border: darken($bootstrap_danger, 15%) 2px solid !important;
+
+            &:hover{
+                cursor: pointer;
+                border: darken($bootstrap_danger, 5%) 2px solid !important;
+                background-color: darken($bootstrap_danger, 5%) !important;
+            }
+        }
+
+        p{
+            margin: 0px;
+            padding: 0px;
+        }
+    }
+}

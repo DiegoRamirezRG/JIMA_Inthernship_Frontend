@@ -13,13 +13,19 @@ export const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
 
         const awaitFunction = async () => {
             if(localStorage.getItem('token') != null && localStorage.getItem('token') != ''){
-                const isValid = await validateToken();
-                setisValid(isValid);
-                if(isValid){
+                try {
+                    const valid = await validateToken();
+                    if(valid){
+                        setIsLoading(false);
+                        setisValid(valid);
+                    }else{
+                        localStorage.clear();
+                        setIsLoading(false);
+                    }
+                } catch (error: any) {
+                    console.log(error.message);
                     setIsLoading(false);
-                }else{
-                    localStorage.clear();
-                    setIsLoading(false);
+                    setisValid(false);
                 }
             }else{
                 setIsLoading(false);
@@ -30,11 +36,14 @@ export const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
         awaitFunction();
     }, [])
 
-
     if(!isLoading){
         return isValid ? <>{children}</> : <Navigate to="/" />;
     }else{
-        return <>Loading...</>
+        return (
+            <>
+            {isLoading}
+            </>
+        )
     }
 
 }

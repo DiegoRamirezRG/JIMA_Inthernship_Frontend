@@ -1,0 +1,113 @@
+@import '../../../../utils/sassConfig/colors';
+@import '../../../../utils/sassConfig/fonts';
+
+.profileSection{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0px;
+    padding: 0px;
+    align-items: center;
+    position: relative;
+
+    .imageProfile{
+        height: 100%;
+        aspect-ratio: 1;
+
+        img{
+            height: 100px;
+            aspect-ratio: 1;
+            border-radius: 50%;
+        }
+    }
+
+    .infoSection{
+        width: 100%;
+        box-sizing: border-box;
+        padding: 0px 15px 0px 15px;
+
+        p{
+            padding: 0px;
+            margin: 0px;
+
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 600;
+
+            &:first-child{
+                font-size: 30px;
+            }
+
+            &:nth-child(2){
+                font-size: 20px;
+            }
+
+            &:last-child{
+                font-size: 20px;
+            }
+        }
+    }
+
+    .editBnts{
+        position: absolute;
+        bottom: 0px;
+        top: 0px;
+        right: 0px;
+        transition: 0.2s all ease;
+
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: center;
+        gap: 10px;
+
+        button{
+            box-sizing: border-box;
+            padding: 5px 20px;
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            border-radius: 20px;
+            color: white;
+            font-size: 20px;
+            transition: 0.2s all ease;
+
+            &.cancelBtn{
+                background-color: darken($bootstrap_danger, 15%) !important;
+                border: darken($bootstrap_danger, 15%) 2px solid !important;
+
+                &:hover{
+                    border: darken($bootstrap_danger, 5%) 2px solid !important;
+                    background-color: darken($bootstrap_danger, 5%) !important;
+                }
+            }
+
+            &.saveBtn{
+                border: $bootstrap_success 2px solid !important;
+                background-color: $bootstrap_success !important;
+
+                &:hover{
+                    border: darken($bootstrap_success, 10%) 2px solid !important;
+                    background-color: darken($bootstrap_success, 10%) !important;
+                }
+            }
+
+            &:first-child{
+                border: darken($bootstrap_info, 15%) 2px solid;
+                background-color: darken($bootstrap_info, 15%);
+
+                &:hover{
+                    border: darken($bootstrap_info, 5%) 2px solid;
+                    background-color: darken($bootstrap_info, 5%);
+                }
+            }
+
+            &:hover{
+                cursor: pointer;
+            }
+        }
+    }
+}

@@ -1,0 +1,161 @@
+@import '../../../utils/sassConfig/colors';
+@import '../../../utils/sassConfig/fonts';
+
+.modal-content{
+    width: 100%;
+    height: 100%;
+
+    .modal-header{
+        height: 50px;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        h5{
+            font-family: 'Quicksand', sans-serif;
+            font-weight: normal;
+            font-size: 30px;
+        }
+        
+        .modal-btn-close{
+            height: 50px;
+            width: 50px;
+            font-size: 35px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: transparent;
+            border: none;
+            color: $bootstrap_secondary;
+            transition: 0.3s all ease;
+
+            &:hover{
+                cursor: pointer;
+                color: darken($bootstrap_secondary, 10%);
+            }
+        }
+    }
+
+    .divider{
+        width: 100%;
+        height: 2px;
+        border-radius: 10px;
+        background-color: lighten($bootstrap_secondary, 40%);
+    }
+
+    .modal-body{
+        margin-top: 20px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 30px;
+
+        .advice-text{
+            font-family: 'Quicksand', sans-serif;
+            text-align: justify;
+            font-size: 17px;
+        }
+
+        .inputDetailed{
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 70%;
+
+            label{
+                font-family: 'Quicksand', sans-serif;
+                font-weight: 600;
+                font-size: 15px;
+                color: $cool_grey;
+                padding-left: 20px;
+            }
+        
+            input{
+                border: none;
+                background-color: transparent;
+                outline: none;
+        
+                font-family: 'Quicksand', sans-serif;
+                font-weight: 550;
+                font-size: 20px;
+                border-radius: 50px;
+                padding: 5px 0px 3px 20px;
+        
+                &:focus{
+                    outline: 2px solid $ghostWhite;
+                }
+            }
+        }
+
+        .finishBtn{
+            margin-top: 30px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            button{
+                font-family: 'Quicksand', sans-serif;
+                font-weight: 550;
+                box-sizing: border-box;
+                padding: 5px 30px;
+                border-radius: 10px;
+                border: none;
+                font-size: 20px;
+                background-color: lighten($bootstrap_success, 10%);
+                color: white;
+
+                &:hover{
+                    cursor: pointer;
+                    background-color: $bootstrap_success;
+                }
+            }
+        }
+    }
+
+    
+    .modal-footer{
+        box-sizing: border-box;
+        width: 100%;
+        margin-top: 20px;
+        display: flex;
+        justify-content: end;
+        align-items: center;
+        gap: 20px;
+
+        button{
+            box-sizing: border-box;
+            padding: 5px 20px;
+
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 550;
+            font-size: 20px;
+            border: none;
+            outline: none;
+            color: white;
+            border-radius: 5px;
+            transition: 0.15s all ease-in-out;
+
+            &:first-child{
+                background-color: lighten($bootstrap_success, 5%);
+
+                &:hover{
+                    cursor: pointer;
+                    background-color: $bootstrap_success;
+                }
+            }
+
+            &:last-child{
+                background-color: lighten($bootstrap_danger, 5%);
+
+                &:hover{
+                    cursor: pointer;
+                    background-color: $bootstrap_danger;
+                }
+            }
+        }
+    }
+}

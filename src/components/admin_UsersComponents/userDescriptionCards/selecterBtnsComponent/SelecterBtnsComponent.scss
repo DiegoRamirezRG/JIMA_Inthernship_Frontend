@@ -1,0 +1,47 @@
+@import '../../../../utils/sassConfig/colors';
+@import '../../../../utils/sassConfig/fonts';
+
+.btnContainer{
+    height: 45px;
+    box-sizing: border-box;
+    padding: 0px 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    transition: all 0.1s ease-in-out;
+    outline: transparent;
+
+    &:first-child{
+        border-radius: 10px 0px 0px 10px;
+    }
+
+    &:last-child{
+        border-radius: 0px 10px 10px 0px;
+    }
+
+    &.rendering{
+        background-color: lighten($bootstrap_primary, 35%);
+        
+        p{
+            font-weight: 600;
+            color: $bootstrap_primary;
+        }
+        outline: 2px solid lighten($bootstrap_primary, 35%);
+    }
+    
+    &:hover{
+        outline: 2px solid lighten($bootstrap_primary, 35%);
+        cursor: pointer;
+    }
+    
+    p{
+        margin: 0px;
+        padding: 0px;
+        font-family: 'Quicksand', sans-serif;
+        font-weight: 550;
+        font-size: 20px;
+    }
+
+
+}

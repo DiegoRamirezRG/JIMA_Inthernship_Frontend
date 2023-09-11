@@ -7,6 +7,7 @@ import { ProtectedRoute } from './protectedRoute/ProtectedRoute'
 import { SettingsScreen } from '../screens/settingsScreen/SettingsScreen'
 import { Admin_UserScreen } from '../screens/admin_UserScreen/Admin_UserScreen'
 import { Admin_UserCreateScree } from '../screens/admin_UserCreateScreen/Admin_UserCreateScree'
+import { Admin_UserEditScreen } from '../screens/admin_UserEditScreen/Admin_UserEditScreen'
 
 
 const generalRoutes = [
@@ -45,6 +46,12 @@ const administrativeRoutes = [
             <Admin_UserCreateScree/>
         </ProtectedRoute>,
     },
+    {
+        path: "/admin_users/edit/:userId",
+        element: <ProtectedRoute>
+            <Admin_UserEditScreen/>
+        </ProtectedRoute>
+    }
 ]
 
 
