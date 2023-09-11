@@ -8,6 +8,7 @@ import { serverRestApi } from "../../utils/apiConfig/apiServerConfig";
 import { Response } from "../../models/responsesModels/responseModel";
 import { showErrorTost, showSuccessToast } from "../../components/generalComponents/toastComponent/ToastComponent";
 import { dataURLtoFile } from "./helpers/dataToBlob";
+import { validateMedic, validate_Edit_User_Data, validate_adress, validate_alergies, validate_credentials } from "./helpers/informationValidator";
 
 export const useUsersEdit = () => {
 
@@ -413,6 +414,7 @@ export const useUsersEdit = () => {
     const sendUserInfoCardUpdate = async (id_user: string) => {
         try {
             setGeneralLoader(true);
+            await validate_Edit_User_Data(userState);
             const attributesToKeep: (keyof SingleUser)[] = [
                 "Nombre",
                 "Apellido_Paterno",
@@ -474,6 +476,8 @@ export const useUsersEdit = () => {
             }else{
                 body = {"password": `${credentialsState.Contraseña}`, "email": `${credentialsState.Correo}`}
             }
+            
+            await validate_credentials(credentialsState);
 
             const response = await serverRestApi.put<Response>(`/api/credentials/update/${user_id}`, body, { headers: { Authorization: localStorage.getItem('token') } });
 
@@ -511,8 +515,9 @@ export const useUsersEdit = () => {
     //Send Credentials Update
     const sendAddressUpdate = async(user_id : string) => {
         try {
-            
             setGeneralLoader(true);
+            await validate_adress(addressState);
+
             const response = await serverRestApi.put<Response>(`/api/address/update/${user_id}`, {...addressState}, { headers: { Authorization: localStorage.getItem('token') } });
 
             if(response.data.success){
@@ -546,6 +551,9 @@ export const useUsersEdit = () => {
     const sendAlergiesUpdate = async (userId: string )=> {
         try {
             setGeneralLoader(true);
+
+            await validate_alergies(alergiesState as AlergiesModelCreate[]);
+            await validateMedic(userState.Tipo_De_Sagre!, userState.Numero_De_Emergencia!);
 
             const attributesToKeep: (keyof SingleUser)[] = [
                 "Tipo_De_Sagre",

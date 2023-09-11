@@ -81,7 +81,7 @@ export const AlergieInputsAdd = ({ value, onChange, addGlobal }: alergiesOnChang
 
 export const AlergiesComponent = ({ alergies, handleAlergies, deleteAlergie }: props) => {
 
-    const [showNewAlergie, setShowNewAlergie] = useState(false);
+    const [showNewAlergie, setShowNewAlergie] = useState(true);
 
     const [newAlergieToPush, setNewAlergieToPush] = useState<AlergiesModel>({
         Nombre: '',

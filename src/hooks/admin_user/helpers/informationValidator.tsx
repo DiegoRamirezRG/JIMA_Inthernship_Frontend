@@ -2,7 +2,8 @@
 
 import { AddressModelCreate } from "../../../models/addressModels/AddressModel";
 import { AlergiesModelCreate } from '../../../models/alergiesModel/AlergiesModel';
-import { UserModelPersonCreate } from "../../../models/authModels/UserModel";
+import { SingleUser, UserModelPersonCreate } from "../../../models/authModels/UserModel";
+import { Credentials } from "../../../models/credentialsModels/CredentialsModels";
 import { administrativeCrate, parentCreate, studentCreate, teacherCreate } from "../../../models/userTypesModels/UserTypesModel";
 
 interface typeUserInterface {
@@ -100,6 +101,7 @@ export const validate_adress = (address: AddressModelCreate) => {
     })
 }
 
+//Validate alergies
 export const validate_alergies = (alergies: AlergiesModelCreate[]) => {
     return new Promise((resolve, reject) => {
         if(alergies.length > 0){
@@ -120,7 +122,7 @@ export const validate_alergies = (alergies: AlergiesModelCreate[]) => {
 }
 
 
-
+//Validate user type
 export const validate_userType =  ({ user, userType }: typeUserInterface) => {
     return new Promise(async (resolve, reject) => {
         switch(user.Rol){
@@ -160,6 +162,7 @@ export const validate_userType =  ({ user, userType }: typeUserInterface) => {
     })
 }
 
+//Validate admin type
 const validate_typeAdmin = (adminType: administrativeCrate) => {
     return new Promise((resolve, reject) => {
         if(adminType.NSS.length <= 0){
@@ -181,6 +184,7 @@ const validate_typeAdmin = (adminType: administrativeCrate) => {
     })
 }
 
+//validate teacher type
 const validate_typeTeacher = (teacherType: teacherCreate) => {
     return new Promise((resolve, reject) => {
         
@@ -203,6 +207,7 @@ const validate_typeTeacher = (teacherType: teacherCreate) => {
     })
 }
 
+//validate student type
 const validate_typeStudent = (studentType: studentCreate) => {
     return new Promise((resolve, reject) => {
         if(studentType.URL.length > 0){
@@ -211,6 +216,91 @@ const validate_typeStudent = (studentType: studentCreate) => {
                 return reject(new Error('La URL del estudiante no cumple con los requisitos.'))
             }
         }
+        resolve('Informacion valida');
+    })
+}
+
+//Validate Single User
+export const validate_Edit_User_Data = (user: SingleUser) => {
+    return new Promise((resolve, reject) => {
+
+        if (user.Nombre!.length <= 0 || user.Nombre!.length > 50) {
+            return reject(new Error('El nombre no cumple los requisitos.'));
+        }
+
+        if (user.Apellido_Paterno!.length <= 0 || user.Apellido_Paterno!.length > 50) {
+            return reject(new Error('El apellido paterno no cumple los requisitos.'));
+        }
+
+        if (user.Apellido_Materno!.length > 0) {
+            if(user.Apellido_Materno!.length <= 0 || user.Apellido_Materno!.length > 50){
+                return reject(new Error('El apellido materno no cumple los requisitos.'));
+            }
+        }
+        
+        if(user.CURP!.length > 0){
+            if(user.CURP!.length <= 0 || user.CURP!.length > 50){
+                return reject(new Error('La CURP materno no cumple los requisitos.'));
+            }
+        }
+
+        const phoneNumberPattern = /^\d{10}$/;
+        if(!phoneNumberPattern.test(user.Numero_De_Telefono!.toString())){
+            return reject(new Error('El numero de telefono no cumple los requisitos.'));
+        }
+
+        const dateOfBirth = new Date(user.Fecha_De_Nacimiento!);
+        if (isNaN(dateOfBirth.getTime())) {
+            return reject(new Error('La fecha de nacimiento no cumple los requisitos.'));
+        }
+
+        if(user.Nacionalidad!.length > 0){
+            if(user.Nacionalidad!.length <= 0 || user.Nacionalidad!.length > 50){
+                return reject(new Error('La nacionalidad no cumple los requisitos.'));
+            }
+        }
+
+        const validGenders = ['Masculino', 'Femenino', 'Otro'];
+        if (!validGenders.includes(user.Genero!)) {
+            return reject(new Error('El genero no cumple los requisitos.'));
+        }
+
+        resolve('Informacion valida');
+    })
+}
+
+//Validate Credentials
+export const validate_credentials = (crential: Credentials) => {
+    return new Promise((resolve, reject) => {
+        const emailPattern = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}$/;
+        if (!emailPattern.test(crential.Correo!)) {
+            return reject(new Error('El correo electronico no cumple los requisitos.'));
+        }
+
+        if(crential.Contraseña!.length <= 0){
+            return reject(new Error('La contraseña no cumple los requisitos.'));
+        }
+
+        resolve('Informacion valida');
+    })
+}
+
+//Validate Medic User
+export const validateMedic = (blood_type: string, emergency_numer: number) => {
+    return new Promise((resolve, reject) => {
+
+        const phoneNumberPattern = /^\d{10}$/;
+        if(emergency_numer){
+            if (!phoneNumberPattern.test(emergency_numer.toString())) {
+                return reject(new Error('El numero de emergencia no cumple los requisitos.'));
+            }
+        }
+
+        const validBloodTypes = ['A', 'B', 'AB', 'O', 'A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
+        if (!validBloodTypes.includes(blood_type)) {
+            return reject(new Error('El tipo de sangre no cumple los requisitos.'));
+        }
+
         resolve('Informacion valida');
     })
 }

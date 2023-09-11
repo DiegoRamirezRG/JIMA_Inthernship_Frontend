@@ -116,7 +116,7 @@ export const useUsersAdministration = () => {
 
     const getData = async () => {
         setIsInitialDataLoading(true);
-        const getListUsers = serverRestApi.post<Response>('/api/users/getAllUsers', {...getUsersFilterState}, {
+        const getListUsers = serverRestApi.post<Response>('/api/users/getAllUsers', {...getUsersFilterState, token: localStorage.getItem('token')}, {
             headers: {
                 Authorization: localStorage.getItem('token')
             }
