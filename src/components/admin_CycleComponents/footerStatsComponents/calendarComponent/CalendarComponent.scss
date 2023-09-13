@@ -1,0 +1,149 @@
+@import '../../../../utils/sassConfig/colors';
+@import '../../../../utils/sassConfig/fonts';
+
+.calendarContainer{
+    height: 100%;
+    width: 25%;
+    border-radius: 10px;
+    overflow: hidden;
+    box-sizing: border-box;
+    user-select: none;
+    background: linear-gradient(to bottom, $ghostWhite, transparent);
+    display: flex;
+    flex-direction: column;
+
+    &:hover{
+        cursor: pointer;
+    }
+
+    .headerDectoration{
+        height: 18%;
+        width: 100%;
+        background-color: red;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: 'Quicksand', sans-serif;
+        font-weight: 550;
+        color: white;
+        gap: 5px;
+
+        p{
+            padding: 0px;
+            margin: 0px;
+            font-size: 20px;
+
+            &:first-child{
+                font-size: 30px;
+                font-weight: bold;
+            }
+        }
+    }
+
+    .calendarBody{
+        width: 100%;
+        height: calc(100% - 18%);
+        box-sizing: border-box;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        p{
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .calendar-events{
+            width: 100%;
+            height: 100%;
+            overflow-y: scroll;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            scroll-behavior: smooth;
+
+            &::-webkit-scrollbar{
+                display: none;
+            }
+
+            scrollbar-width: none;
+
+            .calendarAction{
+                width: 100%;
+                height: auto;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                box-sizing: border-box;
+                border-radius: 5px;
+                padding: 5px 10px;
+                font-size: 20px;
+                font-family: 'Quicksand', sans-serif;
+                transition: 0.2s all ease-in-out;
+
+                &:hover{
+                    cursor: pointer;
+                    background-color: $iris;
+                    color: white;
+                }
+
+                .event-title{
+                    text-align: center;
+                    font-weight: 600;
+                }
+
+                .row{
+                    display: flex;
+                    justify-content: space-between;
+                }
+
+                &.indexinCalendar{
+
+                    &:hover{
+                        cursor: pointer;
+                        background-color: darken(#1FC0C8, 5%);
+                        color: white;
+                    }
+
+                }
+            }
+        }
+
+        .no-calendar-events{
+            text-align: center;
+            font-family: 'Quicksand', sans-serif;
+
+            &:first-child{
+                font-size: 70px;
+                color: darken(red, 10%);
+            }
+
+            p{
+                font-size: 20px;
+                font-weight: 550;
+                color: black;
+            }
+        }
+
+        .no-calendar{
+            text-align: center;
+            font-family: 'Quicksand', sans-serif;
+
+            p{
+                &:first-child{
+                    font-size: 130px;
+                    line-height: 90px;
+                    font-weight: 550;
+                }
+
+                &:last-child{
+                    font-size: 30px;
+                    margin-top: 10px;
+                }
+            }
+        }
+    }
+}

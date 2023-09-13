@@ -1,0 +1,16 @@
+.footerStats{
+    height: calc(100% - (400px + 130px + 30px));
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+
+    .container1{
+        width: 50%;
+        height: 100%;
+        background-color: green;
+        border-radius: 10px;
+    }
+}

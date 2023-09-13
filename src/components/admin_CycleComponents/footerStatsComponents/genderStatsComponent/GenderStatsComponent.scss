@@ -1,0 +1,55 @@
+@import '../../../../utils/sassConfig/colors';
+@import '../../../../utils/sassConfig/fonts';
+
+.genderStatsContainer{
+    width: 25%;
+    height: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+    background: linear-gradient(to bottom, $ghostWhite, transparent);
+    user-select: none;
+
+    .headerTitle{
+        height: 20%;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 0px 10px;
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        font-family: 'Quicksand', sans-serif;
+        font-weight: 600;
+
+        p{
+            margin: 0px;
+            padding: 0px;
+            font-size: 30px;
+        }
+    }
+
+    .pieChart{
+        height: 80%;
+        width: 100%;
+        align-self: center;
+    }
+}
+
+.custom-tooltip{
+    width: auto;
+    height: auto;
+    padding: 0px 10px;
+    background-color: white;
+    border: 0.5px solid gray;
+    text-align: center;
+
+    p{
+        padding: 0px;
+        margin: 0px;
+        font-family: 'Quicksand', sans-serif;
+        font-size: 20px;
+
+        &:first-child{
+            font-weight: 600;
+        }
+    }
+}

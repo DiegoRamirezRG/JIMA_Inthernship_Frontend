@@ -8,6 +8,7 @@ import { SettingsScreen } from '../screens/settingsScreen/SettingsScreen'
 import { Admin_UserScreen } from '../screens/admin_UserScreen/Admin_UserScreen'
 import { Admin_UserCreateScree } from '../screens/admin_UserCreateScreen/Admin_UserCreateScree'
 import { Admin_UserEditScreen } from '../screens/admin_UserEditScreen/Admin_UserEditScreen'
+import { Admin_School_Cycle } from '../screens/admin_School_Cycle/Admin_School_Cycle'
 
 
 const generalRoutes = [
@@ -50,6 +51,12 @@ const administrativeRoutes = [
         path: "/admin_users/edit/:userId",
         element: <ProtectedRoute>
             <Admin_UserEditScreen/>
+        </ProtectedRoute>
+    },
+    {
+        path: "/admin_cycle",
+        element: <ProtectedRoute>
+            <Admin_School_Cycle/>
         </ProtectedRoute>
     }
 ]
