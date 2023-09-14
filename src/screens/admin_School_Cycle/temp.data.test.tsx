@@ -13,13 +13,6 @@ export const pieData = [
     { name: 'Group B', value: 900 },
 ];
 
-export const cardsData = [
-    {title: 'aspirantes', cantity: 500, color: '#F55C7A', icon: 'asp'},
-    {title: 'estudiantes', cantity: 300, color: '#1FC0C8', icon: 'est'},
-    {title: 'profesores', cantity: 30, color: '#B5DA8A', icon: 'pro'},
-    {title: 'admins', cantity: 40, color: '#6941C6', icon: 'adm'},
-];
-
 export const genderStats =[
     {gender: 'Masculino', value: 150, color: '#1FC0C8'},
     {gender: 'Femenino', value: 200, color: '#F55C7A'},

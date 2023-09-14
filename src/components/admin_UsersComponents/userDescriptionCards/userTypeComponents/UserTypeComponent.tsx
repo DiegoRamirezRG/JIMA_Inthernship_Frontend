@@ -1,7 +1,8 @@
 import React from 'react'
 import './UserTypeComponent.scss'
 import { administrativeCrate, parentCreate, studentCreate, teacherCreate } from '../../../../models/userTypesModels/UserTypesModel';
-import { InputComp } from '../inputComponents/InputComponents';
+import { InputComp, SelectComp } from '../inputComponents/InputComponents';
+import Select from 'react-select/dist/declarations/src/Select';
 
 interface renderIndex{
     render?: Number;

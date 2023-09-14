@@ -3,8 +3,13 @@ import './GenderStatsComponent.scss'
 import { PieChart, ResponsiveContainer, Pie, Cell, Tooltip } from 'recharts'
 import { genderStats } from '../../../../screens/admin_School_Cycle/temp.data.test';
 import { lighten,darken } from 'polished';
+import { GenderStats } from '../../../../models/stadisticsModels/stadisticsModels';
 
-export const GenderStatsComponetn = () => {
+interface props{
+    data: GenderStats[];
+}
+
+export const GenderStatsComponetn = ({ data }: props) => {
 
     return (
         <div className='genderStatsContainer'>
@@ -15,9 +20,9 @@ export const GenderStatsComponetn = () => {
                 <ResponsiveContainer height={'100%'}>
                     <PieChart>
                     <Tooltip content={<CustomTooltip/>}/>
-                        <Pie outerRadius={80} data={genderStats} dataKey={'value'}>
+                        <Pie outerRadius={80} data={data} dataKey={'value'}>
                             {
-                                genderStats.map((entry, index) => {
+                                data.map((entry, index) => {
                                     return (
                                         <Cell key={`cell-${index}`} fill={entry.color} name={entry.gender}/>
                                     )
