@@ -1,0 +1,43 @@
+@import '../../../../utils/sassConfig/colors';
+@import '../../../../utils/sassConfig/fonts';
+
+.customSelectedInput{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    label{
+        font-family: 'Quicksand', sans-serif;
+        font-weight: 600;
+        font-size: 15px;
+        color: $cool_grey;
+        padding-left: 20px;
+    }
+
+    .innerContainer{
+        display: grid;
+        grid-template-columns: 90% 1fr;
+
+        button{
+            border: 5px solid $iris;
+            background-color: $iris;
+            box-sizing: border-box;
+            outline: none;
+
+            border-radius: 0px 40px 40px 0px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 25px;
+            height: 100%;
+            transition: 0.2s all ease-in-out;
+
+            &:hover{
+                cursor: pointer;
+                background-color: darken($iris, 10%);
+                border: 5px solid darken($iris, 10%);
+            }
+        }
+    }
+}

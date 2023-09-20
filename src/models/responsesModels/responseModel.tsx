@@ -3,14 +3,30 @@
 import { AddressModel } from "../addressModels/AddressModel";
 import { AlergiesModel } from "../alergiesModel/AlergiesModel";
 import { SingleUser, UserModel } from "../authModels/UserModel";
+import { CareerModel } from "../careersModels/CareersModel";
 import { Credentials } from "../credentialsModels/CredentialsModels";
 import { GenderStats } from "../stadisticsModels/stadisticsModels";
 import { City, Country, State } from "../universalApiModels/UniversalApiModel";
 import { persona } from "../usersModels/UserModel";
+import { Grade, Group, Shift } from '../schoolInfoModels/schoolInfoModels';
 
 export interface Response {
     success: boolean;
     message: string;
-    data?:    any | UserModel | persona[] | SingleUser |Credentials | AddressModel | AlergiesModel[] | Country[] | State[] | City[] | GenderStats[];
+    data?:   any 
+            | UserModel 
+            | persona[] 
+            | SingleUser 
+            | Credentials 
+            | AddressModel 
+            | AlergiesModel[] 
+            | Country[] 
+            | State[] 
+            | City[] 
+            | GenderStats[] 
+            | CareerModel[]
+            | Shift[]
+            | Grade[]
+            | Group[];
     error?: string | any;
 }

@@ -14,6 +14,8 @@ import { UserEditComponent } from '../../components/admin_UsersComponents/userEd
 import { CredentialsEditComponent } from '../../components/admin_UsersComponents/userEditComponents/credentialsEditComponent/CredentialsEditComponent';
 import { AddressEditComponent } from '../../components/admin_UsersComponents/userEditComponents/addressEditComponent/AddressEditComponent';
 import { AlergiesEditComponent } from '../../components/admin_UsersComponents/userEditComponents/alergiesEditComponent/AlergiesEditComponent';
+import { ProfileTypeComponent } from '../../components/admin_UsersComponents/userEditComponents/profileTypeComponent/ProfileTypeComponent';
+import { useEnrollStudent } from '../../hooks/admin_user/useEnrollStudent';
 
 export const Admin_UserEditScreen = () => {
 
@@ -25,6 +27,7 @@ export const Admin_UserEditScreen = () => {
     const CardCredRef = useRef<HTMLDivElement>(null);
     const CardDomiRef = useRef<HTMLDivElement>(null);
     const CardMediRef = useRef<HTMLDivElement>(null);
+    const UserTypeRef = useRef<HTMLDivElement>(null);
 
     const scrollToDiv = (ref: React.RefObject<HTMLDivElement>, index: number) => {
         if (ref && ref.current) {
@@ -55,11 +58,13 @@ export const Admin_UserEditScreen = () => {
         handleActivateCredentialsEditing,
         handleActivateAddressEditing,
         handleActivateAlergiesEditing,
+        handleActivateRolEditing,
 
         //Editing Obervers
         isGettisImageProfileEditing,
         isGettingUserEditing,
         isGettingCredentialsEditing,
+        isGettingRolEditing,
 
         //Is Active Editing States
         isImageEditing,
@@ -67,6 +72,7 @@ export const Admin_UserEditScreen = () => {
         isCredentialsEditing,
         isAddressEditing,
         isAlergiesEditing,
+        isRolEditing,
 
         //Image Update
         onSelectFile,
@@ -98,6 +104,9 @@ export const Admin_UserEditScreen = () => {
         cancelAlergiesEditing,
         sendAlergiesUpdate,
 
+        //Rol Update
+        handleEdtiRolData,
+
         //Modal Handler
         sureModalState,
         cropModalState,
@@ -107,6 +116,12 @@ export const Admin_UserEditScreen = () => {
         handleCropModalActive
 
     } = useUsersEdit();
+    
+    const {
+        //Modal New Aspirante
+        createAspiranteModalState,
+        handleAspiranteModalState,
+    } = useEnrollStudent();
 
     const confirmModals = new Map<string, JSX.Element>([
         ['userImageUpdate', <ConfirmModal handleModalClose={handleSureModalActive} updateFunction={async () => await sendUserImageUpdate(userId!)} loader={generalLoader} />],
@@ -114,7 +129,7 @@ export const Admin_UserEditScreen = () => {
         ['userUpdate', <ConfirmModal handleModalClose={handleSureModalActive} updateFunction={async () => await sendUserInfoCardUpdate(userId!)} loader={generalLoader}/>],
         ['credentialUpdate', <ConfirmModal handleModalClose={handleSureModalActive} updateFunction={async () => await sendCredentialsUpdate(userId!)} loader={generalLoader}/>],
         ['addressUpdate', <ConfirmModal handleModalClose={handleSureModalActive} updateFunction={async () => await sendAddressUpdate(userId!)} loader={generalLoader}/>],
-        ['alergiesUpdate', <ConfirmModal handleModalClose={handleSureModalActive} updateFunction={async () => await sendAlergiesUpdate(userId!)} loader={generalLoader}/>]
+        ['alergiesUpdate', <ConfirmModal handleModalClose={handleSureModalActive} updateFunction={async () => await sendAlergiesUpdate(userId!)} loader={generalLoader}/>],
     ])
 
     useEffect(() => {
@@ -137,7 +152,7 @@ export const Admin_UserEditScreen = () => {
                         <div onClick={() => scrollToDiv(CardCredRef, 2)}> <ScrollHelperComponent isSelected={indexSelected === 2} text='Credenciales'/> </div>
                         <div onClick={() => scrollToDiv(CardDomiRef, 3)}> <ScrollHelperComponent isSelected={indexSelected === 3} text='Dirección'/> </div>
                         <div onClick={() => scrollToDiv(CardMediRef, 4)}> <ScrollHelperComponent isSelected={indexSelected === 4} text='Inf. Medica'/> </div>
-                        <div onClick={() => {}}> <ScrollHelperComponent isSelected={indexSelected === 5} text='Tipo de perfil'/> </div>
+                        <div onClick={() => {scrollToDiv(UserTypeRef, 5)}}> <ScrollHelperComponent isSelected={indexSelected === 5} text='Tipo de perfil'/> </div>
                     </div>
                     <div className="mainContentArticle">
                         {
@@ -149,6 +164,7 @@ export const Admin_UserEditScreen = () => {
                                 <div ref={CardCredRef}> <CredentialsEditComponent credentials={credentialsState} editActive={isCredentialsEditing} handleActiveEdit={handleActivateCredentialsEditing} handleCredentialsEdit={handleEditCredentials} cancelCredentialsEdit={cancelCredentialsEditing} editObserver={isGettingCredentialsEditing} activeSureModal={handleSureModalActive}/> </div>
                                 <div ref={CardDomiRef}> <AddressEditComponent address={addressState} handleActivateEdit={handleActivateAddressEditing} editActive={isAddressEditing} handleAddressEdit={handleEditAddress} cancelAddressEdit={cancelAddressEditing} activeSureModal={handleSureModalActive}/> </div>
                                 <div ref={CardMediRef}> <AlergiesEditComponent user={userState} user_id={userId!} handleActiveEdit={handleActivateAlergiesEditing} isEditing={isAlergiesEditing} handleUserEdit={handleEditUser} alergies={alergiesState} addNewAlergieGlobal={handleEditAlergies} deleteAlergieGlobal={deleteGlobalAlergie}  cancelAlergiesEdit={cancelAlergiesEditing} activeSureModal={handleSureModalActive}/> </div>
+                                <div ref={UserTypeRef}> <ProfileTypeComponent user = {userState} user_id={userId!} RolData={selectedRolInfo} handleActiveEdit={handleActivateRolEditing} isEditing={isRolEditing} editingObserver={isGettingRolEditing} handleRolEdit={handleEdtiRolData} handleModalState={handleAspiranteModalState}/> </div>
                             </>
                         }
                     </div>
@@ -173,6 +189,9 @@ export const Admin_UserEditScreen = () => {
                                         ? (confirmModals.get('alergiesUpdate'))
                                         : <></>
                 }
+            </ModalComponent>
+            <ModalComponent modalState={createAspiranteModalState} handleModalState={handleAspiranteModalState} modalSize='modal-lg'>
+                hiadnwjkajndnajkdwnka
             </ModalComponent>
         </NavigationComponent>
     )

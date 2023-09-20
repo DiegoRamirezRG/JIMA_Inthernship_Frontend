@@ -72,38 +72,18 @@ export const Admin_UserCreateScree = () => {
                 </div>
                 <div className="contentSection">
                     <div className="scrollHelpers">
-                        <div onClick={() => scrollToDiv(CardInfoRef, 0)}>
-                            <ScrollHelperComponent isSelected={indexSelected === 0} text='Información'/>
-                        </div>
-                        <div onClick={() => scrollToDiv(CardCredRef, 1)}>
-                            <ScrollHelperComponent isSelected={indexSelected === 1} text='Credenciales'/>
-                        </div>
-                        <div onClick={() => scrollToDiv(CardDomiRef, 2)}>
-                            <ScrollHelperComponent isSelected={indexSelected === 2} text='Dirección'/>
-                        </div>
-                        <div onClick={() => scrollToDiv(CardMediRef, 3)}>
-                            <ScrollHelperComponent isSelected={indexSelected === 3} text='Inf. Medica'/>
-                        </div>
-                        <div onClick={() => scrollToDiv(CardTypeRef, 4)}>
-                            <ScrollHelperComponent isSelected={indexSelected === 4} text='Tipo de perfil'/>
-                        </div>
+                        <div onClick={() => scrollToDiv(CardInfoRef, 0)}> <ScrollHelperComponent isSelected={indexSelected === 0} text='Información'/> </div>
+                        <div onClick={() => scrollToDiv(CardCredRef, 1)}> <ScrollHelperComponent isSelected={indexSelected === 1} text='Credenciales'/> </div>
+                        <div onClick={() => scrollToDiv(CardDomiRef, 2)}> <ScrollHelperComponent isSelected={indexSelected === 2} text='Dirección'/> </div>
+                        <div onClick={() => scrollToDiv(CardMediRef, 3)}> <ScrollHelperComponent isSelected={indexSelected === 3} text='Inf. Medica'/> </div>
+                        <div onClick={() => scrollToDiv(CardTypeRef, 4)}> <ScrollHelperComponent isSelected={indexSelected === 4} text='Tipo de perfil'/> </div>
                     </div>
                     <div className="mainContentArticle">
-                        <div ref={CardInfoRef}>
-                            <UserDescriptionCards_Information person={newUserState} inputHandler={handleChangeUser} />
-                        </div>
-                        <div ref={CardCredRef}>
-                            <UserDescriptionCards_Credenciales person={newUserState} inputHandler={handleChangeUser} />
-                        </div>
-                        <div ref={CardDomiRef}>
-                            <UserDescriptionCards_Dom address={newAddressModel} inputHandler={handleChangeAddress} countries={countries!} states={states} cities={cities} />
-                        </div>
-                        <div ref={CardMediRef}>
-                            <UserDescriptionCards_InfMedic alergies={AlergiesModel} handleAlergies={handleAlergies} person={newUserState} inputHandler={handleChangeUser} deleteAlergieHandler={deleteAlergie} />
-                        </div>
-                        <div ref={CardTypeRef}>
-                            <UserTypeSelecctions person={newUserState} inputHandler={handleChangeUser} rolInfo={selectedRolInfo} handleRolInfo={handleTypeInfo} />
-                        </div>   
+                        <div ref={CardInfoRef}> <UserDescriptionCards_Information person={newUserState} inputHandler={handleChangeUser} /> </div>
+                        <div ref={CardCredRef}> <UserDescriptionCards_Credenciales person={newUserState} inputHandler={handleChangeUser} /> </div>
+                        <div ref={CardDomiRef}> <UserDescriptionCards_Dom address={newAddressModel} inputHandler={handleChangeAddress} countries={countries!} states={states} cities={cities} /> </div>
+                        <div ref={CardMediRef}> <UserDescriptionCards_InfMedic alergies={AlergiesModel} handleAlergies={handleAlergies} person={newUserState} inputHandler={handleChangeUser} deleteAlergieHandler={deleteAlergie} /> </div>
+                        <div ref={CardTypeRef}> <UserTypeSelecctions person={newUserState} inputHandler={handleChangeUser} rolInfo={selectedRolInfo} handleRolInfo={handleTypeInfo} /> </div>   
                         
                         <div className="buttonConfimRegister">
                             <button onClick={validateInformation}>

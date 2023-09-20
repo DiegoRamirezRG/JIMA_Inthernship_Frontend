@@ -1,0 +1,41 @@
+@import '../../../../../../utils/sassConfig/colors';
+@import '../../../../../../utils/sassConfig/fonts';
+
+.customStudentRegister{
+    width: 100%;
+
+    .innerContentContainer{
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px 50px;
+    }
+
+    .crateCustomStudent{
+        width: 100%;
+        box-sizing: border-box;
+        margin-top: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        button{
+            font-size: 20px;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 600;
+            box-sizing: border-box;
+            padding: 5px 20px;
+            border-radius: 10px;
+            border: none;
+            outline: none;
+            background-color: lighten($bootstrap_success, 10%);
+            transition: 0.2s all ease-in-out;
+            color: white;
+
+            &:hover{
+                cursor: pointer;
+                background-color: lighten($bootstrap_success, 5%);
+            }
+        }
+    }
+}

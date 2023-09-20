@@ -4,6 +4,7 @@ import { optionSelect } from "../../../../models/universalApiModels/UniversalApi
 import { Credentials } from '../../../../models/credentialsModels/CredentialsModels';
 import { AddressModel } from "../../../../models/addressModels/AddressModel";
 import { administrative, student, teacher } from "../../../../models/userTypesModels/UserTypesModel";
+import { createStudentToBe, customStudentToBe } from "../../../../models/enrollModels/EnrollModels";
 
 export interface dynamicInput{
     id: string;
@@ -19,9 +20,13 @@ export interface dynamicInput{
 export interface dynamicSelect{
     opts?: optionSelect[];
     id: string;
-    name: keyof SingleUser | keyof AddressModel;
+    name: keyof SingleUser | keyof AddressModel | keyof createStudentToBe | keyof customStudentToBe;
     editActive: boolean;
     label: string;
     value: string;
     onChange?: any;
+}
+
+export interface dynamicSelectWithBtn extends dynamicSelect{
+    addBtnAction: () => void;
 }

@@ -1,6 +1,6 @@
 import { AddressModel } from "../../../../models/addressModels/AddressModel";
 import { AlergiesModel, AlergiesModelCreate } from "../../../../models/alergiesModel/AlergiesModel";
-import { SingleUser } from "../../../../models/authModels/UserModel";
+import { SingleUser, roles } from "../../../../models/authModels/UserModel";
 import { Credentials } from "../../../../models/credentialsModels/CredentialsModels";
 import { administrative, student, teacher, parent } from "../../../../models/userTypesModels/UserTypesModel";
 
@@ -61,5 +61,40 @@ export interface MedicInformation extends SingleUserInterface{
 }
 
 export interface RolesInformation extends SingleUserInterface{
-    rol: administrative | teacher | student | parent[];
+    RolData: administrative | teacher | student | any;
+    isEditing: boolean;
+    editingObserver: boolean;
+    handleActiveEdit: () => void;
+    handleRolEdit: (name: keyof administrative | keyof teacher | keyof student, value: any) => void;
+    handleModalState: () => void;
+}
+
+export interface StudentRol extends SingleUserInterface {
+    RolData: student;
+    isEditing: boolean;
+    editObserver: boolean;
+    handleActiveEdit: () => void;
+    handleRolEdit: (name: keyof student, value: any) => void;
+    handleModalState: () => void;
+}
+
+export interface TeacherRol extends SingleUserInterface {
+    RolData: teacher;
+    isEditing: boolean;
+    editObserver: boolean;
+    handleActiveEdit: () => void;
+    handleRolEdit: (name: keyof teacher, value: any) => void;
+}
+
+export interface AdminRol extends SingleUserInterface {
+    RolData: administrative;
+    isEditing: boolean;
+    editObserver: boolean;
+    handleActiveEdit: () => void;
+    handleRolEdit: (name: keyof teacher, value: any) => void;
+}
+
+export interface DetailedAcademicStudent extends SingleUserInterface{
+    RolData: student;
+    handleModalState: () => void;
 }

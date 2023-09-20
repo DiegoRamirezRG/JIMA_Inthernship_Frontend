@@ -22,7 +22,7 @@ export const Admin_School_Cycle = () => {
         <NavigationComponent>
             <div className="AdminCycleContainer">
                 <div className="headerTitle">
-                    <h2>Administracion de Ciclo Escolar</h2>
+                    <h2>Ciclo Escolar</h2>
                 </div>
                 <div className="contentSection">
                     {
