@@ -1,16 +1,35 @@
 import React, { useState } from 'react'
-import { Grade, Group, Shift } from '../../models/schoolInfoModels/schoolInfoModels';
-import { showErrorTost } from '../../components/generalComponents/toastComponent/ToastComponent';
+import { Grade, Group, Shift, ShiftCreateOrEdit } from '../../models/schoolInfoModels/schoolInfoModels';
+import { showErrorTost, showSuccessToast } from '../../components/generalComponents/toastComponent/ToastComponent';
 import { serverRestApi } from '../../utils/apiConfig/apiServerConfig';
 import { Response } from '../../models/responsesModels/responseModel';
 import { optionSelect } from '../../models/universalApiModels/UniversalApiModel';
 
 export const useSchoolInfo = () => {
 
+    //DefaultData
+    const defaultShift: ShiftCreateOrEdit = {
+        ID_Turno: '',
+        Nombre: '',
+        Hora_Inicio: '',
+        Hora_Fin: '',
+        Creado_En: '',
+        Actualizado_EN: '',
+        Active: true
+    }
+
     //Data
     const [shiftsState, setShiftsState] = useState<Shift[]>();
     const [gradesState, setGradesState] = useState<Grade[]>();
     const [griupsState, setGriupsState] = useState<Group[]>();
+
+    //Edit Or Create
+    const [createOrEditShift, setCreateOrEditShift] = useState<Shift | ShiftCreateOrEdit>(defaultShift);
+    const [createOrEditGrade, setCreateOrEditGrade] = useState<Grade>();
+    const [createOrEditGroup, setCreateOrEditGroup] = useState<Group>();
+
+    //Observers
+    const [isShiftEditing, setisShiftEditing] = useState(false);
 
     //Select Data
     const [selectShiftData, setSelectShiftData] = useState<optionSelect[]>();
@@ -71,6 +90,89 @@ export const useSchoolInfo = () => {
         }
     }
 
+    //Handle Shifts
+
+    const handleLoadShiftForEdit = (shift: Shift) => {
+        setisShiftEditing(true);
+        setCreateOrEditShift(shift);
+    }
+
+    const handleCancelShiftEditing = () => {
+        setisShiftEditing(false);
+        setCreateOrEditShift(defaultShift);
+    }
+
+    const handleEditShifting = (name: keyof Shift, value: any) => {
+        setCreateOrEditShift((prevState) => ({
+            ...prevState,
+            [name]: value
+        }))
+    }
+
+    //Data Senders
+
+    const sendCreationShift = async (hora_i: string, hora_f: string, min_i: string, min_f: string) => {
+        try {
+            setGeneralLoader(true);
+
+            const response = await serverRestApi.post<Response>('/api/school/info/shifts/createShift', {
+                Nombre: createOrEditShift.Nombre,
+                Hora_Inicio: `${hora_i+':'+min_i}`,
+                Hora_Fin: `${hora_f+':'+min_f}`
+            }, { headers: { Authorization: localStorage.getItem('token') } });
+
+            if(response.data.success){
+                const shifts = await serverRestApi.get<Response>('/api/school/info/shifts/getShifts', {headers: { Authorization: localStorage.getItem('token') }});
+                setShiftsState(shifts.data.data);
+            }
+
+            showSuccessToast({position: 'top-right', text: response.data.message});
+            handleCancelShiftEditing();
+            setGeneralLoader(false);
+
+        } catch (error: any) {
+            if(error.response){
+                showErrorTost({position: 'top-center', text: error.response.data.message})
+            }else{
+                showErrorTost({position: 'top-center', text: error.message})
+            }
+            setGeneralLoader(false);
+        }
+    }
+
+    const sendUpdateShift = async (hora_i: string, hora_f: string, min_i: string, min_f: string) => {
+        try {
+            
+            setGeneralLoader(true);
+
+            const response = await serverRestApi.put<Response>('/api/school/info/shift/updateShift', {
+                ID_Turno: createOrEditShift.ID_Turno,
+                Nombre: createOrEditShift.Nombre,
+                Hora_Inicio: `${hora_i+':'+min_i}`,
+                Hora_Fin: `${hora_f+':'+min_f}`
+            }, { headers: { Authorization: localStorage.getItem('token') } });
+
+            if(response.data.success){
+                const shifts = await serverRestApi.get<Response>('/api/school/info/shifts/getShifts', {headers: { Authorization: localStorage.getItem('token') }});
+                setShiftsState(shifts.data.data);
+            }
+
+            showSuccessToast({position: 'top-right', text: response.data.message});
+            handleCancelShiftEditing();
+            setGeneralLoader(false);
+
+            setGeneralLoader(false);
+
+        } catch (error: any) {
+            if(error.response){
+                showErrorTost({position: 'top-center', text: error.response.data.message})
+            }else{
+                showErrorTost({position: 'top-center', text: error.message})
+            }
+            setGeneralLoader(false);
+        }
+    }
+
     return {
         //Data
         shiftsState,
@@ -84,8 +186,30 @@ export const useSchoolInfo = () => {
 
         //Loaders
         isGettingInitDataLoading,
+        generalLoader,
 
         //Get Data
         getInitialData,
+
+        //HandleEditOrCreateStates
+        createOrEditShift,
+        createOrEditGrade,
+        createOrEditGroup,
+
+        //HandleEditStateLoad
+        handleLoadShiftForEdit,
+
+        //HandleChangeInfo
+        handleEditShifting,
+
+        //Cancel Editing
+        handleCancelShiftEditing,
+
+        //Observers
+        isShiftEditing,
+
+        //Data Senders
+        sendCreationShift,
+        sendUpdateShift,
     }
 }

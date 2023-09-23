@@ -16,6 +16,12 @@ import { AddressEditComponent } from '../../components/admin_UsersComponents/use
 import { AlergiesEditComponent } from '../../components/admin_UsersComponents/userEditComponents/alergiesEditComponent/AlergiesEditComponent';
 import { ProfileTypeComponent } from '../../components/admin_UsersComponents/userEditComponents/profileTypeComponent/ProfileTypeComponent';
 import { useEnrollStudent } from '../../hooks/admin_user/useEnrollStudent';
+import { useCreateCareerModalContext } from '../../contexts/modals_states/careerModal/createCareerContext';
+import { CareerModalComponent } from '../../components/generalComponents/modalsContent/careerModalComponent/CareerModalComponent';
+import { useDeleteConfirmModalContext } from '../../contexts/modals_states/deleteConfimModal/deleteConfirmMContext';
+import { DeleteConfirmModalComponent } from '../../components/generalComponents/modalsContent/deleteConfirmModalComponent/DeleteConfirmModalComponent';
+import { useShiftModalContext } from '../../contexts/modals_states/shiftModal/shiftModalContext';
+import { ShiftModalComponent } from '../../components/generalComponents/modalsContent/shiftModalComponent/ShiftModalComponent';
 
 export const Admin_UserEditScreen = () => {
 
@@ -116,12 +122,12 @@ export const Admin_UserEditScreen = () => {
         handleCropModalActive
 
     } = useUsersEdit();
-    
-    const {
-        //Modal New Aspirante
-        createAspiranteModalState,
-        handleAspiranteModalState,
-    } = useEnrollStudent();
+
+    const { createCareerModalState } = useCreateCareerModalContext();
+    const { deleteConfirmModalState, changeDeleteConfirmModalState } = useDeleteConfirmModalContext();
+    const { shiftContextModalState } = useShiftModalContext();
+
+    const { cancelAspiranteRegister, enrollerActionLoader } = useEnrollStudent();
 
     const confirmModals = new Map<string, JSX.Element>([
         ['userImageUpdate', <ConfirmModal handleModalClose={handleSureModalActive} updateFunction={async () => await sendUserImageUpdate(userId!)} loader={generalLoader} />],
@@ -164,7 +170,7 @@ export const Admin_UserEditScreen = () => {
                                 <div ref={CardCredRef}> <CredentialsEditComponent credentials={credentialsState} editActive={isCredentialsEditing} handleActiveEdit={handleActivateCredentialsEditing} handleCredentialsEdit={handleEditCredentials} cancelCredentialsEdit={cancelCredentialsEditing} editObserver={isGettingCredentialsEditing} activeSureModal={handleSureModalActive}/> </div>
                                 <div ref={CardDomiRef}> <AddressEditComponent address={addressState} handleActivateEdit={handleActivateAddressEditing} editActive={isAddressEditing} handleAddressEdit={handleEditAddress} cancelAddressEdit={cancelAddressEditing} activeSureModal={handleSureModalActive}/> </div>
                                 <div ref={CardMediRef}> <AlergiesEditComponent user={userState} user_id={userId!} handleActiveEdit={handleActivateAlergiesEditing} isEditing={isAlergiesEditing} handleUserEdit={handleEditUser} alergies={alergiesState} addNewAlergieGlobal={handleEditAlergies} deleteAlergieGlobal={deleteGlobalAlergie}  cancelAlergiesEdit={cancelAlergiesEditing} activeSureModal={handleSureModalActive}/> </div>
-                                <div ref={UserTypeRef}> <ProfileTypeComponent user = {userState} user_id={userId!} RolData={selectedRolInfo} handleActiveEdit={handleActivateRolEditing} isEditing={isRolEditing} editingObserver={isGettingRolEditing} handleRolEdit={handleEdtiRolData} handleModalState={handleAspiranteModalState}/> </div>
+                                <div ref={UserTypeRef}> <ProfileTypeComponent user = {userState} user_id={userId!} RolData={selectedRolInfo} handleActiveEdit={handleActivateRolEditing} isEditing={isRolEditing} editingObserver={isGettingRolEditing} handleRolEdit={handleEdtiRolData}/> </div>
                             </>
                         }
                     </div>
@@ -190,9 +196,25 @@ export const Admin_UserEditScreen = () => {
                                         : <></>
                 }
             </ModalComponent>
-            <ModalComponent modalState={createAspiranteModalState} handleModalState={handleAspiranteModalState} modalSize='modal-lg'>
-                hiadnwjkajndnajkdwnka
+            <ModalComponent modalState={createCareerModalState} handleModalState={() => {}}>
+                <CareerModalComponent/>
             </ModalComponent>
+            <ModalComponent modalState={shiftContextModalState} handleModalState={() => {}} modalSize='modal-xl'>
+                <ShiftModalComponent/>
+            </ModalComponent>
+            <ModalComponent modalState={deleteConfirmModalState} handleModalState={changeDeleteConfirmModalState}>
+                <DeleteConfirmModalComponent deleteFuncion={ async () => {
+                    await cancelAspiranteRegister(userId!);
+                    location.reload();
+                }} loader={enrollerActionLoader} text={
+                    <>
+                        <p>Esta usted por eliminar el registro del Aspirante {userState.Nombre}.</p>
+                        <p>Esto implica que {userState.Nombre} no este registrado a ninguna carrera y por ende no pueda ingresar al nuevo ciclo escolar en caso de ser aceptad@.</p>
+                        <p>¿Esta completamente seguro (a) de los cambios que esta por realizar? ¿Quiere confrimar?</p>
+                    </>
+                }/>
+            </ModalComponent>
+            
         </NavigationComponent>
     )
 }

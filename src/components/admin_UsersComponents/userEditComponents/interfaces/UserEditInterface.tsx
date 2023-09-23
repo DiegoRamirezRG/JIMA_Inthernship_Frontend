@@ -66,7 +66,6 @@ export interface RolesInformation extends SingleUserInterface{
     editingObserver: boolean;
     handleActiveEdit: () => void;
     handleRolEdit: (name: keyof administrative | keyof teacher | keyof student, value: any) => void;
-    handleModalState: () => void;
 }
 
 export interface StudentRol extends SingleUserInterface {
@@ -75,7 +74,6 @@ export interface StudentRol extends SingleUserInterface {
     editObserver: boolean;
     handleActiveEdit: () => void;
     handleRolEdit: (name: keyof student, value: any) => void;
-    handleModalState: () => void;
 }
 
 export interface TeacherRol extends SingleUserInterface {
@@ -96,5 +94,4 @@ export interface AdminRol extends SingleUserInterface {
 
 export interface DetailedAcademicStudent extends SingleUserInterface{
     RolData: student;
-    handleModalState: () => void;
 }

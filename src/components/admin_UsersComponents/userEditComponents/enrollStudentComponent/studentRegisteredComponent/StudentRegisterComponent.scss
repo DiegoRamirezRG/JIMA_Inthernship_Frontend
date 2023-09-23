@@ -1,0 +1,71 @@
+@import '../../../../../utils/sassConfig/colors';
+@import '../../../../../utils/sassConfig/fonts';
+
+
+.AspInformationContainer{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding: 10px 0px;
+    gap: 10px;
+    font-family: 'Quicksand';
+    user-select: none;
+
+    p{
+        padding: 0px;
+        margin: 0px;
+
+        &:first-child{
+            font-size: 25px;
+            font-weight: 550;
+        }
+
+        &:nth-child(2){
+            font-size: 40px;
+            font-style: italic;
+            font-weight: bolder;
+        }
+
+        &:nth-child(3){
+            font-size: 25px;
+        }
+    }
+
+    .inner-row{
+        display: flex;
+        justify-content: space-between;
+        width: 90%;
+        align-items: center;
+    }
+
+    button{
+        margin-top: 30px;
+        font-family: 'Quicksand', sans-serif;
+        font-size: 20px;
+        font-weight: 550;
+        color: white;
+        box-sizing: border-box;
+        padding: 5px 15px;
+        border-radius: 5px;
+        border: none;
+        outline: none;
+        transition: 0.2s all ease-in-out;
+        background-color: lighten($bootstrap_success, 10%);
+
+        &:first-child{
+            background-color: lighten($bootstrap_danger, 5%);
+        }
+
+        &:hover{
+            cursor: pointer;
+            background-color: lighten($bootstrap_success, 1%);
+
+            &:first-child{
+                background-color: $bootstrap_danger;
+            }
+        }
+    }
+}

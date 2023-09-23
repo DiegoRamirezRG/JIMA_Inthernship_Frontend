@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { ChangeEvent, useEffect, useState } from 'react'
 import './InputEditComponent.scss'
-import { dynamicInput, dynamicSelect, dynamicSelectWithBtn } from '../interfaces/DynamicInputInterface'
+import { dynamicInput, dynamicSelect, dynamicSelectWithBtn, hourInput } from '../interfaces/DynamicInputInterface'
 import Select from 'react-select'
 import { IoMdAddCircleOutline } from 'react-icons/io'
+import { LoadingComponent } from '../../../generalComponents/loadingComponent/LoadingComponent'
+import { Shift } from '../../../../models/schoolInfoModels/schoolInfoModels';
 
 export const InputEditComponent = ({ id, placeholder, value, label, inputType, name, editActive, onChange }: dynamicInput) => {
     return (
@@ -97,5 +99,77 @@ export const SelectedEditComponentWithAddBtn = ({ opts, editActive, id, name, la
                     <button onClick={addBtnAction}><IoMdAddCircleOutline/></button>
             </div>
         </div>
+    )
+}
+
+export const HourPickerComponent = ({ value, label, name, onChange, hora, minuto, setHora, setMinuto, isAm, setIsAm } : hourInput) => {
+
+    const [isLoading, setIsLoading] = useState(true);
+
+    const handleHourChange = (value: string) => {
+        const inputNumber = parseInt(value, 10);
+        if(!isNaN(inputNumber) && inputNumber >= 1 && inputNumber <= 12){
+            setHora(inputNumber.toString());
+        }else if (value === ''){
+            setHora('');
+        }else if(value === '0'){
+            setHora('0');
+        }else if(value === '00'){
+            setHora('12');
+        }
+    }
+
+    const handleMinuteChange = (value: string) => {        
+        const inputNumber = parseInt(value, 10);
+        if(!isNaN(inputNumber) && inputNumber >= 1 && inputNumber <= 59){
+            setMinuto(inputNumber.toString());
+        }else if(value === '0'){
+            setMinuto('0');
+        }else if(value === '00' || value === '60'){
+            setMinuto('00');
+        }else if(value === ''){
+            setMinuto('');
+        }
+    }
+
+    useEffect(() => {
+        if(value){
+            const dbHour = value.split(':');
+            const numberHour = parseInt(dbHour[0]);
+            if(numberHour > 12){
+                setIsAm(false);
+                setHora((numberHour - 12).toString());
+                setMinuto(dbHour[1]);
+            }else{
+                setHora(dbHour[0]);
+                setMinuto(dbHour[1]);
+            }
+        }
+        setIsLoading(false);
+    }, [])
+
+    return (
+        <>
+            {
+                isLoading
+                ?   <LoadingComponent/>
+                :   <div className='detailedInputComponent'>
+                        <p className='customLabel'>{label}</p>
+                        <div className="hourComponentContainer">
+                            <div className="hourSelecter">
+                                <input type='text' placeholder='00' value={hora} onChange={(e) => handleHourChange(e.target.value)}/>
+                            </div>
+                            <div className="spliter">:</div>
+                            <div className="hourSelecter">
+                                <input type='text' placeholder='00' value={minuto} onChange={(e) => handleMinuteChange(e.target.value)}/>
+                            </div>
+                            <div className="handlerMedirian">
+                                <button className={`${isAm ? 'Active' : ''} `} onClick={isAm ? () => {} : () => setIsAm(true)}>am</button>
+                                <button className={`${isAm ? '' : 'Active'} `} onClick={!isAm ? () => {} : () => setIsAm(false)}>pm</button>
+                            </div>
+                        </div>
+                    </div>
+            }
+        </>
     )
 }

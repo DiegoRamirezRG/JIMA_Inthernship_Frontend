@@ -1,0 +1,77 @@
+@import '../../../../utils/sassConfig/colors';
+@import '../../../../utils/sassConfig/fonts';
+
+.careerContainer{
+    height: 550px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+
+    .creationContainer{
+        height: 40%;
+        width: 90%;
+        box-sizing: border-box;
+        padding: 0px 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+
+        .inner-row{
+            display: grid;
+            grid-template-columns: 50% 50%;
+            gap: 10px;
+            width: 100%;
+        }
+
+        .actionsBtns{
+            box-sizing: border-box;
+            margin-top: 10px;
+            
+            button{
+                margin: 0px 30px;
+                height: 35px;
+                font-family: 'Quicksand', sans-serif;
+                font-size: 20px;
+                border-radius: 5px;
+                border: none;
+                outline: none;
+                font-weight: 550;
+                color: white;
+                transition: 0.2s all ease-in;
+
+                &:first-child{
+                    background-color: lighten($bootstrap_success, 5%);
+                }
+
+                &:last-child{
+                    background-color: lighten($bootstrap_danger, 5%);
+                }
+
+                &:hover{
+                    cursor: pointer;
+
+                    &:first-child{
+                        background-color: $bootstrap_success;
+                    }
+    
+                    &:last-child{
+                        background-color: $bootstrap_danger;
+                    }
+                }
+            }
+        }
+    }
+
+    .showAndLoadCareerContainer{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+        height: 60%;
+        overflow-y: scroll;
+    }
+}

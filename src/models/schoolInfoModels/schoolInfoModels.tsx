@@ -6,7 +6,17 @@ export interface Shift {
     Hora_Fin:       string;
     Creado_En:      string;
     Actualizado_EN: null;
-    Active:         number;
+    Active:         boolean;
+}
+
+export interface ShiftCreateOrEdit {
+    ID_Turno:       string | null;
+    Nombre:         string | null;
+    Hora_Inicio:    string | null;
+    Hora_Fin:       string | null;
+    Creado_En:      string | null;
+    Actualizado_EN: string | null;
+    Active:         boolean | null;
 }
 
 export interface Grade {

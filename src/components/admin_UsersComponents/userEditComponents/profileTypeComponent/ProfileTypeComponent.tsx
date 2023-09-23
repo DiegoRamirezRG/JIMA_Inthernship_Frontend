@@ -5,10 +5,10 @@ import { RolesInformation } from '../interfaces/UserEditInterface';
 import { TeacherTypeEditor } from './teacherTypeEditor/TeacherTypeEditor';
 import { AdminTypeEditor } from './adminTypeEditor/AdminTypeEditor';
 
-export const ProfileTypeComponent = ({ user, user_id, RolData, handleActiveEdit, isEditing, editingObserver, handleRolEdit, handleModalState }: RolesInformation) => {
+export const ProfileTypeComponent = ({ user, user_id, RolData, handleActiveEdit, isEditing, editingObserver, handleRolEdit }: RolesInformation) => {
 
     const interfaces = new Map<roles, JSX.Element>([
-        ['Estudiante', <StudentTypeEditor  user={user} user_id={user_id} RolData={RolData} handleActiveEdit={handleActiveEdit} isEditing={isEditing} editObserver={editingObserver} handleRolEdit={handleRolEdit} handleModalState={handleModalState}/>],
+        ['Estudiante', <StudentTypeEditor  user={user} user_id={user_id} RolData={RolData} handleActiveEdit={handleActiveEdit} isEditing={isEditing} editObserver={editingObserver} handleRolEdit={handleRolEdit}/>],
         ['Profesor', <TeacherTypeEditor user={user} user_id={user_id} RolData={RolData} handleActiveEdit={handleActiveEdit} isEditing={isEditing} editObserver={editingObserver} handleRolEdit={handleRolEdit}/>],
         ['Administrativo', <AdminTypeEditor user={user} user_id={user_id} RolData={RolData} handleActiveEdit={handleActiveEdit} isEditing={isEditing} editObserver={editingObserver} handleRolEdit={handleRolEdit}/>],
     ]);

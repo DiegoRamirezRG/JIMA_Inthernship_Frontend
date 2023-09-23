@@ -12,14 +12,18 @@
     .aspButtn{
         font-size: 20px;
         font-family: 'Quicksand', sans-serif;
-        font-weight: 550;
+        font-weight: 600;
         width: 60%;
         border-radius: 10px;
         border: none;
         height: 60%;
+        background-color: lighten($bootstrap_success, 10%);
+        color: white;
+        transition: 0.2s all ease-in;
 
         &:hover{
             cursor: pointer;
+            background-color: lighten($bootstrap_success, 5%);
         }
     }
 }

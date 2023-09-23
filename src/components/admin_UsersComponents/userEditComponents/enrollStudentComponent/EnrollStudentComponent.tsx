@@ -7,11 +7,12 @@ import { LoadingComponent } from '../../../generalComponents/loadingComponent/Lo
 import { StudentRegisteredComponent } from './studentRegisteredComponent/StudentRegisteredComponent';
 import { StudentToBeComponent } from './studentToBeComponent/StudentToBeComponent';
 
-export const EnrollStudentComponent = ({ user_id, user, RolData, handleModalState }: DetailedAcademicStudent) => {
+export const EnrollStudentComponent = ({ user_id, user, RolData }: DetailedAcademicStudent) => {
 
     const {
         isGettingInformationLoading,
         careerOptions,
+        careerActiveOptions
     } = useCareers();
 
     const {
@@ -19,20 +20,23 @@ export const EnrollStudentComponent = ({ user_id, user, RolData, handleModalStat
         enrollState,
         getInitialStudentData,
         isGettingInfoLoading,
+        isEnrollEdited,
+        handleEnrollEdit,
+        makeAspiranteLoader,
+        registerStudentAspirante,
     } = useEnrollStudent();
 
     useEffect(() => {
         const awaitFunc = async () => {
             await getInitialStudentData(user_id);
         }
-
         awaitFunc();
     }, [])
 
     return (
         <>
             {
-                isGettingInfoLoading || isGettingInformationLoading
+                isGettingInfoLoading
                 ?   <LoadingComponent/>
                 :   <div>
                         <div className="internalHeader">
@@ -42,7 +46,7 @@ export const EnrollStudentComponent = ({ user_id, user, RolData, handleModalStat
                                     ?   <>
                                             {
                                                 "ID_Aspirante" in studentData
-                                                ? 'Aspirante'
+                                                ? <></> //Aspirante creado
                                                 : 'Informacion Academica'
                                             }
                                         </>
@@ -55,11 +59,13 @@ export const EnrollStudentComponent = ({ user_id, user, RolData, handleModalStat
                             ?   <>
                                     {
                                         "ID_Aspirante" in studentData
-                                        ? <StudentRegisteredComponent/> //Acciones de Aspirante
+                                        ? <StudentRegisteredComponent studentData={studentData} allCareersOptions={careerOptions!}/> //Acciones de Aspirante
                                         : 'Informacion Academica' //Acciones de estudiante ya con grupo y la shingada
                                     }
                                 </>
-                            :   <StudentToBeComponent handleModalState={handleModalState} careerOptions={careerOptions!}/>
+                            :   ! isGettingInformationLoading
+                                ?   <StudentToBeComponent careerOptions={careerActiveOptions!} allCareersOptions={careerOptions!} registerStudentAspirante={registerStudentAspirante} student_id={RolData.ID_Estudiante} user_id={user_id} loader={makeAspiranteLoader} enrollState={enrollState} isEnrollEdited={isEnrollEdited} handleEnrollEdit={handleEnrollEdit}/>
+                                :   <LoadingComponent/>
                         }
                     </div>
             }
