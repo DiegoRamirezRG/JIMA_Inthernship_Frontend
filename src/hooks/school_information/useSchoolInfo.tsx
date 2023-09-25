@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import { Grade, Group, Shift, ShiftCreateOrEdit } from '../../models/schoolInfoModels/schoolInfoModels';
-import { showErrorTost, showSuccessToast } from '../../components/generalComponents/toastComponent/ToastComponent';
+import { Grade, GradeCreateOrEdit, Group, GroupCreateOrEdit, Shift, ShiftCreateOrEdit } from '../../models/schoolInfoModels/schoolInfoModels';
+import { showErrorTost, showSuccessToast, showWarningToast } from '../../components/generalComponents/toastComponent/ToastComponent';
 import { serverRestApi } from '../../utils/apiConfig/apiServerConfig';
 import { Response } from '../../models/responsesModels/responseModel';
 import { optionSelect } from '../../models/universalApiModels/UniversalApiModel';
@@ -18,6 +18,23 @@ export const useSchoolInfo = () => {
         Active: true
     }
 
+    const defaultGrade : GradeCreateOrEdit = {
+        ID_Grado: null,
+        Numero: null,
+        Descripcion: null,
+        Creado_En: null,
+        Actualizado_EN: null,
+        Active: true
+    }
+
+    const defaultGroup : GroupCreateOrEdit = {
+        ID_Grupo: null,
+        Indicador: null,
+        Creado_En: null,
+        Actualizado_EN: null,
+        Active: true
+    }
+
     //Data
     const [shiftsState, setShiftsState] = useState<Shift[]>();
     const [gradesState, setGradesState] = useState<Grade[]>();
@@ -25,11 +42,13 @@ export const useSchoolInfo = () => {
 
     //Edit Or Create
     const [createOrEditShift, setCreateOrEditShift] = useState<Shift | ShiftCreateOrEdit>(defaultShift);
-    const [createOrEditGrade, setCreateOrEditGrade] = useState<Grade>();
-    const [createOrEditGroup, setCreateOrEditGroup] = useState<Group>();
+    const [createOrEditGrade, setCreateOrEditGrade] = useState<Grade | GradeCreateOrEdit>(defaultGrade);
+    const [createOrEditGroup, setCreateOrEditGroup] = useState<Group | GroupCreateOrEdit>(defaultGroup);
 
     //Observers
     const [isShiftEditing, setisShiftEditing] = useState(false);
+    const [isGradeEditing, setIsGradeEditing] = useState(false);
+    const [isGroupEditing, setIsGroupEditing] = useState(false);
 
     //Select Data
     const [selectShiftData, setSelectShiftData] = useState<optionSelect[]>();
@@ -109,8 +128,61 @@ export const useSchoolInfo = () => {
         }))
     }
 
+    //Handle Grades
+    const handleLoadGradeForEdit = (grade: Grade) => {
+        setIsGradeEditing(true);
+        setCreateOrEditGrade(grade);
+    }
+
+    const hanldeCancelGradeEditing = () => {
+        setIsGradeEditing(false);
+        setCreateOrEditGrade(defaultGrade);
+    }
+
+    const handleEditGrade = (name: keyof Grade, value: any) => {
+        if (!isNaN(value)) {
+            const numericValue = Number(value);
+            if(numericValue == 0){
+                setCreateOrEditGrade((prevState) => ({
+                    ...prevState,
+                    [name]: null
+                }));
+                return;
+            }
+            if (numericValue === Math.round(numericValue)) {
+                setCreateOrEditGrade((prevState) => ({
+                    ...prevState,
+                    [name]: numericValue
+                }));
+            }else{
+                showWarningToast({position: 'top-right', text: 'Tiene que ser un numero entero'})
+            }
+        }else{
+            showWarningToast({position: 'top-right', text: 'Tiene que ser un numero'})
+        }
+    }
+
+    //Handle Grade
+    const handleLoadGroupToEdit = (group: Group) => {
+        setIsGroupEditing(true);
+        setCreateOrEditGroup(group);
+    }
+
+    const handleCancelGroupEditing = () => {
+        setIsGroupEditing(false);
+        setCreateOrEditGroup(defaultGroup);
+    }
+
+    const handleGroupEditing = (name: keyof Group, value: any) => {
+        setCreateOrEditGrade((prevState) => ({
+            ...prevState,
+            [name]: value
+        }))
+    }
+
     //Data Senders
 
+    //Shift
     const sendCreationShift = async (hora_i: string, hora_f: string, min_i: string, min_f: string) => {
         try {
             setGeneralLoader(true);
@@ -161,8 +233,77 @@ export const useSchoolInfo = () => {
             handleCancelShiftEditing();
             setGeneralLoader(false);
 
+        } catch (error: any) {
+            if(error.response){
+                showErrorTost({position: 'top-center', text: error.response.data.message})
+            }else{
+                showErrorTost({position: 'top-center', text: error.message})
+            }
             setGeneralLoader(false);
+        }
+    }
 
+    //Grade
+
+    const createNewGrade = async () => {
+        try {
+            setGeneralLoader(true);
+
+            const response = await serverRestApi.post<Response>('/api/school/info/grades/createGrade', {
+                Numero: createOrEditGrade.Numero
+            }, { headers: { Authorization: localStorage.getItem('token') } });
+
+            if(response.data.success){
+                const resGrades = await serverRestApi.get<Response>('/api/school/info/grades/getGrades', {headers: { Authorization: localStorage.getItem('token') }});
+                setGradesState(resGrades.data.data);
+
+                const formatedGrade = resGrades.data.data.map((grado: Grade) => ({
+                    value: grado.ID_Grado,
+                    label: grado.Numero + '°',
+                }));
+
+                setSelectGradesData(formatedGrade);
+            }
+            showSuccessToast({position: 'top-right', text: response.data.message});
+            showWarningToast({position: 'top-right', text: 'Por favor recarga para notar los cambios'});
+            hanldeCancelGradeEditing();
+            setGeneralLoader(false);
+        } catch (error: any) {
+            if(error.response){
+                showErrorTost({position: 'top-center', text: error.response.data.message})
+            }else{
+                showErrorTost({position: 'top-center', text: error.message})
+            }
+            setGeneralLoader(false);
+        }
+    }
+
+    const sendUpdateGrade = async () => {
+        try {
+            
+            setGeneralLoader(true);
+
+            const response = await serverRestApi.put<Response>('/api/school/info/grades/updateGrade', {
+                Numero: createOrEditGrade.Numero,
+                ID_Grado: createOrEditGrade.ID_Grado
+            }, { headers: { Authorization: localStorage.getItem('token') } });
+
+            if(response.data.success){
+                const resGrades = await serverRestApi.get<Response>('/api/school/info/grades/getGrades', {headers: { Authorization: localStorage.getItem('token') }});
+                setGradesState(resGrades.data.data);
+
+                const formatedGrade = resGrades.data.data.map((grado: Grade) => ({
+                    value: grado.ID_Grado,
+                    label: grado.Numero + '°',
+                }));
+
+                setSelectGradesData(formatedGrade);
+            }
+
+            showSuccessToast({position: 'top-right', text: response.data.message});
+            showWarningToast({position: 'top-right', text: 'Por favor recarga para notar los cambios'});
+            hanldeCancelGradeEditing();
+            setGeneralLoader(false);
         } catch (error: any) {
             if(error.response){
                 showErrorTost({position: 'top-center', text: error.response.data.message})
@@ -198,18 +339,28 @@ export const useSchoolInfo = () => {
 
         //HandleEditStateLoad
         handleLoadShiftForEdit,
+        handleLoadGradeForEdit,
+        handleLoadGroupToEdit,
 
         //HandleChangeInfo
         handleEditShifting,
+        handleEditGrade,
+        handleGroupEditing,
 
         //Cancel Editing
         handleCancelShiftEditing,
+        hanldeCancelGradeEditing,
+        handleCancelGroupEditing,
 
         //Observers
         isShiftEditing,
+        isGradeEditing,
+        isGroupEditing,
 
         //Data Senders
         sendCreationShift,
         sendUpdateShift,
+        createNewGrade,
+        sendUpdateGrade,
     }
 }

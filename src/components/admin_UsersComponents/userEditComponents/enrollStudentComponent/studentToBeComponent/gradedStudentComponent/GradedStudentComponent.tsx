@@ -7,6 +7,8 @@ import { customStudentToBe } from '../../../../../../models/enrollModels/EnrollM
 import { optionSelect } from '../../../../../../models/universalApiModels/UniversalApiModel';
 import { useCreateCareerModalContext } from '../../../../../../contexts/modals_states/careerModal/createCareerContext';
 import { useShiftModalContext } from '../../../../../../contexts/modals_states/shiftModal/shiftModalContext';
+import { useCreateGradeModal } from '../../../../../../contexts/modals_states/gradeModal/gradeModal';
+import { useGroupCreateModalContext } from '../../../../../../contexts/modals_states/groupModal/groupModal';
 
 interface customStudent{
     state: customStudentToBe;
@@ -32,6 +34,8 @@ export const GradedStudentComponent = ({ state, handleState, careerOptions }: cu
 
     const { changeCareerModalState } = useCreateCareerModalContext();
     const { changeShiftContextModalState } = useShiftModalContext();
+    const { changeGradeModalState } = useCreateGradeModal();
+    const { changeGroupModalState } = useGroupCreateModalContext();
 
     useEffect(() => {
         const asyncFunc = async () => {
@@ -50,8 +54,8 @@ export const GradedStudentComponent = ({ state, handleState, careerOptions }: cu
                 :   <>
                         <div className='innerContentContainer'>
                             <SelectedEditComponentWithAddBtn addBtnAction={changeShiftContextModalState} editActive={true} id='tobeShift' label='Turno' name='ID_Turno' value={state.ID_Turno} onChange={handleState} opts={selectShiftData} key={'tobeShift'}/>
-                            <SelectedEditComponentWithAddBtn addBtnAction={() => {}} editActive={true} id='tobeGrade' label='Grado' name='ID_Grado' value={state.ID_Grado} onChange={handleState} opts={selectGradesData} key={'tobeGrade'}/>
-                            <SelectedEditComponentWithAddBtn addBtnAction={() => {}} editActive={true} id='tobeGroup' label='Grupo' name='ID_Grupo' value={state.ID_Grupo} onChange={handleState} opts={selectGroupsData} key={'tobeGroup'}/>
+                            <SelectedEditComponentWithAddBtn addBtnAction={changeGradeModalState} editActive={true} id='tobeGrade' label='Grado' name='ID_Grado' value={state.ID_Grado} onChange={handleState} opts={selectGradesData} key={'tobeGrade'}/>
+                            <SelectedEditComponentWithAddBtn addBtnAction={changeGroupModalState} editActive={true} id='tobeGroup' label='Grupo' name='ID_Grupo' value={state.ID_Grupo} onChange={handleState} opts={selectGroupsData} key={'tobeGroup'}/>
                             <SelectedEditComponentWithAddBtn addBtnAction={changeCareerModalState} editActive={true} id='tobeCareer' label='Carrera' name='ID_Career' value={state.ID_Career} onChange={handleState} opts={careerOptions} key={'tobeCareer'}/>
                         </div>
                         <div className="crateCustomStudent">

@@ -6,14 +6,14 @@ import { AddressModel } from "../../../../models/addressModels/AddressModel";
 import { administrative, student, teacher } from "../../../../models/userTypesModels/UserTypesModel";
 import { createStudentToBe, customStudentToBe } from "../../../../models/enrollModels/EnrollModels";
 import { CareerModel } from "../../../../models/careersModels/CareersModel";
-import { Shift } from "../../../../models/schoolInfoModels/schoolInfoModels";
+import { Grade, Group, Shift } from "../../../../models/schoolInfoModels/schoolInfoModels";
 
 export interface dynamicInput{
     id: string;
     placeholder: string;
     value: string;
     label: string;
-    name: keyof SingleUser | keyof Credentials | keyof AddressModel | keyof administrative | keyof teacher | keyof student | keyof CareerModel | keyof Shift;
+    name: keyof SingleUser | keyof Credentials | keyof AddressModel | keyof administrative | keyof teacher | keyof student | keyof CareerModel | keyof Shift | keyof Grade | keyof Group;
     inputType: HTMLInputTypeAttribute;
     editActive: boolean;
     onChange?: any;

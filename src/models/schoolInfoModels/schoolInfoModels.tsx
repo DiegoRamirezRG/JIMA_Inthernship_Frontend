@@ -25,7 +25,16 @@ export interface Grade {
     Descripcion:    null;
     Creado_En:      string;
     Actualizado_EN: null;
-    Active:         number;
+    Active:         boolean;
+}
+
+export interface GradeCreateOrEdit {
+    ID_Grado:       string | null;
+    Numero:         number | null;
+    Descripcion:    string | null;
+    Creado_En:      string | null;
+    Actualizado_EN: string | null;
+    Active:         boolean | null;
 }
 
 export interface Group {
@@ -34,4 +43,12 @@ export interface Group {
     Creado_En:      string;
     Actualizado_EN: null;
     Active:         number;
+}
+
+export interface GroupCreateOrEdit {
+    ID_Grupo:       string | null;
+    Indicador:      string | null;
+    Creado_En:      string | null;
+    Actualizado_EN: string | null;
+    Active:         boolean;
 }

@@ -22,6 +22,10 @@ import { useDeleteConfirmModalContext } from '../../contexts/modals_states/delet
 import { DeleteConfirmModalComponent } from '../../components/generalComponents/modalsContent/deleteConfirmModalComponent/DeleteConfirmModalComponent';
 import { useShiftModalContext } from '../../contexts/modals_states/shiftModal/shiftModalContext';
 import { ShiftModalComponent } from '../../components/generalComponents/modalsContent/shiftModalComponent/ShiftModalComponent';
+import { useCreateGradeModal } from '../../contexts/modals_states/gradeModal/gradeModal';
+import { GradeModalComponent } from '../../components/generalComponents/modalsContent/gradeModalComponent/GradeModalComponent';
+import { useGroupCreateModalContext } from '../../contexts/modals_states/groupModal/groupModal';
+import { GroupModalComponent } from '../../components/generalComponents/modalsContent/groupModalComponent/GroupModalComponent';
 
 export const Admin_UserEditScreen = () => {
 
@@ -126,6 +130,8 @@ export const Admin_UserEditScreen = () => {
     const { createCareerModalState } = useCreateCareerModalContext();
     const { deleteConfirmModalState, changeDeleteConfirmModalState } = useDeleteConfirmModalContext();
     const { shiftContextModalState } = useShiftModalContext();
+    const { createGradeModalState } = useCreateGradeModal();
+    const { createGroupModalState } = useGroupCreateModalContext();
 
     const { cancelAspiranteRegister, enrollerActionLoader } = useEnrollStudent();
 
@@ -201,6 +207,12 @@ export const Admin_UserEditScreen = () => {
             </ModalComponent>
             <ModalComponent modalState={shiftContextModalState} handleModalState={() => {}} modalSize='modal-xl'>
                 <ShiftModalComponent/>
+            </ModalComponent>
+            <ModalComponent modalState={createGradeModalState} handleModalState={() => {}}>
+                <GradeModalComponent/>
+            </ModalComponent>
+            <ModalComponent modalState={createGroupModalState} handleModalState={() => {}}>
+                <GroupModalComponent/>
             </ModalComponent>
             <ModalComponent modalState={deleteConfirmModalState} handleModalState={changeDeleteConfirmModalState}>
                 <DeleteConfirmModalComponent deleteFuncion={ async () => {
