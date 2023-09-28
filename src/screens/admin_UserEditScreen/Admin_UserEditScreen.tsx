@@ -26,6 +26,7 @@ import { useCreateGradeModal } from '../../contexts/modals_states/gradeModal/gra
 import { GradeModalComponent } from '../../components/generalComponents/modalsContent/gradeModalComponent/GradeModalComponent';
 import { useGroupCreateModalContext } from '../../contexts/modals_states/groupModal/groupModal';
 import { GroupModalComponent } from '../../components/generalComponents/modalsContent/groupModalComponent/GroupModalComponent';
+import { useStudentContext } from '../../contexts/studentContext/StudentContext';
 
 export const Admin_UserEditScreen = () => {
 
@@ -132,7 +133,8 @@ export const Admin_UserEditScreen = () => {
     const { shiftContextModalState } = useShiftModalContext();
     const { createGradeModalState } = useCreateGradeModal();
     const { createGroupModalState } = useGroupCreateModalContext();
-
+    const { confirmModalState, handleConfrimModalState } = useStudentContext();
+    
     const { cancelAspiranteRegister, enrollerActionLoader } = useEnrollStudent();
 
     const confirmModals = new Map<string, JSX.Element>([
@@ -226,7 +228,9 @@ export const Admin_UserEditScreen = () => {
                     </>
                 }/>
             </ModalComponent>
-            
+            <ModalComponent modalState={confirmModalState} handleModalState={handleConfrimModalState}>
+                <p>Simon si jala</p>
+            </ModalComponent>
         </NavigationComponent>
     )
 }

@@ -6,12 +6,13 @@ import { IoClose } from 'react-icons/io5';
 import { useSchoolInfo } from '../../../../hooks/school_information/useSchoolInfo';
 import { Group } from '../../../../models/schoolInfoModels/schoolInfoModels';
 import { InputEditComponent } from '../../../admin_UsersComponents/userEditComponents/inputEditComponent/InputEditComponent';
+import { GroupCardComponent } from './groupCardComponent/GroupCardComponent';
 
 export const GroupModalComponent = () => {
 
     const { changeGroupModalState } = useGroupCreateModalContext();
 
-    const { getInitialData, griupsState, createOrEditGroup, isGettingInitDataLoading, handleGroupEditing, handleCancelGroupEditing } = useSchoolInfo();
+    const { getInitialData, griupsState, createOrEditGroup, isGettingInitDataLoading, handleGroupEditing, handleCancelGroupEditing, isGroupEditing, handleLoadGroupToEdit, generalLoader, sendCreateGroupe, sendGroupUpdate } = useSchoolInfo();
 
     useEffect(() => {
         const awaitFunc = async () => {
@@ -37,19 +38,19 @@ export const GroupModalComponent = () => {
                             <div className="groupModalComponent">
                                 <div className="inputSection">
                                     <div className="inputContainer">
-                                        <InputEditComponent editActive={true} id='group_indicator' inputType='text' label='Grupo' name='Indicador' placeholder='Grupo' value='' key={'group_indicator'} onChange={handleGroupEditing}/>
+                                        <InputEditComponent editActive={true} id='group_indicator' inputType='text' label='Grupo' name='Indicador' placeholder='Grupo' value={createOrEditGroup.Indicador != null  ? createOrEditGroup.Indicador : ''} key={'group_indicator'} onChange={handleGroupEditing}/>
                                     </div>
                                     <div className="butnSection">
-                                        <button>Crear</button>
+                                        <button onClick={isGroupEditing ? sendGroupUpdate : sendCreateGroupe}>{isGroupEditing ? 'Actualizar' : 'Crear'}</button>
                                         <button onClick={handleCancelGroupEditing}>Cancelar</button>
                                     </div>
                                 </div>
                                 <div className="gridSection">
                                     {
-                                        false
+                                        generalLoader
                                         ?   <LoadingComponent/>
                                         :   griupsState?.map((group: Group) => (
-                                                <>{group.Indicador}</>
+                                                <GroupCardComponent group={group} isEditing={isGroupEditing} loadGroup={handleLoadGroupToEdit} key={group.ID_Grupo}/>
                                             ))
                                     }
                                 </div>

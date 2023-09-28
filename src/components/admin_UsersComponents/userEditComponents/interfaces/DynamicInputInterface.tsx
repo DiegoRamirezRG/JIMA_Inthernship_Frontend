@@ -7,13 +7,14 @@ import { administrative, student, teacher } from "../../../../models/userTypesMo
 import { createStudentToBe, customStudentToBe } from "../../../../models/enrollModels/EnrollModels";
 import { CareerModel } from "../../../../models/careersModels/CareersModel";
 import { Grade, Group, Shift } from "../../../../models/schoolInfoModels/schoolInfoModels";
+import { StudentAcademicInfo } from "../../../../models/studentModels/StudentModel";
 
 export interface dynamicInput{
     id: string;
     placeholder: string;
     value: string;
     label: string;
-    name: keyof SingleUser | keyof Credentials | keyof AddressModel | keyof administrative | keyof teacher | keyof student | keyof CareerModel | keyof Shift | keyof Grade | keyof Group;
+    name: keyof SingleUser | keyof Credentials | keyof AddressModel | keyof administrative | keyof teacher | keyof student | keyof CareerModel | keyof Shift | keyof Grade | keyof Group | keyof StudentAcademicInfo;
     inputType: HTMLInputTypeAttribute;
     editActive: boolean;
     onChange?: any;

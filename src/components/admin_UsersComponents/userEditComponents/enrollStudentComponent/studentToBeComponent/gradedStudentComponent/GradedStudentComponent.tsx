@@ -9,14 +9,20 @@ import { useCreateCareerModalContext } from '../../../../../../contexts/modals_s
 import { useShiftModalContext } from '../../../../../../contexts/modals_states/shiftModal/shiftModalContext';
 import { useCreateGradeModal } from '../../../../../../contexts/modals_states/gradeModal/gradeModal';
 import { useGroupCreateModalContext } from '../../../../../../contexts/modals_states/groupModal/groupModal';
+import { ModalComponent } from '../../../../../generalComponents/modalComponent/ModalComponent';
+import { useConfrimCustomModalContext } from '../../../../../../contexts/modals_states/confirmCustomEnrollModal/confirmCustomEnrollModal';
+import { CustomConfirmModalComponent } from '../../../../../generalComponents/modalsContent/customConfirmComponent/CustomConfirmModalComponent';
 
 interface customStudent{
     state: customStudentToBe;
     handleState: (name: keyof customStudentToBe, value: string) => void;
     careerOptions : optionSelect[];
+    enrollCustom: (user_id: string) => void;
+    student_id: string;
+    user_id: string;
 }
 
-export const GradedStudentComponent = ({ state, handleState, careerOptions }: customStudent) => {
+export const GradedStudentComponent = ({ state, handleState, careerOptions, enrollCustom, student_id, user_id }: customStudent) => {
 
     const { 
         //Select Data
@@ -36,12 +42,13 @@ export const GradedStudentComponent = ({ state, handleState, careerOptions }: cu
     const { changeShiftContextModalState } = useShiftModalContext();
     const { changeGradeModalState } = useCreateGradeModal();
     const { changeGroupModalState } = useGroupCreateModalContext();
+    const { changeConfirmCustomModalState, confirmCustomModalState } = useConfrimCustomModalContext();
 
     useEffect(() => {
         const asyncFunc = async () => {
             await getInitialData();
+            handleState('ID_Student', student_id);
         }
-
         asyncFunc();
     }, [])
     
@@ -59,8 +66,18 @@ export const GradedStudentComponent = ({ state, handleState, careerOptions }: cu
                             <SelectedEditComponentWithAddBtn addBtnAction={changeCareerModalState} editActive={true} id='tobeCareer' label='Carrera' name='ID_Career' value={state.ID_Career} onChange={handleState} opts={careerOptions} key={'tobeCareer'}/>
                         </div>
                         <div className="crateCustomStudent">
-                            <button onClick={() => {}}>Confirmar Ingreso</button>
+                            <button onClick={changeConfirmCustomModalState}>Confirmar Ingreso</button>
                         </div>
+                        <ModalComponent modalState={confirmCustomModalState} handleModalState={changeConfirmCustomModalState}>
+                            <CustomConfirmModalComponent user_id={user_id} confirmAction={() => enrollCustom(user_id)} cancelAction={changeConfirmCustomModalState} text={
+                                <>  
+                                    <p>Está seguro de que va a registrar al estudiante. Una vez registrado, el estudiante aparecerá en las listas correspondientes.</p>
+                                    <p>En caso de estar a mitad del ciclo, tenga en cuenta que se le asignarán todas las actividades pasadas que no ha entregado.</p>
+                                    <p>Esto puede afectar su calificación en el sistema, por lo que le recomendamos encarecidamente que se ponga al día con las tareas pendientes para asegurar un buen rendimiento académico.</p>
+                                    <p>¿Esta seguro de registrar al estudiante?</p>
+                                </>
+                            }/>
+                        </ModalComponent>
                     </>
             }
         </div>

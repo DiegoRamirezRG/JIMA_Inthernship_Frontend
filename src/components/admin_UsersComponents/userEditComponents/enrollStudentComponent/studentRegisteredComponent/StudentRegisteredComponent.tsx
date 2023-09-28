@@ -17,11 +17,7 @@ interface StudentAspiranteActionsProps{
 
 export const StudentRegisteredComponent = ({ studentData, allCareersOptions }: StudentAspiranteActionsProps) => {
     
-    const { 
-        //Select Data
-        selectShiftData,
-        selectGradesData,
-        selectGroupsData,
+    const {
 
         //Loaders
         isGettingInitDataLoading,
@@ -33,7 +29,6 @@ export const StudentRegisteredComponent = ({ studentData, allCareersOptions }: S
 
     const { changeDeleteConfirmModalState } = useDeleteConfirmModalContext();
 
-    const [accepting, setAccepting] = useState(false);
 
     const parsedDate = moment(studentData.Creado_En).locale('es');
     const day = parsedDate.format('D');
@@ -53,17 +48,14 @@ export const StudentRegisteredComponent = ({ studentData, allCareersOptions }: S
             {
                 isGettingInitDataLoading
                 ?   <LoadingComponent/>
-                :   accepting
-                    ?   <>Aceptao</>
-                    :   <div className='AspInformationContainer'>
-                            <p>El estudiante se ha registrado como aspirante para la carrera de</p>
-                            <p>{findLabelByValue(allCareersOptions, studentData.FK_Carrera)}</p>
-                            <p><b>El dia:</b> <i>{day} de {formatMonthDate(month)} de {year}</i></p>
-                            <div className="inner-row">
-                                <button onClick={changeDeleteConfirmModalState}>Cancelar registro de Aspirante</button>
-                                <button>Aceptar como Estudiante</button>
-                            </div>
+                :   <div className='AspInformationContainer'>
+                        <p>El estudiante se ha registrado como aspirante para la carrera de</p>
+                        <p>{findLabelByValue(allCareersOptions, studentData.FK_Carrera)}</p>
+                        <p><b>El dia:</b> <i>{day} de {formatMonthDate(month)} de {year}</i></p>
+                        <div className="inner-row">
+                            <button onClick={changeDeleteConfirmModalState}>Cancelar registro de Aspirante</button>
                         </div>
+                    </div>
             }
         </>
     )

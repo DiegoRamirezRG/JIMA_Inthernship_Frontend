@@ -4,6 +4,7 @@ import { DeleteConfirmContextProvider } from './deleteConfimModal/deleteConfirmM
 import { ShiftModalContextProvider } from './shiftModal/shiftModalContext'
 import { CreateGradeProvider } from './gradeModal/gradeModal'
 import { CreateGroupModalProvider } from './groupModal/groupModal'
+import { ConfirmCustomEnrollModalProvider } from './confirmCustomEnrollModal/confirmCustomEnrollModal'
 
 export const ModalsProvider = (props: any) => {
     return (
@@ -12,7 +13,9 @@ export const ModalsProvider = (props: any) => {
                 <ShiftModalContextProvider>
                     <CreateGradeProvider>
                         <CreateGroupModalProvider>
-                            {props.children}
+                            <ConfirmCustomEnrollModalProvider>
+                                {props.children}
+                            </ConfirmCustomEnrollModalProvider>
                         </CreateGroupModalProvider>
                     </CreateGradeProvider>
                 </ShiftModalContextProvider>

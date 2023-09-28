@@ -17,9 +17,10 @@ interface CreateAspirante{
     isEnrollEdited: boolean;
     handleEnrollEdit: (name: keyof customStudentToBe, value: string) => void;
     enrollState: customStudentToBe;
+    enrollCustom: (user_id: string) => void;
 }
 
-export const StudentToBeComponent = ({ careerOptions, allCareersOptions, registerStudentAspirante, student_id, user_id, loader, enrollState, handleEnrollEdit, isEnrollEdited }: CreateAspirante) => {
+export const StudentToBeComponent = ({ careerOptions, allCareersOptions, registerStudentAspirante, student_id, user_id, loader, enrollState, handleEnrollEdit, isEnrollEdited, enrollCustom }: CreateAspirante) => {
 
     const [showNewAspStudent, setShowNewAspStudent] = useState(true);
 
@@ -38,7 +39,7 @@ export const StudentToBeComponent = ({ careerOptions, allCareersOptions, registe
                                     <SelectedEditComponent opts={careerOptions} label='Carreras a elegir' editActive={true} id='asp_career_picker' name='ID_Career' value={enrollState.ID_Career ? enrollState.ID_Career : 'Seleccione una carrera'} onChange={handleEnrollEdit} key={'asp_career_picker'}/>
                                     <button className='aspButtn' disabled = { !isEnrollEdited ? true : false } onClick={() => registerStudentAspirante(student_id, user_id, careerOptions)}>Asignar</button>
                                 </div>
-                            :   <GradedStudentComponent state={enrollState} handleState={handleEnrollEdit} careerOptions={allCareersOptions}/>
+                            :   <GradedStudentComponent state={enrollState} handleState={handleEnrollEdit} careerOptions={allCareersOptions} enrollCustom={enrollCustom} student_id={student_id} user_id={user_id}/>
                         }
                     </>
                 : <LoadingComponent/>

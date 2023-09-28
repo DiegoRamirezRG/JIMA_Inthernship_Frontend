@@ -6,6 +6,7 @@ import { useEnrollStudent } from '../../../../hooks/admin_user/useEnrollStudent'
 import { LoadingComponent } from '../../../generalComponents/loadingComponent/LoadingComponent';
 import { StudentRegisteredComponent } from './studentRegisteredComponent/StudentRegisteredComponent';
 import { StudentToBeComponent } from './studentToBeComponent/StudentToBeComponent';
+import { AcademicInfoComponent } from './academicInfoComponent/AcademicInfoComponent';
 
 export const EnrollStudentComponent = ({ user_id, user, RolData }: DetailedAcademicStudent) => {
 
@@ -24,6 +25,7 @@ export const EnrollStudentComponent = ({ user_id, user, RolData }: DetailedAcade
         handleEnrollEdit,
         makeAspiranteLoader,
         registerStudentAspirante,
+        enrollCustomStudent,
     } = useEnrollStudent();
 
     useEffect(() => {
@@ -60,11 +62,11 @@ export const EnrollStudentComponent = ({ user_id, user, RolData }: DetailedAcade
                                     {
                                         "ID_Aspirante" in studentData
                                         ? <StudentRegisteredComponent studentData={studentData} allCareersOptions={careerOptions!}/> //Acciones de Aspirante
-                                        : 'Informacion Academica' //Acciones de estudiante ya con grupo y la shingada
+                                        : <AcademicInfoComponent RolData={RolData}/> //Acciones de estudiante
                                     }
                                 </>
                             :   ! isGettingInformationLoading
-                                ?   <StudentToBeComponent careerOptions={careerActiveOptions!} allCareersOptions={careerOptions!} registerStudentAspirante={registerStudentAspirante} student_id={RolData.ID_Estudiante} user_id={user_id} loader={makeAspiranteLoader} enrollState={enrollState} isEnrollEdited={isEnrollEdited} handleEnrollEdit={handleEnrollEdit}/>
+                                ?   <StudentToBeComponent careerOptions={careerActiveOptions!} allCareersOptions={careerOptions!} registerStudentAspirante={registerStudentAspirante} student_id={RolData.ID_Estudiante} user_id={user_id} loader={makeAspiranteLoader} enrollState={enrollState} isEnrollEdited={isEnrollEdited} handleEnrollEdit={handleEnrollEdit} enrollCustom={enrollCustomStudent}/>
                                 :   <LoadingComponent/>
                         }
                     </div>

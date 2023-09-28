@@ -6,6 +6,7 @@ import { showErrorTost, showSuccessToast } from '../../components/generalCompone
 import { optionSelect } from '../../models/universalApiModels/UniversalApiModel';
 import { findValueByLabel } from './helpers/findValueByData';
 import { useDeleteConfirmModalContext } from '../../contexts/modals_states/deleteConfimModal/deleteConfirmMContext';
+import { useConfrimCustomModalContext } from '../../contexts/modals_states/confirmCustomEnrollModal/confirmCustomEnrollModal';
 
 
 
@@ -13,6 +14,7 @@ export const useEnrollStudent = () => {
 
     //Context Helpers
     const { changeDeleteConfirmModalState } = useDeleteConfirmModalContext();
+    const { changeConfirmCustomModalState } = useConfrimCustomModalContext();
 
     //Default Data
     const defaultStatData: customStudentToBe = {
@@ -126,6 +128,55 @@ export const useEnrollStudent = () => {
         }
     }
 
+    //temp to checl
+    const tryState = () => {
+        console.table(studentData);
+    }
+
+    //Enroll Custom Student
+    const enrollCustomStudent = async (user_id: string) => {
+        try {
+            setMakeAspiranteLoader(true);
+
+            if(await validateStudentToBe(enrollState)){
+                showErrorTost({position: 'top-right', text: 'No puede haber campos vacios'});
+                setMakeAspiranteLoader(false);
+                return;
+            }
+
+            const response = await serverRestApi.post<Response>('/api/students/enroll/custom', {
+                ...enrollState
+            }, { headers: { Authorization: localStorage.getItem('token') } });
+
+            if(response.data.success){
+                await dataGetter(user_id);
+                setIsEnrollEdited(false);
+                setEnrollState(defaultStatData);
+                showSuccessToast({position: 'top-center', text: response.data.message})
+            }
+
+            changeConfirmCustomModalState();
+            setMakeAspiranteLoader(false);
+
+        } catch (error: any) {
+            if(error.response){
+                showErrorTost({position: 'top-center', text: error.response.data.message})
+            }else{
+                showErrorTost({position: 'top-center', text: error.message})
+            }
+            setMakeAspiranteLoader(false);
+        }
+    }
+
+    const validateStudentToBe = async (data: customStudentToBe) => {
+        for(const key in Object.keys(data)){
+            if(data[key as keyof customStudentToBe] === '' || data[key as keyof customStudentToBe] === null){
+                return true;
+            }
+        }
+        return false;
+    }
+
     return {
         //Modal New Aspirante
         createAspiranteModalState,
@@ -152,6 +203,8 @@ export const useEnrollStudent = () => {
         //Data senders
         registerStudentAspirante,
         cancelAspiranteRegister,
+        enrollCustomStudent,
+        tryState,
     }
 
 }

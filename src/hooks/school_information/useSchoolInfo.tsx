@@ -28,7 +28,7 @@ export const useSchoolInfo = () => {
     }
 
     const defaultGroup : GroupCreateOrEdit = {
-        ID_Grupo: null,
+        ID_Grupo: '',
         Indicador: null,
         Creado_En: null,
         Actualizado_EN: null,
@@ -162,7 +162,7 @@ export const useSchoolInfo = () => {
         }
     }
 
-    //Handle Grade
+    //Handle Groups
     const handleLoadGroupToEdit = (group: Group) => {
         setIsGroupEditing(true);
         setCreateOrEditGroup(group);
@@ -174,7 +174,7 @@ export const useSchoolInfo = () => {
     }
 
     const handleGroupEditing = (name: keyof Group, value: any) => {
-        setCreateOrEditGrade((prevState) => ({
+        setCreateOrEditGroup((prevState) => ({
             ...prevState,
             [name]: value
         }))
@@ -280,7 +280,6 @@ export const useSchoolInfo = () => {
 
     const sendUpdateGrade = async () => {
         try {
-            
             setGeneralLoader(true);
 
             const response = await serverRestApi.put<Response>('/api/school/info/grades/updateGrade', {
@@ -303,6 +302,84 @@ export const useSchoolInfo = () => {
             showSuccessToast({position: 'top-right', text: response.data.message});
             showWarningToast({position: 'top-right', text: 'Por favor recarga para notar los cambios'});
             hanldeCancelGradeEditing();
+            setGeneralLoader(false);
+        } catch (error: any) {
+            if(error.response){
+                showErrorTost({position: 'top-center', text: error.response.data.message})
+            }else{
+                showErrorTost({position: 'top-center', text: error.message})
+            }
+            setGeneralLoader(false);
+        }
+    }
+
+    //Group
+    const sendCreateGroupe = async () => {
+        try {
+            setGeneralLoader(true);
+
+            if(!createOrEditGroup.Indicador || createOrEditGroup.Indicador === '' || createOrEditGroup.Indicador === null){
+                showErrorTost({position: 'top-right', text: 'El Indicador no puede ser vacio'});
+                setGeneralLoader(false);
+                return;
+            }
+
+            const response = await serverRestApi.post<Response>('/api/school/info/groups/createGroup', {
+                Indicador: createOrEditGroup.Indicador
+            }, { headers: { Authorization: localStorage.getItem('token') } });
+
+            if(response.data.success){
+                const resGroups = await serverRestApi.get<Response>('/api/school/info/groups/getGroups', {headers: { Authorization: localStorage.getItem('token') }});
+                setGriupsState(resGroups.data.data);
+
+                const formatedGroup = resGroups.data.data.map((grupo: Group) => ({
+                    value: grupo.ID_Grupo,
+                    label: grupo.Indicador,
+                }));
+                setSelectGroupsData(formatedGroup);
+            }
+            showSuccessToast({position: 'top-right', text: response.data.message});
+            showWarningToast({position: 'top-right', text: 'Por favor recarga para notar los cambios'});
+            handleCancelGroupEditing();
+            setGeneralLoader(false);
+        } catch (error: any) {
+            if(error.response){
+                showErrorTost({position: 'top-center', text: error.response.data.message})
+            }else{
+                showErrorTost({position: 'top-center', text: error.message})
+            }
+            setGeneralLoader(false);
+        }
+    }
+
+    const sendGroupUpdate = async () => {
+        try {
+            
+            setGeneralLoader(true);
+            
+            if(!createOrEditGroup.Indicador || createOrEditGroup.Indicador === '' || createOrEditGroup.Indicador === null || !createOrEditGroup.ID_Grupo || createOrEditGroup.ID_Grupo === '' || createOrEditGroup.ID_Grupo === null ){
+                showErrorTost({position: 'top-right', text: 'No puede haber campos vacios'});
+                setGeneralLoader(false);
+                return;
+            }
+
+            const response = await serverRestApi.put<Response>('/api/school/info/groups/updateGroup',{
+                ID_Grupo: createOrEditGroup.ID_Grupo,
+                Indicador: createOrEditGroup.Indicador
+            }, { headers: { Authorization: localStorage.getItem('token') } });
+
+            if(response.data.success){
+                const resGroups = await serverRestApi.get<Response>('/api/school/info/groups/getGroups', {headers: { Authorization: localStorage.getItem('token') }});
+                setGriupsState(resGroups.data.data);
+                const formatedGroup = resGroups.data.data.map((grupo: Group) => ({
+                    value: grupo.ID_Grupo,
+                    label: grupo.Indicador,
+                }));
+                setSelectGroupsData(formatedGroup);
+            }
+            showSuccessToast({position: 'top-right', text: response.data.message});
+            showWarningToast({position: 'top-right', text: 'Por favor recarga para notar los cambios'});
+            handleCancelGroupEditing();
             setGeneralLoader(false);
         } catch (error: any) {
             if(error.response){
@@ -362,5 +439,7 @@ export const useSchoolInfo = () => {
         sendUpdateShift,
         createNewGrade,
         sendUpdateGrade,
+        sendCreateGroupe,
+        sendGroupUpdate
     }
 }
