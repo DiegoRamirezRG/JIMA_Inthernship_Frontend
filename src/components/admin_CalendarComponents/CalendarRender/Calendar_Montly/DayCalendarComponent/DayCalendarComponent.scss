@@ -1,0 +1,98 @@
+@import '../../../../../utils/sassConfig/colors';
+@import '../../../../../utils/sassConfig/fonts';
+
+.CalendarDay{
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    border: 2px solid $ghostWhite;
+    position: relative;
+    user-select: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    overflow: hidden;
+    white-space: nowrap;
+    background-color: white;
+
+    &.no-active{
+        opacity: 0;
+    }
+
+    &.active{
+        &:hover{
+            cursor: pointer;
+            border: 2px solid $iris;
+        }
+    }
+
+    .numberDate{
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        font-size: 20px;
+        font-family: 'Quicksand', sans-serif;
+        z-index: 2;
+    }
+
+    .today{
+        position: absolute;
+        right: 5px;
+        bottom: 5px;
+        width: 20px;
+        height: 20px;
+        background-color: $iris;
+        border-radius: 50%;
+        z-index: 1;
+    }
+
+    .eventsContainer{
+        width: 80%;
+        height: 100% ;
+        position: absolute;
+        bottom: 0px;
+        left: 0px;
+        box-sizing: border-box;
+        padding: 5px;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        overflow-x: hidden;
+        overflow-y: scroll;
+
+        font-family: 'Quicksand', sans-serif;
+        font-size: 15px;
+
+        .eventIndividual{
+            display: flex;
+            width: 100%;
+            gap: 5px;
+
+            &.extraChildrens{
+                background-color: $iris;
+                border-radius: 5px;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                color:white;
+                font-weight: 550;
+            }
+            
+            .eventIndicator{
+                height: 20px;
+                width: 20px;
+                border-radius: 5px;
+            }
+
+            p{
+                margin: 0px;
+                padding: 0px;
+                width: calc(100% - 20px);
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+        }
+    }
+}

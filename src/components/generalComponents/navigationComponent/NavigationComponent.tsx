@@ -9,15 +9,23 @@ import { RxGear } from 'react-icons/rx';
 import prof from '../../../assets/img/default.jpg'
 import './NavigationComponent.scss'
 import { API_ADDR, APT_PORT } from '../../../utils/env/config';
+import { AiOutlineLogout } from 'react-icons/ai';
+import { useNavigate } from 'react-router-dom';
 
 export const NavigationComponent = ({children}: any) => {
 
+    const { logoutFunction, state } = useContext(AuthContext);
     const [closeMenu, setCloseMenu] = useState<boolean>(false);
     const [name, setName] = useState('');
 
-    const renderOptions = sidebardOptions.get('Administrativo');
+    const renderOptions = sidebardOptions.get(state.loggedUser?.Rol!);
+    const navigate = useNavigate();
     const { indexShowPage, hanlderChangeShowPageIndex } = useNavigationHelper();
-    const { state } = useContext(AuthContext);
+
+    const logOutHelper = async () => {
+        await logoutFunction();
+        navigate('/');
+    }
     
     useEffect(() => {
         if(state.loggedUser != null){
@@ -56,6 +64,9 @@ export const NavigationComponent = ({children}: any) => {
                             <div className="userInformationComponent">
                                 <div className="imageUserSection">
                                     <img src={ state.loggedUser?.Imagen != null ? `http://${API_ADDR}:${APT_PORT}/images/user_profiles/${state.loggedUser.ID_Persona}/${state.loggedUser.Imagen}` : prof } alt="IMG" />
+                                    <div className="logOffContainer" onClick={logOutHelper}>
+                                        <AiOutlineLogout/>
+                                    </div>
                                 </div>
                                 <div className={`informationUserSection ${closeMenu ? 'menuOpened' : 'menuClosed'}`}>
                                     <p>{name}</p>

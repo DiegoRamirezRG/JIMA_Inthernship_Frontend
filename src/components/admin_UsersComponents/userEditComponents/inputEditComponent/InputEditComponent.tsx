@@ -1,16 +1,53 @@
 import React, { ChangeEvent, useEffect, useState } from 'react'
 import './InputEditComponent.scss'
-import { dynamicInput, dynamicSelect, dynamicSelectWithBtn, hourInput } from '../interfaces/DynamicInputInterface'
+import { Value, dateTimePickerInterface, dynamicInput, dynamicSelect, dynamicSelectWithBtn, hourInput, timerPickerInterface } from '../interfaces/DynamicInputInterface'
 import Select from 'react-select'
 import { IoMdAddCircleOutline } from 'react-icons/io'
 import { LoadingComponent } from '../../../generalComponents/loadingComponent/LoadingComponent'
 import { Shift } from '../../../../models/schoolInfoModels/schoolInfoModels';
+import TimePicker from 'react-time-picker'
+import moment from 'moment'
+import DateTimePicker from 'react-datetime-picker'
+import 'react-time-picker/dist/TimePicker.css';
+import 'react-datetime-picker/dist/DateTimePicker.css';
+import 'react-clock/dist/Clock.css';
+import 'react-calendar/dist/Calendar.css';
 
 export const InputEditComponent = ({ id, placeholder, value, label, inputType, name, editActive, onChange }: dynamicInput) => {
     return (
         <div className="detailedInputComponent">
             <label htmlFor={id}>{label}</label>
             <input type={inputType} placeholder={placeholder} id={id} value={value} name={name} disabled={!editActive} onChange={ onChange ? (e) => onChange(e.target.name, e.target.value) : () => {} }/>    
+        </div>
+    )
+}
+
+export const TimeEditComponent = ({ id, label, time, onChange, name, format }: timerPickerInterface) => {
+    const isValidDate = moment(time, 'HH:mm', true).isValid();
+
+    const handleTimeSet = (value: any) => {
+        onChange(name, value);
+    }
+    return (
+        <div className="detailedInputComponent">
+            <label htmlFor={id}>{label}</label>
+            <TimePicker value={isValidDate ? time: '12:00'} onChange={handleTimeSet} name={name} hourPlaceholder='00' minutePlaceholder='00' clockIcon={false} format={format} disableClock={true} clearIcon={false}/>
+        </div>
+    )
+}
+
+export const DateTimeComponent = ({ id, date, label, name, onChange }: dateTimePickerInterface) => {
+    const dateHelper = moment(date).format('YYYY-MM-DD HH:mm:ss');
+    const isValid = moment(dateHelper, 'YYYY-MM-DD HH:mm:ss', true).isValid();
+
+    const handleSetDateTime = (value: any) => {
+        onChange(name, moment(value).format('YYYY-MM-DD HH:mm:ss'));
+    }
+    
+    return(
+        <div className="detailedInputComponent">
+            <label htmlFor={id}>{label}</label>
+            <DateTimePicker onChange={handleSetDateTime} value={isValid ? dateHelper : ''} disableClock={true} calendarIcon={false} format='y-MM-dd h:m a' name={name}/>
         </div>
     )
 }

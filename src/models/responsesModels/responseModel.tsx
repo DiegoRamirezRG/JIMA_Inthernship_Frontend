@@ -10,7 +10,7 @@ import { City, Country, State } from "../universalApiModels/UniversalApiModel";
 import { persona } from "../usersModels/UserModel";
 import { Grade, Group, Shift } from '../schoolInfoModels/schoolInfoModels';
 import { StudentAcademicInfo } from "../studentModels/StudentModel";
-import { CalendarInfo } from "../calendarModels/CalendarModels";
+import { CalendarEvent, CalendarInfo } from "../calendarModels/CalendarModels";
 
 export interface Response {
     success: boolean;
@@ -31,6 +31,7 @@ export interface Response {
             | Grade[]
             | Group[]
             | StudentAcademicInfo
-            | CalendarInfo;
+            | CalendarInfo
+            | CalendarEvent;
     error?: string | any;
 }

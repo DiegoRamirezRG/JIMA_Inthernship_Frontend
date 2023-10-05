@@ -59,10 +59,11 @@
                 flex-direction: row;
                 box-sizing: border-box;
                 border-radius: 50px;
-                background-color: green;
+                background-color: $iris;
                 overflow: hidden;
                 position: relative;
                 width: 45%;
+                user-select: none;
 
                 .renderOpt{
                     font-size: 25px;
@@ -75,6 +76,8 @@
                     padding: 5px 0px;
                     z-index: 2;
                     width: 25%;
+                    font-weight: 550;
+                    color: white;
 
                     &:hover{
                         cursor: pointer;
@@ -84,7 +87,7 @@
                 .active{
                     height: 100%;
                     width: 25%;
-                    background-color: red;
+                    background-color: $kyubiDarkOrange;
                     position: absolute;
                     border-radius: 50px;
                     transition: 0.2s all ease-in-out;
@@ -97,6 +100,7 @@
                 display: flex;
                 justify-content: flex-end;
                 box-sizing: border-box;
+                user-select: none;
                 
                 button{
                     font-size: 25px;
@@ -108,12 +112,12 @@
                     outline: none;
                     border: none;
                     color: white;
-                    background-color: $iris;
+                    background-color: lighten($bootstrap_success, 15%);
                     transition: 0.2s all ease-in-out;
 
                     &:hover{
                         cursor: pointer;
-                        background-color: darken($iris, 20%);
+                        background-color: $bootstrap_success;
                     }
                 }
             }

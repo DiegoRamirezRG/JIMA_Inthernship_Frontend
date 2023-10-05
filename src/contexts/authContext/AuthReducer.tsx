@@ -7,6 +7,8 @@ function authReducer(state: AuthContextState, action: AuthContextActions): AuthC
     switch(action.type){
         case 'getAuthorized': 
             return {...state, loggedUser: action.payload || null};
+        case 'logout':
+            return {...state, loggedUser: action.payload || null};
         default:
             return state;
     }

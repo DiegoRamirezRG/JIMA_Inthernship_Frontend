@@ -71,5 +71,5 @@ const administrativeRoutes = [
 
 export const routes = createBrowserRouter([
     ...generalRoutes,
-    ...administrativeRoutes
+    ...administrativeRoutes,
 ])

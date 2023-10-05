@@ -1,0 +1,71 @@
+@import '../../../../../utils/sassConfig/colors';
+@import '../../../../../utils/sassConfig/fonts';
+
+.calendar-event-component{
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .hourHelper{
+        margin: 0px;
+        padding: 0px;
+        box-sizing: border-box;
+        text-transform: lowercase;
+        font-family: 'Quicksand', sans-serif;
+        font-weight: 550;
+        display: flex;
+        justify-content: flex-end;
+        width: 95%;
+        user-select: none;
+    }
+
+    .disable{
+        opacity: 0.4;
+    }
+
+    .eventContainer{
+        width: 95%;
+        min-height: 65px;
+        display: flex;
+        flex-direction: row;
+        box-sizing: border-box;
+        border-radius: 5px;
+        border: 2px solid;
+        overflow: hidden;
+
+        &:hover{
+            cursor: pointer;
+        }
+    
+        .event-indicator{
+            height: 50px;
+            width: 10px;
+            border-radius: 0px 0px 5px 0px;
+        }
+    
+        .event-content{
+            width: calc(100% - 10px);
+            box-sizing: border-box;
+            padding: 5px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: start;
+            font-family: 'Quicksand', sans-serif;
+            flex-direction: column;
+            gap: 10px;
+            box-sizing: border-box;
+            padding: 10px;
+            text-align: justify;
+
+            p{
+                margin: 0px;
+                padding: 0px;
+
+                &:first-child{
+                    font-size: 25px;
+                }
+            }
+        }
+    }
+}

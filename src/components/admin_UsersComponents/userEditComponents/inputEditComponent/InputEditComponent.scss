@@ -127,3 +127,78 @@
         }
     }
 }
+
+.detailedInputComponent{
+    .react-time-picker__wrapper{
+        border: none;
+        border-radius: 5px !important;
+        padding: 5px 20px !important;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between !important;
+        flex-shrink: 0;
+
+        &:focus-within {
+            outline: 2px solid $ghostWhite;  // Cambia al color deseado
+        }
+    }
+
+    .react-time-picker__inputGroup__amPm{
+        font-family: 'Quicksand', sans-serif;
+    }
+
+    .react-time-picker__inputGroup__input{
+        padding: 0px 10px !important;
+        border-radius: 0px !important;
+    }
+}
+
+
+.detailedInputComponent{
+    .react-datetime-picker__wrapper{
+        border: none;
+        border-radius: 5px !important;
+        padding: 5px 10px !important;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between !important;
+        flex-shrink: 0;
+
+        &:focus-within {
+            outline: 2px solid $ghostWhite;  // Cambia al color deseado
+        }
+    }
+
+    .react-datetime-picker__inputGroup__input{
+        padding: 0px 5px !important;
+        border-radius: 0px !important;
+    }
+
+    .react-datetime-picker__inputGroup__amPm{
+        font-family: 'Quicksand', sans-serif;
+    }
+
+    
+    .react-datetime-picker__inputGroup__leadingZero {
+        visibility: hidden;
+    }
+
+    .react-datetime-picker__button:enabled:hover .react-datetime-picker__button__icon,
+    .react-datetime-picker__button:enabled:focus .react-datetime-picker__button__icon {
+        stroke: $iris !important;
+    }
+
+    .react-datetime-picker__calendar {
+        width: 345px;
+    }
+
+    .react-datetime-picker__calendar .react-calendar {
+        border-width: thin;
+        border-radius: 10px;
+        margin-bottom: 5px;
+        margin-top: 5px;
+        font-family: 'Quicksand', sans-serif;
+    }
+}

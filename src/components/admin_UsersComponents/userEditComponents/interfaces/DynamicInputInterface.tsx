@@ -8,16 +8,51 @@ import { createStudentToBe, customStudentToBe } from "../../../../models/enrollM
 import { CareerModel } from "../../../../models/careersModels/CareersModel";
 import { Grade, Group, Shift } from "../../../../models/schoolInfoModels/schoolInfoModels";
 import { StudentAcademicInfo } from "../../../../models/studentModels/StudentModel";
+import { CalendarEvent, CreateOrEditCalendarEvent, MontlyEvents } from "../../../../models/calendarModels/CalendarModels";
 
 export interface dynamicInput{
     id: string;
     placeholder: string;
     value: string;
     label: string;
-    name: keyof SingleUser | keyof Credentials | keyof AddressModel | keyof administrative | keyof teacher | keyof student | keyof CareerModel | keyof Shift | keyof Grade | keyof Group | keyof StudentAcademicInfo;
+    name:   keyof SingleUser 
+            | keyof Credentials 
+            | keyof AddressModel 
+            | keyof administrative 
+            | keyof teacher 
+            | keyof student 
+            | keyof CareerModel 
+            | keyof Shift 
+            | keyof Grade 
+            | keyof Group 
+            | keyof StudentAcademicInfo
+            | keyof MontlyEvents
+            | keyof CreateOrEditCalendarEvent;
     inputType: HTMLInputTypeAttribute;
     editActive: boolean;
     onChange?: any;
+}
+
+export type ValuePiece = Date | null;
+export type Value = ValuePiece | [ValuePiece, ValuePiece];
+
+export interface timerPickerInterface {
+    id: string;
+    label: string;
+    time: string;
+    onChange: any;
+    name:     keyof CalendarEvent
+            | keyof CreateOrEditCalendarEvent;
+    format: 'h:m a';
+}
+
+export interface dateTimePickerInterface{
+    id: string;
+    label: string;
+    date: string;
+    onChange: any;
+    name:  keyof CalendarEvent
+        | keyof CreateOrEditCalendarEvent;
 }
 
 export interface dynamicSelect{

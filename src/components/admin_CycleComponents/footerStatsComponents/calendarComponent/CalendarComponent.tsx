@@ -73,8 +73,8 @@ export const CalendarComponent = () => {
 
                                         return !hasPassed 
                                         ?   <div className="calendarAction" key={index}>
-                                                <p className='event-title'>{item.title}</p>
-                                                <div className="row">
+                                                <p className='event-title' key={index}>{item.title}</p>
+                                                <div className="row" key={index}>
                                                     <p>{day}/{formatMonthDate(month).slice(0,3)}</p>
                                                     <p>{fomatedTime}</p>
                                                 </div>

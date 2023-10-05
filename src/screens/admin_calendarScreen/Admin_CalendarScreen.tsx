@@ -1,24 +1,16 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import './Admin_CalendarScreen.scss'
 import moment from 'moment';
 import { NavigationComponent } from '../../components/generalComponents/navigationComponent/NavigationComponent'
 import { useCalendarContext } from '../../contexts/calendarContext/CalendarContext'
 import { LoadingComponent } from '../../components/generalComponents/loadingComponent/LoadingComponent'
 import { formatMonthDate } from '../../utils/dateSpanishFormater/dateSpanishFormater';
+import { ModalComponent } from '../../components/generalComponents/modalComponent/ModalComponent';
+import { CalendarDetailedModalComponent } from '../../components/admin_CalendarComponents/CalendarDetailedModal/CalendarDetailedModalComponent';
 
 export const Admin_CalendarScreen = () => {
 
-    const { calendarView, handleCalendarView, renderOptions, getCalendarData, calendarData, getCalendarDataLoading } = useCalendarContext();
-    const currentDate = moment().format('YYYY-MM-DD HH:mm:ss');
-
-    useEffect(() => {
-        const awaitFunc = async () => {
-            await getCalendarData();
-        }
-
-        awaitFunc();
-    }, [])
-    
+    const { calendarView, handleCalendarView, renderOptions, getCalendarDataLoading, formatedData, showDetailedModal, changeDetailedModalState } = useCalendarContext();
 
     return (
         <NavigationComponent>
@@ -33,7 +25,7 @@ export const Admin_CalendarScreen = () => {
                             <div className="calendarContent">
                                 <div className="calendarHeaderSection">
                                     <div className="monthData">
-                                        {formatMonthDate(currentDate.split(' ')[0].split('-')[1])}, {currentDate.split(' ')[0].split('-')[0]}
+                                        {formatMonthDate(formatedData!.split(' ')[0].split('-')[1])}, {formatedData!.split(' ')[0].split('-')[0]}
                                     </div>
                                     <div className="viewRenderOptions">
                                         <div onClick={() => handleCalendarView(0)} className={`renderOpt`}>Anual</div>
@@ -55,6 +47,9 @@ export const Admin_CalendarScreen = () => {
                         </>
                 }
             </div>
+            <ModalComponent modalState={showDetailedModal} handleModalState={() => changeDetailedModalState(null, null, null)} modalSize='modal-lg'>
+                <CalendarDetailedModalComponent/>
+            </ModalComponent>
         </NavigationComponent>
     )
 }
