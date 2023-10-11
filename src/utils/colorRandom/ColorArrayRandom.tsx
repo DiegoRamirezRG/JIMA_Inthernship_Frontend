@@ -1,1 +1,2 @@
 export const ColorArray = ['#000000', '#F55C7A', '#1FC0C8', '#B5DA8A', '#6941C6'];
+export const CalendarColors: string[] = ['#001F3F', '#2ECC71', '#FF851B', '#FF0066', '#8E44AD', '#FF4136', '#FFDC00', '#00BFFF'];

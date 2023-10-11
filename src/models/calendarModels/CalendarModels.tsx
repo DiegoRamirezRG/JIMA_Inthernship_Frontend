@@ -8,40 +8,27 @@ export interface CalendarInfo {
     Actualizado_EN: null;
 }
 
-export interface CalendarBuilder {
-    dayNumber: number;
-    dayText: string;
-    month: number;
-    year: number;
-}
-
 export interface CalendarEvent {
-    ID_Calendario_Eventos: string;
-    Titulo:                string;
+    ID_Calendario_Eventos: string | null;
+    Titulo:                string | null;
     Descripcion:           string | null;
-    Fecha_Inicio:          string;
+    Fecha_Inicio:          string | null;
     Fecha_Fin:             string | null;
-    Color:                 string;
-    FK_Calendario:         string;
-    Creado_En:             string;
-    Actualizado_EN:        string |null;
+    Color:                 string | null;
+    FK_Calendario:         string | null;
+    Creado_En:             string | null;
+    Actualizado_EN:        string | null;
 }
 
-export interface CreateOrEditCalendarEvent {
-    Titulo:                string;
-    Descripcion:           string;
-    Fecha_Inicio:          string;
-    Fecha_Fin:             string;
-    Color:                 string;
+export interface FullCalendarEventFormater {
+    title: string;
+    start: string;
+    end: string;
+    allDay: boolean;
+    backgroundColor: string;
+    borderColor: string;
+    textColor: string;
+    editable: boolean;
 }
 
-export interface MontlyEvents {
-    day: number,
-    event: CalendarEvent
-}
-
-export interface PickDetailed {
-    day: number | null,
-    month: number | null,
-    year: number | null
-}
+export type ConfirmEventModalType = 'rezise' | 'dropped' | 'click' | null;

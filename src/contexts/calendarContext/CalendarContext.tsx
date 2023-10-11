@@ -1,357 +1,380 @@
-import { ReactNode, createContext, useContext, useEffect, useState } from "react";
-import { CalendarYearly } from "../../components/admin_CalendarComponents/CalendarRender/Calendar_Yearly/CalendarYearly";
-import { CalendarMontlyComponent } from "../../components/admin_CalendarComponents/CalendarRender/Calendar_Montly/CalendarMontlyComponent";
-import { CalendarWeeklyComponent } from "../../components/admin_CalendarComponents/CalendarRender/Calendar_Weekly/CalendarWeeklyComponent";
-import { CalendarDailyComponent } from "../../components/admin_CalendarComponents/CalendarRender/Calendar_Daily/CalendarDailyComponent";
-import { serverRestApi } from '../../utils/apiConfig/apiServerConfig';
-import { Response } from '../../models/responsesModels/responseModel';
+import { createContext, useContext, useEffect, useState } from "react";
+import { CalendarContextInterface, CalendarProviderProps } from "../../models/calendarModels/CalendarContextModels";
+import { CalendarEvent, CalendarInfo, ConfirmEventModalType, FullCalendarEventFormater } from "../../models/calendarModels/CalendarModels";
+import { serverRestApi } from "../../utils/apiConfig/apiServerConfig";
+import { Response } from "../../models/responsesModels/responseModel";
 import { showErrorTost } from "../../components/generalComponents/toastComponent/ToastComponent";
-import { CalendarBuilder, CalendarEvent, CalendarInfo, CreateOrEditCalendarEvent, MontlyEvents, PickDetailed } from '../../models/calendarModels/CalendarModels';
+import { getContrast } from "../../utils/colorContrast/colorContrast";
 import moment from "moment";
-import { daysOfTheWeekEnglish } from "../../utils/calendarHelpers/DaysOfTheWeek";
+import { formatEventForFullCalendar } from "../../utils/calendarHelpers/FullCalendarFormater";
+import { DateSelectArg, EventClickArg, EventContentArg, EventInput } from "@fullcalendar/core";
 import { validateEvent } from "./validator/EventValidator";
-
-interface CalendarContextInterface{
-    //Data
-    calendarView: 0 | 1 | 2 | 3;
-    getCalendarDataLoading: boolean;
-    getEventsDataLoading: boolean;
-    calendarData: CalendarInfo | null;
-    eventsData: CalendarEvent[] | null;
-    monthEvents: MontlyEvents[] | null;
-    date: moment.Moment;
-    formatedData: string;
-    monthDays: CalendarBuilder[];
-    showDetailedModal: boolean;
-    daySelected: PickDetailed;
-    editOrCreateEvent: CalendarEvent | CreateOrEditCalendarEvent | null;
-    isEditOrCreateEventActive: boolean;
-    isCreating: boolean;
-    isCretingLoading: boolean;
-    //Functions
-    handleCalendarView: (index: 0 | 1 | 2 | 3) => void;
-    renderOptions: Map<number, JSX.Element>;
-    getCalendarData: () => Promise<void>;
-    getCalendarEvents: () => Promise<void>;
-    nextMonthHandler: () => void;
-    passMonthHandler: () => void;
-    changeDetailedModalState: (day: number | null, month: number | null, year: number | null) => void;
-    loadEventEdit: (event: MontlyEvents) => void;
-    cancelEventEdit: () => void;
-    handleChangeEventEdit: (name: keyof CalendarEvent | keyof CreateOrEditCalendarEvent, value: any) => void;
-    handleActivateCreateEvent: () => void;
-    createEventFromADay: () => void;
-}
-
-interface CalendarProviderProps{
-    children: ReactNode;
-}
+import { ConfirmModal } from '../../components/generalComponents/confirmModal/ConfirmModal';
+import { CalendarColors } from "../../utils/colorRandom/ColorArrayRandom";
 
 const CalendarContext = createContext<CalendarContextInterface | undefined>(undefined);
 
 export const CalendarContextProvider = ({ children }: CalendarProviderProps) => {
 
-    //Loaders
-    const [isGettingCalendarDataLoading, SetisGettingCalendarDataLoading] = useState(true);
-    const [isGettingEventsDataLoading, setIsGettingEventsDataLoading] = useState(false);
-    const [isCreateEventLoading, setIsCreateEventLoading] = useState(false);
+  //Degault Obj
+  const defaultCreateOrEdit: CalendarEvent = {
+    ID_Calendario_Eventos: '',
+    Titulo: '',
+    Descripcion: '',
+    Fecha_Inicio: '0000-00-00 00:00:00',
+    Fecha_Fin: '',
+    Color: '',
+    FK_Calendario: '',
+    Creado_En: '',
+    Actualizado_EN: ''
+  }
 
-    //Moment Helpers
-    const [dateAux, setDateAux] = useState(moment());
-    const [formatedDateAux, setformatedDateAux] = useState<string>('');
-    const [monthDays, setMonthDays] = useState<CalendarBuilder[]>([]);
+  //Handle Calendar Events
+  const [calendarGeneralLoader, setCalendarGeneralLoader] = useState(true);
+  const [eventLoader, setEventLoader] = useState(false);
+  const [calendarInfo, setCalendarInfo] = useState<CalendarInfo | null>(null);
+  const [calendarEvents, setCalendarEvents] = useState<CalendarEvent[]>([]);
+  const [formatedCalendarEvents, setFormatedCalendarEvents] = useState<EventInput[]>([]);
 
-    const passMonth = () => {
-        setDateAux(dateAux.subtract(1, 'months'));
-        setformatedDateAux(dateAux.format('YYYY-MM-DD HH:mm:ss'));
-        getMonthDays();
-        loadMontlyEvents();
+  const [dateArgs, setDateArgs] = useState<DateSelectArg | null>(null);
+  const [selectedEventDetails, setSelectedEventDetails] = useState<EventClickArg | null>(null);
+  const [createOrEditNewEvent, setCreateOrEditNewEvent] = useState<CalendarEvent>(defaultCreateOrEdit);
+  const [isCreatingLoading, setIsCreatingLoading] = useState(false);
+
+  const [colorSelected, setColorSelected] = useState<number>(9);
+  const [resizeInfo, setResizeInfo] = useState<any | null>(null);
+  const [dropInfo, setDropInfo] = useState<any | null>(null)
+  const [confirmType, setConfirmType] = useState<ConfirmEventModalType>(null);
+
+  const getActiveCalendarEvents = async () => {
+    try {
+      setEventLoader(true);
+      const response = await serverRestApi.get<Response>('/api/calendar/getActiveEvents', { headers: { Authorization: localStorage.getItem('token') } });
+      setCalendarEvents(response.data.data);
+
+      const heleper = response.data.data.map(formatEventForFullCalendar);
+      setFormatedCalendarEvents(heleper);
+
+      setEventLoader(false);
+    } catch (error: any) {
+      if(error.response){
+        showErrorTost({position: 'top-center', text: error.response.data.message})
+      }else{
+        showErrorTost({position: 'top-center', text: error.message})
+      }
+      setEventLoader(false);
     }
+  }
 
-    const nextMonth = () => {
-        setDateAux(dateAux.add(1, 'months'));
-        setformatedDateAux(dateAux.format('YYYY-MM-DD HH:mm:ss'));
-        getMonthDays();
-        loadMontlyEvents();
-    }
-
-    const getMonthDays = () => {
-        const daysInMonth = dateAux.daysInMonth();
-        const newWeekdays: CalendarBuilder[] = [];
-
-        const indexOfFirstDay = daysOfTheWeekEnglish.indexOf(dateAux.date(1).format('dddd'));
-
-        if(indexOfFirstDay > 0){
-            for (let j = 0; j < indexOfFirstDay; j++) {
-                newWeekdays.push({
-                    dayNumber: 0,
-                    dayText: '',
-                    month: 0,
-                    year: 0
-                });
-            }
+  const getInitialCalendarData = async () => {
+    try {
+        const response = await serverRestApi.get<Response>('/api/calendar/getActiveCalendar', { headers: { Authorization: localStorage.getItem('token') } });
+        if(response.data.success){
+            setCalendarInfo(response.data.data);
+        }else{
+            throw new Error('Ha ocurrido un error obteniendo el Calendario')
         }
-
-        for (let day = 1; day <= daysInMonth; day++) {
-            const date = dateAux.date(day);
-            const weekday = date.format('dddd');
-            const month = dateAux.format('MM');
-            const year = dateAux.format('YYYY');
-            newWeekdays.push({
-                dayNumber: day,
-                dayText: weekday,
-                month: parseInt(month),
-                year: parseInt(year)
-            });
-        }
-
-        setMonthDays(newWeekdays);
-    }
-
-    //Get Initial Data
-    const [calendarInfo, setCalendarInfo] = useState<CalendarInfo | null>(null);
-    const [calendarEvents, setCalendarEvents] = useState<CalendarEvent[] | null>([]);
-
-    const [montlyEvents, setMontlyEvents] = useState<MontlyEvents[] | null>([]);
-
-    const getInitialCalendarData = async () => {
-        try {
-            const response = await serverRestApi.get<Response>('/api/calendar/getActiveCalendar', { headers: { Authorization: localStorage.getItem('token') } });
-            if(response.data.success){
-                setCalendarInfo(response.data.data);
-            }else{
-                throw new Error('Ha ocurrido un error obteniendo el Calendario')
-            }
-            SetisGettingCalendarDataLoading(false);
-        } catch (error: any) {
-            if(error.response){
-                showErrorTost({position: 'top-center', text: error.response.data.message})
-            }else{
-                showErrorTost({position: 'top-center', text: error.message})
-            }
-            SetisGettingCalendarDataLoading(false);
+    } catch (error: any) {
+        if(error.response){
+            showErrorTost({position: 'top-center', text: error.response.data.message})
+        }else{
+            showErrorTost({position: 'top-center', text: error.message})
         }
     }
+}
 
-    const getInitialEventsData = async () => {
-        try {
-            setIsGettingEventsDataLoading(true);
 
-            const eventRes = await serverRestApi.get<Response>('/api/calendar/getActiveEvents', { headers: { Authorization: localStorage.getItem('token') } });
-            if(eventRes.data.success){
-                setCalendarEvents(eventRes.data.data);
-            }else{
-                throw new Error('Ha ocurrido un error obteniendo los Eventos');
-            }
-            
-            setIsGettingEventsDataLoading(false);
-        } catch (error:any) {
-            if(error.response){
-                showErrorTost({position: 'top-center', text: error.response.data.message})
-            }else{
-                showErrorTost({position: 'top-center', text: error.message})
-            }
-            setIsGettingEventsDataLoading(false);
-        }
+  //MODALS
+  const [createEventModal, setCreateEventModal] = useState<boolean>(false);
+  const [confirmModal, setConfirmModal] = useState<boolean>(false);
+  const [detailedModal, setDetailedModal] = useState(false);
+  
+  const handleCreateEventModal = (selectInfo?: DateSelectArg ) => {
+    setCreateEventModal(!createEventModal);
+
+    if(selectInfo){
+      setDateArgs(selectInfo);
+    }else{
+      setDateArgs(null);
     }
+  }
 
-    const loadMontlyEvents =  async () => {        
-        const stateHelper: MontlyEvents[] = [];
+  const handleConfirmModal = () => {
+    setConfirmModal(!confirmModal);
+  }
 
-        calendarEvents?.map((event) => {
-            const eventDate = moment(event.Fecha_Inicio).format('YYYY-MM-DD');
-            const eventDay = moment(event.Fecha_Inicio).format('D');            
+  const handleDetailedEventModal = () => {
+    setDetailedModal(!detailedModal);
+  }
 
-            if(dateAux.isSame(eventDate, 'month') && dateAux.isSame(eventDate, 'year')){
-                stateHelper.push({day: parseInt(eventDay), event: event});
-            }
+  //Manipulate Events
+  const handleOnChangeEditOrCreateEvent = (name: keyof CalendarEvent, value: string) => {
+    if(name === 'Fecha_Inicio'){
+      const dateTimeHelper = `${dateArgs?.startStr} ${value}:00`;
+      setCreateOrEditNewEvent((prevState) => ({
+        ...prevState,
+        [name]: moment(dateTimeHelper).format('YYYY-MM-DD HH:mm:ss')
+      }));
+    }else{
+      setCreateOrEditNewEvent((prevState) => ({
+        ...prevState,
+        [name]: value
+      }));
+    }
+  }
+
+  const handleEditCompleteInitDate = (name: keyof CalendarEvent, value: string) => {
+    setCreateOrEditNewEvent((prevState) => ({
+      ...prevState,
+      [name]: value
+    }));
+  }
+
+  const cancelCreateOrEditEvent = () => {
+    setCreateOrEditNewEvent(defaultCreateOrEdit);
+  }
+
+  const sendCreateEvent = async () => {
+    try {
+      setIsCreatingLoading(true);
+      const daySelected = moment(dateArgs?.startStr);      
+      const itsOver = createOrEditNewEvent.Fecha_Fin ? !moment(createOrEditNewEvent.Fecha_Fin).isBefore(daySelected) : true;
+
+      await validateEvent(createOrEditNewEvent);
+
+      const response = await serverRestApi.post<Response>('/api/calendar/createNewEvent', {
+        ...createOrEditNewEvent,
+        ID_Calendario: calendarInfo?.ID_Calendario
+      }, { headers: { Authorization: localStorage.getItem('token') } });
+
+      if(response.data.success){
+        let calendarApi = dateArgs!.view.calendar;
+        calendarApi.unselect();
+
+        calendarApi.addEvent({
+          id: response.data.data,
+          title: createOrEditNewEvent.Titulo!,
+          start: moment(createOrEditNewEvent.Fecha_Inicio).format('YYYY-MM-DDTHH:mm:ss'),
+          end: createOrEditNewEvent.Fecha_Fin != null && createOrEditNewEvent.Fecha_Fin != '' ? createOrEditNewEvent.Fecha_Fin : '',
+          allDay: createOrEditNewEvent.Fecha_Fin != null && createOrEditNewEvent.Fecha_Fin != '' ? false : true,
+          backgroundColor: createOrEditNewEvent.Color!,
+          borderColor: createOrEditNewEvent.Color!,
+          textColor: getContrast(createOrEditNewEvent.Color!),
+          editable: !moment(createOrEditNewEvent.Fecha_Inicio).isBefore(daySelected) && itsOver
         });
-
-        if (stateHelper.length > 0) {
-            setMontlyEvents([...stateHelper]);
-        }else{
-            setMontlyEvents([]);
-        }
+      }
+      cancelCreateOrEditEvent();
+      handleCreateEventModal();
+      setIsCreatingLoading(false);
+    } catch (error: any) {
+      console.log(error);
+      
+      if(error.response){
+        showErrorTost({position: 'top-center', text: error.response.data.message})
+      }else{
+        showErrorTost({position: 'top-right', text: error.message})
+      }
+      setIsCreatingLoading(false);
     }
+  }
 
-    //Handle Calendar View
-    const [renderCalendarView, setRenderCalendarView] = useState<0 | 1 | 2 | 3>(0);
+  const handleSendUpdateEvent = async () => {
+    try {
 
-    const handleCalendarView = (index: 0 | 1 | 2 | 3) => {
-        setRenderCalendarView(index);
-        loadMontlyEvents();
-    }
+      if(confirmType == 'rezise'){
+        const isValidDateResize = moment(moment(resizeInfo.event.end).format('YYYY-MM-DDTHH:mm:ss'), 'YYYY-MM-DDTHH:mm:ss', true).isValid();
 
-    const calendarRenderViews = new Map<number, JSX.Element>([
-        [0, <CalendarYearly/>],
-        [1, <CalendarMontlyComponent/>],
-        [2, <CalendarWeeklyComponent/>],
-        [3, <CalendarDailyComponent/>],
-    ]);
+        await serverRestApi.put<Response>('/api/calendar/updateEvent',{
+          ID_Calendario_Eventos: resizeInfo.event._def.publicId,
+          Titulo: resizeInfo.event.title,
+          Descripcion: resizeInfo.event.extendedProps.description,
+          Fecha_Inicio: moment(resizeInfo.event.start).format('YYYY-MM-DDTHH:mm:ss'),
+          Fecha_Fin: isValidDateResize ? moment(resizeInfo.event.end).format('YYYY-MM-DDTHH:mm:ss') : '',
+          Color: resizeInfo.event._def.ui.backgroundColor,
+        }, { headers: { Authorization: localStorage.getItem('token') } });
 
-    //Modal Handler
-    const [detailedDayModalState, setDetailedDayModalState] = useState<boolean>(false);
-    const [detailedDateDaySelected, setDetailedDateDaySelected] = useState<PickDetailed>({
-        day: null,
-        month: null,
-        year: null
-    });
+        handleEventResize();
+      }else if(confirmType == 'dropped'){
+        const isValidDateDrop = moment(moment(dropInfo.event.end).format('YYYY-MM-DDTHH:mm:ss'), 'YYYY-MM-DDTHH:mm:ss', true).isValid();
 
-    const handleDetailedDayModalState = (day: number | null, month: number | null, year: number | null) => {
-        setDetailedDateDaySelected({day, month, year});
-        setDetailedDayModalState(!detailedDayModalState);
-    }
+        await serverRestApi.put<Response>('/api/calendar/updateEvent',{
+          ID_Calendario_Eventos: dropInfo.event.id,
+          Titulo: dropInfo.event.title,
+          Descripcion: dropInfo.event.extendedProps.description,
+          Fecha_Inicio: moment(dropInfo.event.start).format('YYYY-MM-DDTHH:mm:ss'),
+          Fecha_Fin: isValidDateDrop ? moment(dropInfo.event.end).format('YYYY-MM-DDTHH:mm:ss') : '',
+          Color: dropInfo.event.backgroundColor,
+        }, { headers: { Authorization: localStorage.getItem('token') } });   
+        
+        handleEventDrop();
+      }else if(confirmType === 'click'){
+        const isValidDateFinish = moment(moment(createOrEditNewEvent.Fecha_Fin).format('YYYY-MM-DDTHH:mm:ss'), 'YYYY-MM-DDTHH:mm:ss', true).isValid();
+        
+        await serverRestApi.put<Response>('/api/calendar/updateEvent',{
+          ID_Calendario_Eventos: createOrEditNewEvent.ID_Calendario_Eventos,
+          Titulo: createOrEditNewEvent.Titulo,
+          Descripcion: createOrEditNewEvent.Descripcion != null ? createOrEditNewEvent.Descripcion : '',
+          Fecha_Inicio: moment(createOrEditNewEvent.Fecha_Inicio).format('YYYY-MM-DDTHH:mm:ss'),
+          Fecha_Fin: isValidDateFinish ? moment(createOrEditNewEvent.Fecha_Fin).format('YYYY-MM-DDTHH:mm:ss') : '',
+          Color: createOrEditNewEvent.Color,
+        }, { headers: { Authorization: localStorage.getItem('token') } });
 
-    //HandleModalEdit
-    const defultEditEventState: CreateOrEditCalendarEvent = {
-        Titulo: '',
-        Descripcion: '',
-        Fecha_Inicio: '',
-        Fecha_Fin: '',
-        Color: '',
-    }
 
-    const [createOrEditEvent, setCreateOrEditEvent] = useState<CalendarEvent | CreateOrEditCalendarEvent>(defultEditEventState);
-    const [isCreateOrEditEventActive, setisCreateOrEditEventActive] = useState<boolean>(false);
-    const [isCreating, setIsCreating] = useState(true);
-
-    const loadEventToEdit = (event: MontlyEvents) => {
-        setCreateOrEditEvent(event.event);
-        setisCreateOrEditEventActive(true);
-        setIsCreating(false);
-    }
-
-    const cancelEditEvent = () => {
-        setisCreateOrEditEventActive(false);
-        setCreateOrEditEvent(defultEditEventState);
-        setIsCreating(true);
-    }
-
-    const handleCreateActivate = () => {
-        setisCreateOrEditEventActive(true);
-    }
-
-    const handleEditEvent = (name: keyof CalendarEvent | keyof CreateOrEditCalendarEvent, value: any) => {
-
-        if(name === 'Fecha_Inicio'){
-
-            const { year, month, day } = detailedDateDaySelected;
-            let hourHelper = value.split(':')
-
-            let date = moment({
-                year: year!,
-                month: month! - 1,
-                day: day!,
-                hour: hourHelper[0],
-                minute: hourHelper[1]
-            });
-
-            const formattedDate = date.format('YYYY-MM-DD HH:mm:ss');
-
-            setCreateOrEditEvent((prevState) => ({
-                ...prevState,
-                [name]: formattedDate,
-            }));
-        }else{
-            setCreateOrEditEvent((prevState) => ({
-                ...prevState,
-                [name]: value,
-            }));
+        const helperEvent = {
+          ...selectedEventDetails?.event.toPlainObject(),
+          title: createOrEditNewEvent.Titulo,
+          start: createOrEditNewEvent.Fecha_Inicio,
+          end: createOrEditNewEvent.Fecha_Fin,
+          description: createOrEditNewEvent.Descripcion != null ? createOrEditNewEvent.Descripcion : '',
+          color: createOrEditNewEvent.Color,
         }
 
+        selectedEventDetails?.event.setProp('title', helperEvent.title);
+        selectedEventDetails?.event.setStart(helperEvent.start!);
+        selectedEventDetails?.event.setEnd(helperEvent.end);
+        selectedEventDetails?.event.setProp('backgroundColor', helperEvent.color);
+        selectedEventDetails?.event.setProp('borderColor', helperEvent.color);
+        selectedEventDetails?.event.setExtendedProp('description', helperEvent.description);
+
+        handleEventClick();
+        setColorSelected(9);
+        cancelCreateOrEditEvent();
+      }
+    } catch (error: any) {
+      console.log(error);
+      
+      if(error.response){
+        showErrorTost({position: 'top-center', text: error.response.data.message})
+      }else{
+        showErrorTost({position: 'top-right', text: error.message})
+      }
     }
+  }
 
-    const createNewEventOnADayDetail = async () => {
-        try {
-            setIsCreateEventLoading(true);
-
-            await validateEvent(createOrEditEvent);
-            
-            const response = await serverRestApi.post<Response>('/api/calendar/createNewEvent',{
-                ...createOrEditEvent,
-                ID_Calendario: calendarInfo?.ID_Calendario
-            },{ headers: { Authorization: localStorage.getItem('token') } });
-
-            if(response.data.success){
-                await getInitialEventsData();
-                await loadMontlyEvents();
-            }
-
-
-            setCreateOrEditEvent(defultEditEventState);
-            setisCreateOrEditEventActive(false);
-            setIsCreateEventLoading(false);
-        } catch (error: any) {
-            if(error.response){
-                showErrorTost({position: 'top-center', text: error.response.data.message})
-            }else{
-                showErrorTost({position: 'top-right', text: error.message})
-            }
-            setIsCreateEventLoading(false);
-        }
-    }
-
-    //Context Value
-    const contextValue: CalendarContextInterface = {
-        calendarView: renderCalendarView,
-        handleCalendarView: handleCalendarView,
-        renderOptions: calendarRenderViews,
-        getCalendarData: getInitialCalendarData,
-        getCalendarDataLoading: isGettingCalendarDataLoading,
-        calendarData: calendarInfo,
-        date: dateAux,
-        nextMonthHandler: nextMonth,
-        passMonthHandler: passMonth,
-        formatedData: formatedDateAux,
-        monthDays: monthDays,
-        eventsData: calendarEvents,
-        getCalendarEvents: getInitialEventsData,
-        getEventsDataLoading: isGettingEventsDataLoading,
-        monthEvents: montlyEvents,
-        showDetailedModal: detailedDayModalState,
-        changeDetailedModalState: handleDetailedDayModalState,
-        daySelected: detailedDateDaySelected,
-        loadEventEdit: loadEventToEdit,
-        cancelEventEdit: cancelEditEvent,
-        editOrCreateEvent: createOrEditEvent,
-        isEditOrCreateEventActive: isCreateOrEditEventActive,
-        handleChangeEventEdit: handleEditEvent,
-        isCreating: isCreating,
-        handleActivateCreateEvent: handleCreateActivate,
-        createEventFromADay: createNewEventOnADayDetail,
-        isCretingLoading: isCreateEventLoading
-    };
-
-    useEffect(() => {
-        if(localStorage.getItem('token') != null && localStorage.getItem('token') != ''){
-            const awaitFunc = async () => {
-                await getInitialCalendarData();
-                await getInitialEventsData();
-            }
-    
-            awaitFunc();
-    
-            setformatedDateAux(dateAux.format('YYYY-MM-DD HH:mm:ss'));
-            getMonthDays();
-            loadMontlyEvents();
-            setCreateOrEditEvent(defultEditEventState);
-        }
-    }, [])
-
-    //Context Provider
+  const handleCustomEventRender = (eventContent: EventContentArg) => {
     return (
-        <CalendarContext.Provider value={contextValue}>
-            {children}
-        </CalendarContext.Provider>
-    );
+        <>
+            <b>{isNaN(Number(eventContent.timeText)) ? eventContent.timeText : ''}</b>
+            <i className="event-title-rendering"> {eventContent.event.title}</i>
+        </>
+    )
+  }
+
+  const handleEventResize = (info?: any) => {
+    handleConfirmModal();
+    if(info){
+      setResizeInfo(info);
+      setConfirmType('rezise');
+    }else{
+      setResizeInfo(null);
+      setConfirmType(null);
+    }
+  }
+
+  const handleEventDrop = (info?: any) => {
+    handleConfirmModal();
+    if(info){
+      setDropInfo(info);
+      setConfirmType('dropped');
+    }else{
+      setDropInfo(null);
+      setConfirmType(null);
+    }
+  }
+
+  const handleEventClick = (info?: EventClickArg) => {
+    if(info != null && info){
+      
+      setSelectedEventDetails(info);
+      setConfirmType('click');
+
+      const indice = CalendarColors.indexOf(info.event.backgroundColor);
+      setColorSelected(indice); 
+
+      let tempEvent: CalendarEvent = {
+        ID_Calendario_Eventos: info.event.id,
+        Titulo: info.event.title,
+        Descripcion: info.event.extendedProps.Descripcion ? info.event.extendedProps.Descripcion : '',
+        Color: info.event.backgroundColor,
+        Fecha_Inicio: info.event.start!.toString(),
+        Fecha_Fin: info.event.end ? info.event.end.toString() : '',
+        Actualizado_EN: null,
+        Creado_En: null,
+        FK_Calendario: null
+      }
+
+      setCreateOrEditNewEvent(tempEvent);
+    }else{
+      setSelectedEventDetails(null);
+      setConfirmType(null);
+    }
+    handleDetailedEventModal();
+  }
+
+  //Context Value
+  const contextValue : CalendarContextInterface = {
+    eventLoader: eventLoader,
+    eventArray: calendarEvents,
+    fullCalendarArray: formatedCalendarEvents,
+    getEventsFunction: getActiveCalendarEvents,
+    eventRender: handleCustomEventRender,
+    eventResize: handleEventResize,
+    eventDrop: handleEventDrop,
+    eventClick: handleEventClick,
+
+    //Modals
+    createEventModal: createEventModal,
+    handleCreateEventModal: handleCreateEventModal,
+    confirmChangeModal: confirmModal,
+    handleConfirmChangeModal: handleConfirmModal,
+    detailEventModal: detailedModal,
+    handleDetailEventModal: handleDetailedEventModal,
+
+    //Modal Helpers
+    confirmHelper: confirmType,
+    resizeHelper: resizeInfo,
+    dropHelper: dropInfo,
+    clickHelper: selectedEventDetails,
+
+    //Handle Create Or Edit
+    createOrEditState: createOrEditNewEvent,
+    handleCreateOrEditState: handleOnChangeEditOrCreateEvent,
+    handleEditInitDate: handleEditCompleteInitDate,
+    cancelCreateOrEdit: cancelCreateOrEditEvent,
+    sendCreateOrEdit: sendCreateEvent,
+    isCreateOrEditLoading: isCreatingLoading,
+
+    //Handle Colors
+    color: colorSelected,
+    setColor: setColorSelected,
+
+    //Data senders
+    sendEventUpdate: handleSendUpdateEvent
+  }
+
+  useEffect(() => {
+    if(localStorage.getItem('token')){
+      const asyncFunc = async() => {
+        await getInitialCalendarData();
+      }
+
+      asyncFunc()
+    }
+  }, [localStorage.getItem('token')]);
+  
+
+  return (
+    <CalendarContext.Provider value={contextValue}>
+      {children}
+    </CalendarContext.Provider>
+  );
 }
 
 //Use Context
 export const useCalendarContext = () : CalendarContextInterface => {
-    const context = useContext(CalendarContext);
-    if(context === undefined){
-        throw new Error('useCalendarContext debe ser utilizado dentro de un Context Provider');
-    }
-    return context;
+  const context = useContext(CalendarContext);
+  if(context === undefined){
+      throw new Error('useCalendarContext debe ser utilizado dentro de un Context Provider');
+  }
+  return context;
 }
-

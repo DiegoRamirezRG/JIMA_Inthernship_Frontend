@@ -8,7 +8,7 @@ import { createStudentToBe, customStudentToBe } from "../../../../models/enrollM
 import { CareerModel } from "../../../../models/careersModels/CareersModel";
 import { Grade, Group, Shift } from "../../../../models/schoolInfoModels/schoolInfoModels";
 import { StudentAcademicInfo } from "../../../../models/studentModels/StudentModel";
-import { CalendarEvent, CreateOrEditCalendarEvent, MontlyEvents } from "../../../../models/calendarModels/CalendarModels";
+import { CalendarEvent } from "../../../../models/calendarModels/CalendarModels";
 
 export interface dynamicInput{
     id: string;
@@ -26,8 +26,7 @@ export interface dynamicInput{
             | keyof Grade 
             | keyof Group 
             | keyof StudentAcademicInfo
-            | keyof MontlyEvents
-            | keyof CreateOrEditCalendarEvent;
+            | keyof CalendarEvent;
     inputType: HTMLInputTypeAttribute;
     editActive: boolean;
     onChange?: any;
@@ -41,8 +40,7 @@ export interface timerPickerInterface {
     label: string;
     time: string;
     onChange: any;
-    name:     keyof CalendarEvent
-            | keyof CreateOrEditCalendarEvent;
+    name:     keyof CalendarEvent;
     format: 'h:m a';
 }
 
@@ -51,8 +49,7 @@ export interface dateTimePickerInterface{
     label: string;
     date: string;
     onChange: any;
-    name:  keyof CalendarEvent
-        | keyof CreateOrEditCalendarEvent;
+    name:  keyof CalendarEvent;
 }
 
 export interface dynamicSelect{

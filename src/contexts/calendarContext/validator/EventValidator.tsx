@@ -1,10 +1,14 @@
 import moment from "moment";
-import { CalendarEvent, CreateOrEditCalendarEvent } from "../../../models/calendarModels/CalendarModels"
+import { CalendarEvent } from "../../../models/calendarModels/CalendarModels"
 
-export const validateEvent = (event: CalendarEvent | CreateOrEditCalendarEvent) => {
+export const validateEvent = (event: CalendarEvent ) => {
     return new Promise((resolve, reject) => {
+
+        if(event.Titulo == null || event.Fecha_Inicio == null || event.Color == null){
+            return reject(new Error('Los datos no pueden ir vacios'));
+        }
         
-        if(event.Titulo.length <= 0 || event.Titulo.length > 50){
+        if(event.Titulo!.length <= 0 || event.Titulo!.length > 50){
             return reject(new Error('El Titulo no cumple los requisitos'));
         }
 
@@ -19,7 +23,7 @@ export const validateEvent = (event: CalendarEvent | CreateOrEditCalendarEvent) 
         }
 
         const hexaRegEx = /^#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})$/;
-        if(!hexaRegEx.test(event.Color)){
+        if(!hexaRegEx.test(event.Color!)){
             return reject(new Error('El color seleccionado no cumple los requisitos'));
         }
 
