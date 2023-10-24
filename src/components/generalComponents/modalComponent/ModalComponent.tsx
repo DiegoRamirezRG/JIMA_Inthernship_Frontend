@@ -4,7 +4,7 @@ import './ModalComponent.scss'
 interface ModalProps{
     modalState: boolean;
     handleModalState: () => void;
-    modalSize?: 'modal-sm' | 'modal-lg' | 'modal-xl';
+    modalSize?: 'modal-sm' | 'modal-lg' | 'modal-xl' | 'modal-xxxl';
     children: any;
 }
 

@@ -11,6 +11,9 @@ import { persona } from "../usersModels/UserModel";
 import { Grade, Group, Shift } from '../schoolInfoModels/schoolInfoModels';
 import { StudentAcademicInfo } from "../studentModels/StudentModel";
 import { CalendarEvent, CalendarInfo } from "../calendarModels/CalendarModels";
+import { CycleStatus } from "../cycleModels/CycleModels";
+import { ValidCareersPlan } from "../careerPlansModels/CareerPlansModels";
+import { AreaModel, SubjectModel } from "../subjectsModels/SubjectModels";
 
 export interface Response {
     success: boolean;
@@ -27,11 +30,16 @@ export interface Response {
             | City[] 
             | GenderStats[] 
             | CareerModel[]
+            | CareerModel
             | Shift[]
             | Grade[]
             | Group[]
             | StudentAcademicInfo
             | CalendarInfo
-            | CalendarEvent;
+            | CalendarEvent
+            | CycleStatus
+            | ValidCareersPlan
+            | AreaModel[]
+            | SubjectModel[];
     error?: string | any;
 }

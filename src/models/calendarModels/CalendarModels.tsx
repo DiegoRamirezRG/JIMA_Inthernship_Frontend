@@ -31,4 +31,10 @@ export interface FullCalendarEventFormater {
     editable: boolean;
 }
 
+export interface NewCalendarCreation {
+    Nombre: string;
+    Inicio: string;
+    Fin: string;
+}
+
 export type ConfirmEventModalType = 'rezise' | 'dropped' | 'click' | null;

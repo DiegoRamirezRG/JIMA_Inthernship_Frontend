@@ -1,0 +1,54 @@
+@import '../../../../../utils/sassConfig/colors';
+@import '../../../../../utils/sassConfig/fonts';
+
+.draggableContainer{
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+    box-sizing: border-box;
+    padding: 5px 15px;
+    font-family: 'Quicksand', sans-serif;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid $cool_grey;
+    background-color: white;
+    gap: 10px;
+
+    &:hover{
+        cursor: grab;
+        border: 2px solid $iris;
+    }
+
+    &.dragging{
+        cursor: grabbing !important;
+        opacity: 0.2;
+    }
+
+    p{
+        margin: 0px;
+        margin: 0px;
+    }
+
+    .dragglableHeader{
+        width: 100%;
+        height: auto;
+        font-weight: 550;
+        font-size: 25px;
+        text-align: center;
+    }
+
+    .draggableContainerContent{
+        height: auto;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        margin: 0px;
+        padding: 0px;
+        
+        .innerRow{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+    }
+}

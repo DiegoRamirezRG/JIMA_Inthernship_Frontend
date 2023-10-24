@@ -1,0 +1,52 @@
+@import '../../../utils/sassConfig/colors';
+@import '../../../utils/sassConfig/fonts';
+
+.editCareerModalContainer{
+    width: 100% !important;
+    max-height: 550px;
+    height: min-content;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+
+    .innerGridContainer{
+        height: 40%;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 0px 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+
+        .inner-row{
+            display: grid;
+            grid-template-columns: 50% 50%;
+            gap: 10px;
+            width: 100%;
+        }
+
+        .detailedInputComponent{
+            textarea{
+                resize: none;
+                border: 2px solid transparent;
+        
+                outline: none;
+                font-weight: 550;
+                font-size: 15px;
+                padding: 15px 19px;
+                box-sizing: border-box;
+                margin: 0px;
+                height: 150px !important;
+                border-radius: 10px;
+                font-family: 'Quicksand';
+
+                &::placeholder{
+                    font-family: 'Quicksand';
+                }
+    
+                &:focus{
+                    border: 2px solid $ghostWhite;
+                }
+            }
+        }
+    }
+}

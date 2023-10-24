@@ -28,9 +28,7 @@ export const CareerSliderComponent = ({ stadistics } : props) => {
         <div className="careersSliderStats" ref={sliderRef} onWheel={handleMouseWheel}>
             {
                 stadistics!.map((item, index) => (
-                    <>
-                        <CareerCardComponent title={item.index} cantity={item.data} total={total!} icon={item.index} color={item.color != '' ? item.color : '#000'} key={index}/>
-                    </>
+                    <CareerCardComponent title={item.index} cantity={item.data} total={total!} icon={item.index} color={item.color != '' ? item.color : '#000'} key={index}/>
                 ))
             }
         </div>

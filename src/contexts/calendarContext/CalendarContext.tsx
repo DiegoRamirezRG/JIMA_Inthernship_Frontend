@@ -3,7 +3,7 @@ import { CalendarContextInterface, CalendarProviderProps } from "../../models/ca
 import { CalendarEvent, CalendarInfo, ConfirmEventModalType, FullCalendarEventFormater } from "../../models/calendarModels/CalendarModels";
 import { serverRestApi } from "../../utils/apiConfig/apiServerConfig";
 import { Response } from "../../models/responsesModels/responseModel";
-import { showErrorTost } from "../../components/generalComponents/toastComponent/ToastComponent";
+import { showErrorTost, showSuccessToast } from "../../components/generalComponents/toastComponent/ToastComponent";
 import { getContrast } from "../../utils/colorContrast/colorContrast";
 import moment from "moment";
 import { formatEventForFullCalendar } from "../../utils/calendarHelpers/FullCalendarFormater";
@@ -30,7 +30,7 @@ export const CalendarContextProvider = ({ children }: CalendarProviderProps) => 
   }
 
   //Handle Calendar Events
-  const [calendarGeneralLoader, setCalendarGeneralLoader] = useState(true);
+  const [calendarGeneralLoader, setCalendarGeneralLoader] = useState(false);
   const [eventLoader, setEventLoader] = useState(false);
   const [calendarInfo, setCalendarInfo] = useState<CalendarInfo | null>(null);
   const [calendarEvents, setCalendarEvents] = useState<CalendarEvent[]>([]);
@@ -45,6 +45,9 @@ export const CalendarContextProvider = ({ children }: CalendarProviderProps) => 
   const [resizeInfo, setResizeInfo] = useState<any | null>(null);
   const [dropInfo, setDropInfo] = useState<any | null>(null)
   const [confirmType, setConfirmType] = useState<ConfirmEventModalType>(null);
+
+  const [isCalendarValid, setIsCalendarValid] = useState<boolean | null>(null);
+  const [isValidatingCalendar, setIsValidatingCalendar] = useState(true);
 
   const getActiveCalendarEvents = async () => {
     try {
@@ -68,9 +71,16 @@ export const CalendarContextProvider = ({ children }: CalendarProviderProps) => 
 
   const getInitialCalendarData = async () => {
     try {
-        const response = await serverRestApi.get<Response>('/api/calendar/getActiveCalendar', { headers: { Authorization: localStorage.getItem('token') } });
+        const response = await serverRestApi.get<Response>('/api/calendar/getActiveCalendar', { headers: { Authorization: localStorage.getItem('token') } });        
         if(response.data.success){
+          if(response.data.data === null){
+            setIsCalendarValid(false);
+            setIsValidatingCalendar(false);
+          }else{
+            setIsCalendarValid(true);
+            setIsValidatingCalendar(false);
             setCalendarInfo(response.data.data);
+          }
         }else{
             throw new Error('Ha ocurrido un error obteniendo el Calendario')
         }
@@ -87,7 +97,8 @@ export const CalendarContextProvider = ({ children }: CalendarProviderProps) => 
   //MODALS
   const [createEventModal, setCreateEventModal] = useState<boolean>(false);
   const [confirmModal, setConfirmModal] = useState<boolean>(false);
-  const [detailedModal, setDetailedModal] = useState(false);
+  const [detailedModal, setDetailedModal] = useState<boolean>(false);
+  const [createCalendarModal, setCreateCalendarModal] = useState<boolean>(false);
   
   const handleCreateEventModal = (selectInfo?: DateSelectArg ) => {
     setCreateEventModal(!createEventModal);
@@ -105,6 +116,10 @@ export const CalendarContextProvider = ({ children }: CalendarProviderProps) => 
 
   const handleDetailedEventModal = () => {
     setDetailedModal(!detailedModal);
+  }
+
+  const handleCreationCalendarModal = () => {
+    setCreateCalendarModal(!createCalendarModal);
   }
 
   //Manipulate Events
@@ -132,6 +147,41 @@ export const CalendarContextProvider = ({ children }: CalendarProviderProps) => 
 
   const cancelCreateOrEditEvent = () => {
     setCreateOrEditNewEvent(defaultCreateOrEdit);
+  }
+
+  const handleCreateNewCalendar = async (title: string, init: string, end: string) => {
+    try {
+      
+      setCalendarGeneralLoader(true);
+
+      if(!init || !end || init == '' || end == ''){
+        throw new Error('Los datos no pueden ser vacios')
+      }
+
+      const resposne = await serverRestApi.post<Response>('/api/calendar/createNewCalendar', {
+        Nombre: title,
+        Inicio: init,
+        Fin: end
+      }, { headers: { Authorization: localStorage.getItem('token') } });
+
+      if(resposne.data.success){
+        showSuccessToast({position: 'top-right', text: resposne.data.message});
+
+        await getInitialCalendarData();
+        setCreateCalendarModal(false);
+        setCalendarGeneralLoader(false);
+      }
+
+    } catch (error: any) {
+      console.log(error);
+      
+      if(error.response){
+        showErrorTost({position: 'top-center', text: error.response.data.message})
+      }else{
+        showErrorTost({position: 'top-right', text: error.message})
+      }
+      setCalendarGeneralLoader(false);
+    }
   }
 
   const sendCreateEvent = async () => {
@@ -329,6 +379,8 @@ export const CalendarContextProvider = ({ children }: CalendarProviderProps) => 
     handleConfirmChangeModal: handleConfirmModal,
     detailEventModal: detailedModal,
     handleDetailEventModal: handleDetailedEventModal,
+    createCalendarModal: createCalendarModal,
+    handleCreateCalendarModal: handleCreationCalendarModal,
 
     //Modal Helpers
     confirmHelper: confirmType,
@@ -349,7 +401,15 @@ export const CalendarContextProvider = ({ children }: CalendarProviderProps) => 
     setColor: setColorSelected,
 
     //Data senders
-    sendEventUpdate: handleSendUpdateEvent
+    sendEventUpdate: handleSendUpdateEvent,
+
+    //Calendar Validator
+    isCalendarExist: isCalendarValid,
+    isCalendarExistLoading: isValidatingCalendar,
+
+    //Create Calendar
+    createCalendar: handleCreateNewCalendar,
+    createCalendarLoader: calendarGeneralLoader
   }
 
   useEffect(() => {

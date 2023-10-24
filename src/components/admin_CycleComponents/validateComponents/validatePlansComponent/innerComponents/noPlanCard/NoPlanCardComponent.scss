@@ -1,0 +1,50 @@
+@import '../../../../../../utils/sassConfig/colors';
+@import '../../../../../../utils/sassConfig/fonts';
+
+.noPlanCardContainer{
+    width: 100%;
+    border: 2px solid $ghostWhite;
+    border-radius: 10px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+    transition: 0.2s all ease-in-out;
+
+    &:hover{
+        background-color: $ghostWhite;
+    }
+
+    > * {
+        font-family: 'Quicksand', sans-serif;
+    }
+
+    h3{
+        padding: 0px;
+        margin: 0px;
+        font-size: 25px;
+        font-weight: 550;
+    }
+
+    button{
+        box-sizing: border-box;
+        padding: 3px 20px;
+        background-color: lighten($bootstrap_success, 10%);
+        border: none;
+        outline: none;
+        border-radius: 5px;
+        font-size: 15px;
+        color: white;
+        font-weight: 550;
+        transition: 0.2s all ease-in-out;
+
+        &:hover{
+            cursor: pointer;
+            background-color: $bootstrap_success;
+        }
+    }
+}

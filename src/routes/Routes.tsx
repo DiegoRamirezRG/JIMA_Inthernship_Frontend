@@ -10,6 +10,7 @@ import { Admin_UserCreateScree } from '../screens/admin_UserCreateScreen/Admin_U
 import { Admin_UserEditScreen } from '../screens/admin_UserEditScreen/Admin_UserEditScreen'
 import { Admin_School_Cycle } from '../screens/admin_School_Cycle/Admin_School_Cycle'
 import { Admin_CalendarScreen } from '../screens/admin_calendarScreen/Admin_CalendarScreen'
+import { Admin_InitCycleScreen } from '../screens/admin_InitCycleScreen/Admin_InitCycleScreen'
 
 
 const generalRoutes = [
@@ -64,6 +65,12 @@ const administrativeRoutes = [
         path: "/admin_calendar",
         element: <ProtectedRoute>
             <Admin_CalendarScreen/>
+        </ProtectedRoute>
+    },
+    {
+        path: "/admin_cycle/init",
+        element: <ProtectedRoute>
+            <Admin_InitCycleScreen/>
         </ProtectedRoute>
     }
 ]

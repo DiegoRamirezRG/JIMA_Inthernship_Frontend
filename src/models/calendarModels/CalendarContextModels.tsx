@@ -20,6 +20,8 @@ export interface CalendarContextInterface{
     handleConfirmChangeModal: () => void;
     detailEventModal: boolean;
     handleDetailEventModal: () => void;
+    createCalendarModal: boolean;
+    handleCreateCalendarModal: () => void;
 
     //ModalHelpers
     resizeHelper: any | null;
@@ -41,6 +43,14 @@ export interface CalendarContextInterface{
 
     //Data Senders
     sendEventUpdate: () => Promise<void>;
+
+    //Validate Calendar
+    isCalendarExist: boolean | null;
+    isCalendarExistLoading: boolean;
+
+    //Create New Calendar
+    createCalendar: (title: string, init: string, end: string) => Promise<void>;
+    createCalendarLoader: boolean;
 }
 
 export interface CalendarProviderProps{

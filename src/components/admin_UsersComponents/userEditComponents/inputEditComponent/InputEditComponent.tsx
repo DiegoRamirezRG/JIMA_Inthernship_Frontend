@@ -93,6 +93,47 @@ export const SelectedEditComponent = ({ opts, editActive, id, name, label, value
     )
 }
 
+export const SelectedEditComponentWithIDS = ({ opts, editActive, id, name, label, value, onChange }: dynamicSelect) => {
+
+    return (
+        <div className="detailedInputComponent">
+            <label htmlFor={id}>{label}</label>
+            <Select
+                value={opts!.find(opts => opts.value === value)}
+                isDisabled={!editActive}
+                name={name} 
+                options={opts}
+                onChange={onChange ? (e) => onChange(name, e?.value) : () => {}}
+                styles={{
+                    control: (baseStyles, state) => ({
+                        ...baseStyles,
+                        borderColor: state.isFocused ? '#EBEDF6' : 'transparent',
+                        borderWidth: 1,
+                        borderRadius: 40,
+                        fontFamily: 'Quicksand',
+                        fontSize: 20,
+                        fontWeight: 600,
+                        height: 30,
+                        backgroundColor: 'white',
+                        paddingLeft: 10
+                    }),
+                    dropdownIndicator: base => ({
+                        ...base,
+                        borderBottom: 'none',
+                    }),
+                    option: (base, state) => ({
+                        ...base,
+                        backgroundColor: state.isSelected ? '#6941C6' : state.isFocused ? '#E2E8F0' : 'white',
+                        color: state.isSelected ? 'white' : 'black',
+                        fontSize: 15,
+                        fontFamily: 'Quicksand',
+                    }),
+                }}
+            />
+        </div>
+    )
+}
+
 export const SelectedEditComponentWithAddBtn = ({ opts, editActive, id, name, label, value, onChange, addBtnAction }: dynamicSelectWithBtn) => {
 
     return (

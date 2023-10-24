@@ -8,7 +8,8 @@ import { createStudentToBe, customStudentToBe } from "../../../../models/enrollM
 import { CareerModel } from "../../../../models/careersModels/CareersModel";
 import { Grade, Group, Shift } from "../../../../models/schoolInfoModels/schoolInfoModels";
 import { StudentAcademicInfo } from "../../../../models/studentModels/StudentModel";
-import { CalendarEvent } from "../../../../models/calendarModels/CalendarModels";
+import { CalendarEvent, NewCalendarCreation } from "../../../../models/calendarModels/CalendarModels";
+import { AreaModelCreate, SubjectModelCreate, reqSubject } from "../../../../models/subjectsModels/SubjectModels";
 
 export interface dynamicInput{
     id: string;
@@ -26,7 +27,10 @@ export interface dynamicInput{
             | keyof Grade 
             | keyof Group 
             | keyof StudentAcademicInfo
-            | keyof CalendarEvent;
+            | keyof CalendarEvent
+            | keyof NewCalendarCreation
+            | keyof AreaModelCreate
+            | keyof SubjectModelCreate;
     inputType: HTMLInputTypeAttribute;
     editActive: boolean;
     onChange?: any;
@@ -49,13 +53,13 @@ export interface dateTimePickerInterface{
     label: string;
     date: string;
     onChange: any;
-    name:  keyof CalendarEvent;
+    name:  keyof CalendarEvent | keyof NewCalendarCreation;
 }
 
 export interface dynamicSelect{
     opts?: optionSelect[];
     id: string;
-    name: keyof SingleUser | keyof AddressModel | keyof createStudentToBe | keyof customStudentToBe;
+    name: keyof SingleUser | keyof AddressModel | keyof createStudentToBe | keyof customStudentToBe | keyof SubjectModelCreate | keyof reqSubject;
     editActive: boolean;
     label: string;
     value: string;

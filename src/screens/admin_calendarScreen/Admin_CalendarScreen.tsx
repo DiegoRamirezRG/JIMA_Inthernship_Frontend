@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import './Admin_CalendarScreen.scss'
 import { NavigationComponent } from "../../components/generalComponents/navigationComponent/NavigationComponent"
 import FullCalendar from '@fullcalendar/react'
@@ -13,53 +13,55 @@ import { ModalComponent } from '../../components/generalComponents/modalComponen
 import { AddNewEventModal } from '../../components/admin_CalendarComponents/AddNewEventModal/AddNewEventModal'
 import { ConfirmEventActionModal } from '../../components/admin_CalendarComponents/confirmEventActionModal/ConfirmEventActionModal'
 import { DetailEventModal } from '../../components/admin_CalendarComponents/DetailEventModal/DetailEventModal'
+import { CreateNewCalendarComponent } from '../../components/admin_CalendarComponents/CreateNewCalendar/CreateNewCalendarComponent'
+import { CreateNewCalendarModal } from '../../components/admin_CalendarComponents/CreateNewCalendarModal/CreateNewCalendarModal'
 
 export const Admin_CalendarScreen = () => {
 
-    const { fullCalendarArray, eventLoader, getEventsFunction, eventResize, eventRender, createEventModal, handleCreateEventModal, confirmChangeModal, eventDrop, eventClick, detailEventModal, handleDetailEventModal } = useCalendarContext();
-    
+    const { fullCalendarArray, eventLoader, getEventsFunction, eventResize, eventRender, createEventModal, handleCreateEventModal, confirmChangeModal, eventDrop, eventClick, detailEventModal, handleDetailEventModal, isCalendarExist, createCalendarModal, isCalendarExistLoading } = useCalendarContext();
     useEffect(() => {
         const asyncHelper = async () => {
-            await getEventsFunction();            
+            isCalendarExist
+            ? await getEventsFunction()
+            : () => {}
         }
         asyncHelper();
-    }, [])
+    }, [isCalendarExist])
 
     return (
         <NavigationComponent>
             <div className="CalendarMaxContainer">
                 <div className="calendarContent">
                     {
-                        eventLoader
+                        eventLoader || isCalendarExistLoading
                         ?   <LoadingComponent/>
-                        :   <div className="calendarEventsSection">
-                                <div className="sideActionCalendarBar">
-
+                        :   !isCalendarExist   
+                            ?   <CreateNewCalendarComponent/>
+                            :   <div className="calendarEventsSection">
+                                    <div className="calendarContainerFullCalendar">
+                                        <FullCalendar
+                                            plugins={[ dayGridPlugin, timeGridPlugin, multiMonthPlugin, interactionPlugin ]}
+                                            select={handleCreateEventModal}
+                                            initialView='dayGridMonth'
+                                            headerToolbar={{
+                                                left: 'prev,next today',
+                                                center: 'title',
+                                                right: 'multiMonthYear,dayGridMonth,timeGridWeek,timeGridDay'
+                                            }}
+                                            locales={[esLocale]}
+                                            editable={true}
+                                            selectable={true}
+                                            selectMirror={true}
+                                            dayMaxEvents={true}
+                                            eventResize={eventResize}
+                                            eventContent={eventRender}
+                                            eventDrop={eventDrop}
+                                            eventClick={eventClick}
+                                            dayHeaderFormat={{ weekday: 'long'}}
+                                            events={fullCalendarArray}
+                                        />
+                                    </div>
                                 </div>
-                                <div className="calendarContainerFullCalendar">
-                                    <FullCalendar
-                                        plugins={[ dayGridPlugin, timeGridPlugin, multiMonthPlugin, interactionPlugin ]}
-                                        select={handleCreateEventModal}
-                                        initialView='dayGridMonth'
-                                        headerToolbar={{
-                                            left: 'prev,next today',
-                                            center: 'title',
-                                            right: 'multiMonthYear,dayGridMonth,timeGridWeek,timeGridDay'
-                                        }}
-                                        locales={[esLocale]}
-                                        editable={true}
-                                        selectable={true}
-                                        selectMirror={true}
-                                        dayMaxEvents={true}
-                                        eventResize={eventResize}
-                                        eventContent={eventRender}
-                                        eventDrop={eventDrop}
-                                        eventClick={eventClick}
-                                        dayHeaderFormat={{ weekday: 'long'}}
-                                        events={fullCalendarArray}
-                                    />
-                                </div>
-                            </div>
                     }
                 </div>
             </div>
@@ -71,6 +73,9 @@ export const Admin_CalendarScreen = () => {
             </ModalComponent>
             <ModalComponent modalState={detailEventModal} handleModalState={() => {}}>
                 <DetailEventModal/>
+            </ModalComponent>
+            <ModalComponent modalState={createCalendarModal} handleModalState={() => {}}>
+                <CreateNewCalendarModal/>
             </ModalComponent>
         </NavigationComponent>
     )

@@ -1,0 +1,38 @@
+@import '../../../../../../utils/sassConfig/colors';
+@import '../../../../../../utils/sassConfig/fonts';
+
+.noPlansContainer{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+
+    .noPlansInnerContainer{
+        width: 100%;
+        height: auto;
+        max-height: 100%;
+        overflow-x: hidden;
+        overflow-y: auto;
+        font-family: 'Quicksand', sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+
+        .noPlansHeader{
+            width: 100%;
+            text-align: center;
+            height: auto;
+            position: sticky;
+            top: 0;
+            background-color: white;
+        }
+
+        .gridNoPlans{
+            width: 70%;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-height: 90%;
+        }
+    }
+}

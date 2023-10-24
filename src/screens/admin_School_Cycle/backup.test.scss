@@ -1,0 +1,81 @@
+@import '../../utils/sassConfig/colors';
+@import '../../utils/sassConfig/fonts';
+
+.AdminCycleContainer{
+    width: 75%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+
+    .headerTitle{
+        width: 100%;
+        box-sizing: border-box;
+        height: fit-content;
+        display: flex;
+        align-items: center;
+        margin: 0px;
+        padding: 0px;
+
+        h2{
+            font-family: 'Segoe UI', sans-serif;
+            font-weight: 600;
+            font-size: 50px;
+            margin: 0px;
+            padding: 0px;
+        }
+    }
+
+    .contentSection{
+        width: 100%;
+        height: 90%;
+        display: flex;
+        flex-direction: row;
+        box-sizing: border-box;
+        gap: 15px;
+
+        .contentSideA{
+            width: 70%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            overflow: hidden;
+        }
+
+        .contentSideB{
+            width: 30%;
+            height: 100%;
+            border-radius: 10px;
+            background: linear-gradient(to bottom, $ghostWhite, $ghostWhite, transparent);
+            box-sizing: border-box;
+            padding: 20px;
+            font-family: 'Quicksand', sans-serif;
+
+            h4{
+                font-weight: 550;
+                text-align: center;
+                font-size: 25px;
+                margin: 10px;
+                padding: 0px;
+            }
+
+            .generalOptions{
+                width: 100%;
+                height: auto;
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 10px;
+                max-height: 400px !important;
+                overflow-x: hidden;
+                overflow-y: scroll;
+                padding: 15px;
+                box-sizing: border-box;
+
+            }
+        }
+    }
+}

@@ -5,6 +5,7 @@ export interface CareerModel {
     Numero_De_Ciclos:           number;
     Duracion_Mensual_De_Ciclos: number;
     Descripcion:                string | null;
+    Active?:                     boolean;
 }
 
 

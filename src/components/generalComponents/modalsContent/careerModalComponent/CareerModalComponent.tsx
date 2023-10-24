@@ -56,6 +56,7 @@ export const CareerModalComponent = () => {
                         <div className="divider"></div>
                         <div className="modal-footer">
                             <button onClick={changeCareerModalState}>Cerrar</button>
+                            <button onClick={changeCareerModalState}>Guardar</button>
                         </div>
                     </div>
                     )

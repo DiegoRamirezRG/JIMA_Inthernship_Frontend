@@ -1,0 +1,41 @@
+.modal-image-content{
+    max-width: 80%;
+    width: auto;
+    height: 80%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    box-sizing: border-box;
+    padding: 20px 100px;
+    position: relative;
+    background-color: white;
+
+    .closeModalBtn{
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background-color: white;
+        z-index: 100;
+        width: 50px;
+        aspect-ratio: 1;
+        font-size: 45px;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+
+        &:hover{
+            cursor: pointer;
+        }
+    }
+
+    img{
+        max-width: 100%;
+        max-height: 100%;
+        width: auto;
+        height: auto;
+    }
+}
