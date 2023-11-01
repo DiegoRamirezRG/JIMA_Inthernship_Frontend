@@ -1,17 +1,25 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './FiltersCardComponent.scss'
 import { useSubjectsContext } from '../../../../../contexts/subjectContext/SubjectsContext';
 import { IoClose } from 'react-icons/io5';
 
 export const FiltersCardComponent = () => {
 
-    const { areasData } = useSubjectsContext();
+    const { areasData, filters, changeActiveFilter, changeAreasFilter, cleanFilters } = useSubjectsContext();
+    
+    const handleActivationFilter = (activation: boolean) => {
+        if(filters.state === activation){
+            changeActiveFilter('all')
+        }else{
+            changeActiveFilter(activation);
+        }
+    }
 
     return (
         <div className='filterList'>
         <div className="innerFilterList-container">
             <div className="buttonContainerClean">
-                <button className='cleanFilters'>
+                <button className='cleanFilters' onClick={cleanFilters}>
                     <IoClose/>
                     Limpiar Filtros
                 </button>
@@ -21,8 +29,9 @@ export const FiltersCardComponent = () => {
                     <label>
                         <input
                             type="checkbox"
-                            checked={false}
-                            onChange={() => {}}
+                            name='active_check'
+                            checked={filters.state === true}
+                            onChange={() => handleActivationFilter(true)}
                         />
                         <p>Activos</p>
                     </label>
@@ -31,8 +40,9 @@ export const FiltersCardComponent = () => {
                     <label>
                         <input
                             type="checkbox"
-                            checked={false}
-                            onChange={() => {}}
+                            name='inactive_check'
+                            checked={filters.state === false}
+                            onChange={() => handleActivationFilter(false)}
                         />
                         <p>Inactivos</p>
                     </label>
@@ -43,8 +53,8 @@ export const FiltersCardComponent = () => {
                             <label>
                                 <input
                                     type="checkbox"
-                                    checked={false}
-                                    onChange={() => {}}
+                                    checked={filters.areas.includes(area.ID_Area)}
+                                    onChange={() => changeAreasFilter(area.ID_Area)}
                                 />
                                 <p>{area.Nombre}</p>
                             </label>

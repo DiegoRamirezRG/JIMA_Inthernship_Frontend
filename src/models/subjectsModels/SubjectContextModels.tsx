@@ -11,6 +11,10 @@ export interface SubjectContextInterface{
     filteredSubjects: SubjectModel[];
     filters: SubjectsFilters;
     excludeAdded: (exclude: string[]) => void;
+    changeActiveFilter: (newState: boolean | "all") => void;
+    changeAreasFilter: (area: string | "all") => void;
+    cleanFilters: () => void;
+    cancelFiltering: () => void;
     //Get Areas Data
     isAreasLoading: boolean;
     areaOpts: optionSelect[] | null;

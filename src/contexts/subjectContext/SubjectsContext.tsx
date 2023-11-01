@@ -94,9 +94,56 @@ export const SubjectsContextProvider = ({ children }: SubjectProviderProps) => {
         areas: 'all'
     });
 
+    const cancelFiltering = () => {
+        setFilteredSubjects(subjects);
+        cleanTheFilters();
+    }
+
+    const cleanTheFilters = () => {
+        setFilters(() => ({
+            state: 'all',
+            areas: 'all'
+        }))
+    }
+
     const filterByAlreadyAdded = (exclude: string[]) => {
         const helperRemover = subjects.filter((element) => !exclude.includes(element.ID_Materia));
         setFilteredSubjects(helperRemover);
+    }
+
+    const handleFiltersState = (newState: boolean | "all") => {
+        setFilters((prevState) => ({
+            ...prevState,
+            state: newState
+        }))
+    }
+
+    const handleeFiltersAreas = (area: string | "all") => {
+        if(area === "all"){
+            setFilters((prevState) => ({
+                ...prevState,
+                areas: 'all'
+            }));
+        }else{
+            if(filters.areas === 'all'){
+                setFilters((prevState) => ({
+                    ...prevState,
+                    areas: [area]
+                }));
+            }else{
+                if(!filters.areas.includes(area)){
+                    setFilters((prevState) => ({
+                        ...prevState,
+                        areas: [...prevState.areas, area]
+                    }))
+                }else{
+                    setFilters((prevState) => ({
+                        ...prevState,
+                        areas: prevState.areas !==  'all' ? prevState.areas.filter((oldArea) => oldArea !== area).length > 0 ? prevState.areas.filter((oldArea) => oldArea !== area): 'all' : [...prevState.areas],
+                    }))
+                }
+            }
+        }
     }
 
     //Get Areas Data
@@ -194,6 +241,10 @@ export const SubjectsContextProvider = ({ children }: SubjectProviderProps) => {
         filteredSubjects: filteredSubjects,
         filters: filters,
         excludeAdded: filterByAlreadyAdded,
+        changeActiveFilter: handleFiltersState,
+        changeAreasFilter: handleeFiltersAreas,
+        cleanFilters: cleanTheFilters,
+        cancelFiltering: cancelFiltering,
 
         //Get Areas Data
         isAreasLoading: isGettinAreasLoading,

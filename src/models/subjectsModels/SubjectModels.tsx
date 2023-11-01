@@ -35,3 +35,7 @@ export interface SubjectModel extends SubjectModelCreate {
 export interface reqSubject {
     id_req: string;
 }
+
+export interface SubjectsId {
+    ID_Materia: string;
+}

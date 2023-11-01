@@ -9,6 +9,8 @@ import { CareersContextProvider } from './careersContext/CareersContext'
 import { CareersPlansContextProvider } from './careersContext/CareersPlansContext'
 import { SubjectsContextProvider } from './subjectContext/SubjectsContext'
 import { PlanMakerContextProvider } from './planMakerContext/PlanMakerContext'
+import { ReinsInscrContextProvider } from './reins_inscrContext/ReinsInscrContext'
+import { LoadScheduleContextProvider } from './loadScheduleContext/LoadScheduleContext'
 
 export const ContentProvider = (props: any) => {
     return (
@@ -21,7 +23,11 @@ export const ContentProvider = (props: any) => {
                                 <CareersPlansContextProvider>
                                     <SubjectsContextProvider>
                                         <PlanMakerContextProvider>
-                                            {props.children}
+                                            <ReinsInscrContextProvider>
+                                                <LoadScheduleContextProvider>
+                                                    {props.children}
+                                                </LoadScheduleContextProvider>
+                                            </ReinsInscrContextProvider>
                                         </PlanMakerContextProvider>
                                     </SubjectsContextProvider>
                                 </CareersPlansContextProvider>

@@ -59,7 +59,7 @@ export interface dateTimePickerInterface{
 export interface dynamicSelect{
     opts?: optionSelect[];
     id: string;
-    name: keyof SingleUser | keyof AddressModel | keyof createStudentToBe | keyof customStudentToBe | keyof SubjectModelCreate | keyof reqSubject;
+    name: keyof SingleUser | keyof AddressModel | keyof createStudentToBe | keyof customStudentToBe | keyof SubjectModelCreate | keyof reqSubject | string;
     editActive: boolean;
     label: string;
     value: string;

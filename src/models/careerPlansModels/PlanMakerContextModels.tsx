@@ -24,6 +24,11 @@ export interface PlanMakerContextInterface{
     deleteModalState: boolean;
     handleDeleteModalState: (subject_id?: string) => void;
     deletedId: string | null;
+
+    //Maker Plan
+    cancelPlanMaking: () => void;
+    sendMakePlan: (careerId: string) => Promise<void>;
+    isMakingPlanLoading: boolean;
 }
 
 export interface PlanMakerContextProviderInterface{

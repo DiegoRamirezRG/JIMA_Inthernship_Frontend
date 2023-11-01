@@ -1,6 +1,9 @@
 import React, { createContext, useContext, useState } from 'react'
 import { MakingPlanSubject, PlanMakerContextInterface, PlanMakerContextProviderInterface, SubjectsPerCicleInterface } from '../../models/careerPlansModels/PlanMakerContextModels';
 import { SubjectModel } from '../../models/subjectsModels/SubjectModels';
+import { showErrorTost, showSuccessToast } from '../../components/generalComponents/toastComponent/ToastComponent';
+import { serverRestApi } from '../../utils/apiConfig/apiServerConfig';
+import { Response } from '../../models/responsesModels/responseModel';
 
 const PlanMakerContext = createContext<PlanMakerContextInterface | undefined>(undefined);
 
@@ -11,6 +14,11 @@ export const PlanMakerContextProvider = ({ children} : PlanMakerContextProviderI
     });
     const [prevUpdates, setPrevUpdates] = useState<MakingPlanSubject[]>([]);
     const [filterReTRigger, setFilterReTRigger] = useState(false);
+
+    const handleCancelPlanMaking = () => {
+        setPrevUpdates([]);
+        setSubjectsPerCicle({});
+    }
 
     const prepareCiclesIntoArray = (cicles: number) => {
         setSubjectsPerCicle((prevState) => {
@@ -99,6 +107,32 @@ export const PlanMakerContextProvider = ({ children} : PlanMakerContextProviderI
         })
     }
 
+    //Send Plan Maker
+    const [isMakingLoading, setIsMakingLoading] = useState(false);
+
+    const sendPlanMaker = async(careerId: string) => {
+        try {
+            setIsMakingLoading(true);
+            const response = await serverRestApi.post<Response>('/api/plans/createPlan', {
+                idCarrera: careerId,
+                materias: subjectsPerCicle,
+                previas: prevUpdates
+            }, { headers: { Authorization: localStorage.getItem('token') } });
+
+            if(response.data.success){
+                showSuccessToast({position: 'top-center', text: response.data.message});
+            }
+            setIsMakingLoading(false);
+        } catch (error: any) {
+            if(error.response){
+                showErrorTost({position: 'top-center', text: error.response.data.message})
+            }else{
+                showErrorTost({position: 'top-center', text: error.message})
+            }
+            setIsMakingLoading(false);
+        }
+    }
+
     //Retunr Values
     const contextValues: PlanMakerContextInterface = {
         //Subjects per cicle
@@ -122,7 +156,12 @@ export const PlanMakerContextProvider = ({ children} : PlanMakerContextProviderI
         //Delete from plan modal and funcs
         deleteModalState: deleteModel,
         handleDeleteModalState: handleDeleteModalState,
-        deletedId: deleteId
+        deletedId: deleteId,
+
+        //Maker Plan
+        cancelPlanMaking: handleCancelPlanMaking,
+        sendMakePlan: sendPlanMaker,
+        isMakingPlanLoading: isMakingLoading,
     }
 
     return (

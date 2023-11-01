@@ -3,6 +3,7 @@ import './CreateSubjectCard.scss'
 import { InputEditComponent, SelectedEditComponentWithIDS } from '../../../../admin_UsersComponents/userEditComponents/inputEditComponent/InputEditComponent'
 import { useSubjectsContext } from '../../../../../contexts/subjectContext/SubjectsContext'
 import { LoadingComponent } from '../../../../generalComponents/loadingComponent/LoadingComponent';
+import { usePlanMakerContext } from '../../../../../contexts/planMakerContext/PlanMakerContext';
 
 interface CreateSubjectInterface {
     cancel: () => void;
@@ -10,10 +11,29 @@ interface CreateSubjectInterface {
 
 export const CreateSubjectCard = ({ cancel } : CreateSubjectInterface) => {
 
-    const { areaOpts, editableSubject, handleChangeEditSubject, createSubjectFunc, createSubjectLoading } = useSubjectsContext();
+    const { areaOpts, editableSubject, handleChangeEditSubject, createSubjectFunc, createSubjectLoading, excludeAdded } = useSubjectsContext();
+    const { ciclesState } = usePlanMakerContext();
+
+    const filterTheSubjectsShow = (): Promise<string[]> => {
+        return new Promise((resolve) => {
+            let temp: string[] = [];
+            for (const indice in ciclesState) {
+                if (Object.prototype.hasOwnProperty.call(ciclesState, indice)) {
+                // Recorrer el arreglo en el índice actual
+                    ciclesState[indice].forEach((subject) => {
+                        temp.push(subject.ID_Materia);
+                    });
+                }
+            }        
+            resolve(temp);
+        })
+    }
 
     const handleOnCreate = async() => {
-        await createSubjectFunc().then(() => cancel());
+        await createSubjectFunc();
+        const helper = await filterTheSubjectsShow();
+        excludeAdded(helper);
+        cancel();
     }
 
     return (

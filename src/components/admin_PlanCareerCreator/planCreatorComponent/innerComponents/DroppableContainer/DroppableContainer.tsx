@@ -24,10 +24,14 @@ export const DroppableContainer = ({ index }: DroppableContainerInterface) => {
     })
 
     const sumStateCicleStats = (indice: number, field: keyof SubjectModel) => {
-        const sum = ciclesState[indice].reduce((acc, obj) => {
-            return acc + Number(obj[field]);
-        }, 0)
-        return sum !== 0 ? sum : 'N/A';
+        if(ciclesState[indice]){
+            const sum = ciclesState[indice].reduce((acc, obj) => {
+                return acc + Number(obj[field]);
+            }, 0)
+            return sum !== 0 ? sum : 'N/A';
+        }else{
+            return 'N/A';
+        }
     }
 
     const [{ isOver }, drop] = useDrop({
@@ -60,14 +64,16 @@ export const DroppableContainer = ({ index }: DroppableContainerInterface) => {
             </div>
             <div className={`droppablePlace ${isOver ? 'over' : 'no-over'}`} ref={drop}>
                 {
-                    ciclesState[index].length > 0
-                    ?   <>
-                            {
-                                ciclesState[index].map((item, index) => (
-                                    <SubjectCard key={index} subject={item}/>
-                                ))
-                            }
-                        </>
+                    ciclesState[index]
+                    ?   ciclesState[index].length > 0
+                        ?   <>
+                                {
+                                    ciclesState[index].map((item, index) => (
+                                        <SubjectCard key={index} subject={item}/>
+                                    ))
+                                }
+                            </>
+                        :   <></>
                     :   <></>
                 }
             </div>

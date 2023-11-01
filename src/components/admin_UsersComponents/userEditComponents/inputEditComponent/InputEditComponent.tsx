@@ -58,7 +58,7 @@ export const SelectedEditComponent = ({ opts, editActive, id, name, label, value
         <div className="detailedInputComponent">
             <label htmlFor={id}>{label}</label>
             <Select
-                value={opts!.find(opts => opts.value === value)}
+                value={opts ? opts!.find(opt => opt.value === value) : [{value: 'none', label: 'No tienes opciones'}]}
                 isDisabled={!editActive}
                 name={name} 
                 options={opts}
@@ -103,6 +103,7 @@ export const SelectedEditComponentWithIDS = ({ opts, editActive, id, name, label
                 isDisabled={!editActive}
                 name={name} 
                 options={opts}
+                maxMenuHeight={200}
                 onChange={onChange ? (e) => onChange(name, e?.value) : () => {}}
                 styles={{
                     control: (baseStyles, state) => ({

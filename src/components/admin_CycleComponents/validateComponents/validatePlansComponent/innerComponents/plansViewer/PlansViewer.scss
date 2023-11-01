@@ -1,0 +1,66 @@
+@import '../../../../../../utils/sassConfig/colors';
+@import '../../../../../../utils/sassConfig/fonts';
+
+.planViewerContainer{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .plansInnerContainer{
+        width: 100%;
+        height: 100%;
+        overflow-x: hidden;
+        overflow-y: auto;
+        font-family: 'Quicksand', sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+        gap: 10px;
+
+        .plansInnerHeader{
+            width: 100%;
+            text-align: center;
+            height: 10%;
+            position: sticky;
+            top: 0;
+            background-color: white;
+        }
+
+        .gridPlansContainer{
+            height: 80%;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: start;
+            overflow: hidden;
+
+            .dynamicHeighContainer{
+                width: 70%;
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 20px;
+                max-height: 90%;
+            }
+        }
+
+        .explainedTextContainer{
+            width: 100%;
+            height: 10%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: $bootstrap_danger;
+            font-weight: 550;
+
+            p{
+                margin: 0px;
+                padding: 0px;
+            }
+        }
+    }
+}

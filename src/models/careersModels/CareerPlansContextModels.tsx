@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { ValidCareersPlan } from "../careerPlansModels/CareerPlansModels";
+import { CareerPlansActives, ValidCareersPlan } from "../careerPlansModels/CareerPlansModels";
 
 export interface CareerPlanContextInterface{
     //Initial data
@@ -11,6 +11,11 @@ export interface CareerPlanContextInterface{
     createModalState: boolean;
     planCareerId: string | null;
     handleCreateModalState: (careerId? : string) => void;
+
+    //Get Active Plans
+    gettingActivePlansLoading: boolean;
+    activePlans: { [key: string]: CareerPlansActives } | null;
+    getActivePlans: () => Promise<void>;
 }
 
 export interface CareerPlanProviderInterface{

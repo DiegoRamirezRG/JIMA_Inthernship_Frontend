@@ -1,5 +1,5 @@
 import React, { ReactNode, createContext, useContext, useState } from 'react'
-import { StudentAcademicInfo } from '../../models/studentModels/StudentModel';
+import { StudentAcademicInfo, StudentToBe } from '../../models/studentModels/StudentModel';
 import { showErrorTost } from '../../components/generalComponents/toastComponent/ToastComponent';
 import { serverRestApi } from '../../utils/apiConfig/apiServerConfig';
 import { Response } from '../../models/responsesModels/responseModel';
@@ -12,6 +12,16 @@ interface StudentContextInterface{
     studentAcademicInfo: StudentAcademicInfo | null;
     getAcademicInfo: (id_student: string) => Promise<void>;
     handleConfrimModalState: () => void;
+
+    //Last Year Student
+    lastYearLoader: boolean;
+    lastYearStudents: any;
+    getLastYearStudents: () => Promise<void>;
+
+    //Students To Be
+    isStudentsToBeLoading: boolean;
+    studentsToBe: StudentToBe[] | null;
+    getStudentsToBe: () => Promise<void>;
 }
 
 interface StudentProviderProps{
@@ -65,12 +75,67 @@ export const StudentContextProvider = ({ children }: StudentProviderProps) => {
         setConfirmModal(!confirmModal)
     }
 
+    //Get Students
+    const [isGettingLastYearStudentLoading, setIsGettingLastYearStudentLoading] = useState(true);
+    const [lastYearStudent, setLastYearStudent] = useState([]);
+
+    const getLastYearStudents = async () => {
+        try {
+
+            const response = await serverRestApi.get<Response>('/api/students/getLastYearStudents', { headers: { Authorization: localStorage.getItem('token') } });
+            if(response.data.success){
+                setLastYearStudent(response.data.data);
+            }
+
+            setIsGettingLastYearStudentLoading(false);
+        } catch (error: any) {
+            if(error.response){
+                showErrorTost({position: 'top-center', text: error.response.data.message})
+            }else{
+                showErrorTost({position: 'top-center', text: error.message})
+            }
+            setIsGettingLastYearStudentLoading(false);
+        }
+    }
+
+    //Get Aspirantes
+    const [isGettingAspLoading, setIsGettingAspLoading] = useState(true);
+    const [studentToBeData, setStudentToBeData] = useState<StudentToBe[] | null>(null);
+
+    const getStudentToBe = async () => {
+        try {
+            
+            const response = await serverRestApi.get<Response>('/api/students/toBe/getStudentsToBe', { headers: { Authorization: localStorage.getItem('token') } });
+            if(response.data.success){
+                setStudentToBeData(response.data.data);
+            }
+
+            setIsGettingAspLoading(false);
+        } catch (error: any) {
+            if(error.response){
+                showErrorTost({position: 'top-center', text: error.response.data.message})
+            }else{
+                showErrorTost({position: 'top-center', text: error.message})
+            }
+            setIsGettingAspLoading(false);
+        }
+    }
+
+
     const contextValue : StudentContextInterface = {
         loader: studentGeneralLoader,
         confirmModalState: confirmModal,
         studentAcademicInfo: studentAcademicState,
         getAcademicInfo: getAcademicInfo,
-        handleConfrimModalState: handleConfirmModalState
+        handleConfrimModalState: handleConfirmModalState,
+        //Last Year Student
+        lastYearLoader: isGettingLastYearStudentLoading,
+        lastYearStudents: lastYearStudent,
+        getLastYearStudents: getLastYearStudents,
+        //Students To Be
+        isStudentsToBeLoading: isGettingAspLoading,
+        studentsToBe: studentToBeData,
+        getStudentsToBe: getStudentToBe,
     };
 
     return (

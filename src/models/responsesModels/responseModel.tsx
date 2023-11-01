@@ -9,11 +9,12 @@ import { GenderStats } from "../stadisticsModels/stadisticsModels";
 import { City, Country, State } from "../universalApiModels/UniversalApiModel";
 import { persona } from "../usersModels/UserModel";
 import { Grade, Group, Shift } from '../schoolInfoModels/schoolInfoModels';
-import { StudentAcademicInfo } from "../studentModels/StudentModel";
+import { StudentAcademicInfo, StudentToBe } from "../studentModels/StudentModel";
 import { CalendarEvent, CalendarInfo } from "../calendarModels/CalendarModels";
 import { CycleStatus } from "../cycleModels/CycleModels";
-import { ValidCareersPlan } from "../careerPlansModels/CareerPlansModels";
-import { AreaModel, SubjectModel } from "../subjectsModels/SubjectModels";
+import { CareerPlansActives, ValidCareersPlan } from "../careerPlansModels/CareerPlansModels";
+import { AreaModel, SubjectModel, SubjectsId } from "../subjectsModels/SubjectModels";
+import { GroupNeeded } from "../loadScheduleModels/LoadScheduleModels";
 
 export interface Response {
     success: boolean;
@@ -40,6 +41,10 @@ export interface Response {
             | CycleStatus
             | ValidCareersPlan
             | AreaModel[]
-            | SubjectModel[];
+            | SubjectModel[]
+            | StudentToBe[]
+            | GroupNeeded[]
+            | SubjectsId[]
+            | { [key: string]: CareerPlansActives };
     error?: string | any;
 }

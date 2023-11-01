@@ -21,6 +21,7 @@ export interface CycleCalendarContext{
     //Stteper Handler
     stepConfig: Map<number, JSX.Element>;
     stepActivePage: number;
+    handleActivePage: (index: number) => void;
     stepsHelper: StepDTO[];
 
     //Validator Stepper
@@ -31,4 +32,13 @@ export interface CycleCalendarContext{
     validator_backView: () => void;
     validator_loadView: (index: number) => void;
     roadmap_count: number;
+
+    //Stteper Inscripcionts
+    inscription_Opts: innerStepper[];
+    inscription_indexActive: number;
+    inscription_screens: Map<number, JSX.Element>;
+    inscription_roadmap: number;
+    inscripction_nextView: () => void;
+    inscripction_backView: () => void;
+    inscripction_loadView: (index: number) => void;
 }

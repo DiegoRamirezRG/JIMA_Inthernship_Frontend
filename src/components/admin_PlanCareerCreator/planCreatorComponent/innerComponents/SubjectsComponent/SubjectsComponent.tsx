@@ -9,13 +9,16 @@ import { FiltersCardComponent } from '../FiltersCardComponent/FiltersCardCompone
 import { CreateAreaCard } from '../CreateAreaCard/CreateAreaCard';
 import { CreateSubjectCard } from '../CreateSubjectCard/CreateSubjectCard';
 import { DraggableCard } from '../DraggableCard/DraggableCard';
+import { IoClose } from 'react-icons/io5';
 
 export const SubjectsComponent = () => {
 
-    const { getSubjectsData, isSubjectsLoading, isAreasLoading, areasData, getAreasData, createAreaLoading, createAreaFunc, cancelEditArea, filteredSubjects, filters, cancelEditSubject } = useSubjectsContext();
+    const { getSubjectsData, isSubjectsLoading, isAreasLoading, areasData, getAreasData, createAreaLoading, createAreaFunc, cancelEditArea, filteredSubjects, filters, cancelEditSubject, subjectsData } = useSubjectsContext();
     const [showFilter, setShowFilter] = useState<boolean>(false);
     const [createSubject, setCreateSubject] = useState<boolean>(false);
-    const [createArea, setCreateArea] = useState<boolean>(false)
+    const [createArea, setCreateArea] = useState<boolean>(false);
+    const [searcher, setSearcher] = useState<string>('');
+
 
     const animation = useSpring({
         opacity: showFilter ? 1 : 0,
@@ -52,6 +55,20 @@ export const SubjectsComponent = () => {
         }
     }
 
+    const handleFilterStats = (sum: boolean) : string => {
+        if(sum){
+            const activeAreasCount = filters.areas !== 'all' ? filters.areas.length : 0;
+            const totalActiveCount = filters.state !== 'all' ? activeAreasCount + 1 : activeAreasCount;
+            return totalActiveCount.toString();
+        }else{
+            return '0';
+        }
+    }
+
+    const handleSearching = (name: any, value: any) => {
+        setSearcher(value);
+    }
+
     useEffect(() => {
         const awaitF = async () => {
             await getSubjectsData();
@@ -72,9 +89,19 @@ export const SubjectsComponent = () => {
                         </animated.div>
                     :   <div className="subjectsMainContent">
                             <div className="searcherInputSection">
-                                <InputEditComponent id={'search_subj'} placeholder={''} value={''} label={'Buscar Asignatura'} name={'Nombre'} inputType={'text'} editActive={!showFilter}/>
+                                <InputEditComponent id={'search_subj'} placeholder={'Escribe aqui...'} value={searcher} label={'Buscar Asignatura'} name={'Nombre'} inputType={'text'} editActive={!showFilter} onChange={handleSearching}/>
                                 <div className="list-menu" onClick={createArea ? () => {} : () => handleShowFilters()}>
                                     <MdFilterAlt/>
+                                    {
+                                        filters.state !== 'all' || filters.areas !== 'all'
+                                        ?  <div className="activeFiltersNumber">
+                                                {
+                                                    handleFilterStats(filters.state !== 'all' || filters.areas !== 'all')
+                                                }
+                                            </div>
+                                        :   <></>
+
+                                    }
                                 </div>
                                 {
                                     showFilter
@@ -113,12 +140,33 @@ export const SubjectsComponent = () => {
                                     filteredSubjects.length > 0
                                     ?   <div className='allSubjectsInnerDataContainer'>
                                             {
-                                                filteredSubjects.map((subject, index) => (
+                                                filteredSubjects.filter(item => {
+                                                    if(filters.state === 'all'){
+                                                        return true;
+                                                    }else{
+                                                        return item.Actice == filters.state;
+                                                    }
+                                                }).filter(subject => {
+                                                    if(filters.areas === 'all'){
+                                                        return true;
+                                                    }else{
+                                                        return filters.areas.includes(subject.FK_Area);
+                                                    }
+                                                }).filter(subject => {
+                                                    if(searcher === ''){
+                                                        return true;
+                                                    }else{
+                                                        return subject.Nombre.toLowerCase().includes(searcher.toLowerCase())
+                                                    }
+                                                })
+                                                .map((subject, index) => (
                                                     <DraggableCard subject={subject} key={index}/>
                                                 ))
                                             }
                                         </div>
-                                    :   <NoData singular='materia'/>
+                                    :   subjectsData.length > 0
+                                        ?   <NoMoraAvailable singular='materia' />
+                                        :   <NoData singular='materia'/>
                                 }
                             </div>
                             <div className="addNewSubjectBtn">
@@ -140,6 +188,16 @@ export const NoData = ({ singular }: noData) => {
             <p>No existen {singular.toLowerCase()}s</p>
             <p>No tienes ningun {singular} registrada, por favor para continuar crea una {singular}</p>
             <p>Si tienes {singular}s registradas y aun veas este mensaje, por favor contacta a soporte para solicitar mas informacion.</p>
+        </div>
+    )
+}
+
+export const NoMoraAvailable = ({ singular }: noData) => {
+    return (
+        <div className='noDataTexts'>
+            <p>No existen mas {singular.toLowerCase()}s</p>
+            <p>Se han colocado todas las {singular}s en el plan de estudio. Si necesitas mas, crealas por favor.</p>
+            <p>Si tienes {singular}s registradas y no aparecen aqui, por favor contacta a soporte para solicitar mas informacion.</p>
         </div>
     )
 }

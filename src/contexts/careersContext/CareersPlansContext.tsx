@@ -3,7 +3,7 @@ import { CareerPlanContextInterface, CareerPlanProviderInterface } from '../../m
 import { showErrorTost } from '../../components/generalComponents/toastComponent/ToastComponent';
 import { serverRestApi } from '../../utils/apiConfig/apiServerConfig';
 import { Response } from '../../models/responsesModels/responseModel';
-import { ValidCareersPlan } from '../../models/careerPlansModels/CareerPlansModels';
+import { CareerPlansActives, ValidCareersPlan } from '../../models/careerPlansModels/CareerPlansModels';
 
 const CareersPlansContext = createContext<CareerPlanContextInterface | undefined>(undefined);
 
@@ -44,8 +44,28 @@ export const CareersPlansContextProvider = ({ children } : CareerPlanProviderInt
         }
     }
 
-    //Creating Plan
-    
+    //Get Plans
+    const [isGettingPlansLoading, setIsGettingPlansLoading] = useState(true);
+    const [activesPlans, setActivesPlans] = useState<{ [key: string]: CareerPlansActives } | null>(null);
+
+    const getPlansActives = async() =>{
+        try {
+            const response = await serverRestApi.get<Response>('/api/plans/getPlans', { headers: { Authorization: localStorage.getItem('token') } });
+
+            if(response.data.success){
+                setActivesPlans(response.data.data);
+            }
+
+            setIsGettingPlansLoading(false);
+        } catch (error: any) {
+            if(error.response){
+                showErrorTost({position: 'top-center', text: error.response.data.message})
+            }else{
+                showErrorTost({position: 'top-center', text: error.message})
+            }
+            setIsGettingPlansLoading(false);
+        }
+    }
 
     const contextVal : CareerPlanContextInterface = {
         //Initial data
@@ -57,6 +77,11 @@ export const CareersPlansContextProvider = ({ children } : CareerPlanProviderInt
         createModalState: createPlanModal,
         handleCreateModalState: handleModalOpen,
         planCareerId: createPlamCareerId,
+
+        //Get Active Plans
+        gettingActivePlansLoading: isGettingPlansLoading,
+        activePlans: activesPlans,
+        getActivePlans: getPlansActives,
     }
 
     return (

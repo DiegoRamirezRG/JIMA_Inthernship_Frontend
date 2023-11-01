@@ -1,3 +1,5 @@
+import { SingleUser } from "../authModels/UserModel";
+
 export interface StudentAcademicInfo {
     Nombre:    string;
     Turno:     string;
@@ -7,3 +9,9 @@ export interface StudentAcademicInfo {
     Pagado:    number;
 }
 
+export interface StudentToBe extends SingleUser{
+    ID_Aspirante:         string;
+    ID_Estudiante:        string;
+    ID_Carrera:           string;
+    ID_Persona:           string;
+}

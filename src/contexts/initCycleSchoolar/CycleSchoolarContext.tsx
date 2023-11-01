@@ -6,11 +6,16 @@ import { Response } from '../../models/responsesModels/responseModel';
 import { CycleStatus, innerStepper } from '../../models/cycleModels/CycleModels';
 import { StepDTO } from 'react-form-stepper/dist/components/Step/StepTypes';
 import { ValidateComponents } from '../../components/admin_CycleComponents/validateComponents/ValidateComponents';
-import { options } from '../../components/admin_CycleComponents/validateComponents/helpers/renderingOpts';
+import { inscriptionsOptions, options } from '../../components/admin_CycleComponents/validateComponents/helpers/renderingOpts';
 import { ValdidateCareerComponent } from '../../components/admin_CycleComponents/validateComponents/validateCareersComponent/ValdidateCareerComponent';
 import { ValidatePlansComponent } from '../../components/admin_CycleComponents/validateComponents/validatePlansComponent/ValidatePlansComponent';
 import { ValidateStudentComponent } from '../../components/admin_CycleComponents/validateComponents/validateStudentsComponent/ValidateStudentComponent';
 import { CareerModel, CareerModelCreate } from '../../models/careersModels/CareersModel';
+import { InscripcionComponent } from '../../components/admin_CycleComponents/incripcionComponents/InscripcionComponent';
+import { MakeGroupsWithAsp } from '../../components/admin_CycleComponents/incripcionComponents/innerComponents/makeGroupsWithAsp/MakeGroupsWithAsp';
+import { PlanPicker } from '../../components/admin_CycleComponents/incripcionComponents/innerComponents/planPicker/PlanPicker';
+import { LoadSubjects } from '../../components/admin_CycleComponents/incripcionComponents/innerComponents/LoadSubjects/LoadSubjects';
+import { MakeSchedule } from '../../components/admin_CycleComponents/incripcionComponents/innerComponents/makeSchedule/MakeSchedule';
 
 const CycleSchoolarContext = createContext<CycleCalendarContext |undefined>(undefined);
 
@@ -50,7 +55,7 @@ export const CycleSchoolarContextProvider = ({ children }: initProviderProps) =>
     const steppersWrappersComponents = new Map<number, JSX.Element>([
         [0, <ValidateComponents/>],
         [1, <>Reinscripciones</>],
-        [2, <>Inscripciones</>],
+        [2, <InscripcionComponent/>],
         [3, <>Confirmacion</>],
     ])
 
@@ -61,7 +66,11 @@ export const CycleSchoolarContextProvider = ({ children }: initProviderProps) =>
         {label: 'Confirmacion'}
     ]
 
-    const [stepperScreen, setStepperScreen] = useState(0);
+    const [stepperScreen, setStepperScreen] = useState<number>(0);
+
+    const handlerStepperRenderByNumber = (index: number) => {
+        setStepperScreen(index);
+    }
 
     //Validate Stepper and Render
     const [renderingOptions, setRenderingOptions] = useState<innerStepper[]>(options);
@@ -107,6 +116,50 @@ export const CycleSchoolarContextProvider = ({ children }: initProviderProps) =>
         setActiveComponent(index);
     }
 
+    //Stepper of Resincripciton
+    const [inscriptRenderOpts, setInscriptRenderOpts] = useState<innerStepper[]>(inscriptionsOptions);
+    const [activeInscComp, setActiveInscComp] = useState(0);
+    const [inscriptRoadMap, setInscriptRoadMap] = useState(0);
+
+    const inscriptViewsComponents = new Map<number, JSX.Element>([
+        [0, <MakeGroupsWithAsp/>],
+        [1, <PlanPicker/>],
+        [2, <LoadSubjects/>],
+        [3, <MakeSchedule/>],
+    ]);
+
+    const handleNextInscripView = () => {
+        setInscriptRenderOpts((prevOpt) => {
+            const nuevasOpts = [...prevOpt];
+            nuevasOpts[activeInscComp] = { ...nuevasOpts[activeInscComp], active: false, completed: true };
+            nuevasOpts[activeInscComp + 1] = { ...nuevasOpts[activeInscComp + 1], active: true};
+            return nuevasOpts;
+        })
+        activeInscComp == inscriptRoadMap
+        ?   setInscriptRoadMap(activeInscComp + 1)
+        :   () => {}
+        setActiveInscComp(activeInscComp + 1);
+    }
+
+    const handleBackInscripView = () => {
+        setInscriptRenderOpts((prevOpt) => {
+            const nuevasOpts = [...prevOpt];
+            nuevasOpts[activeInscComp] = { ...nuevasOpts[activeInscComp], active: false };
+            nuevasOpts[activeInscComp - 1] = { ...nuevasOpts[activeInscComp - 1], active: true};
+            return nuevasOpts;
+        });
+        setActiveInscComp(activeInscComp - 1);
+    }
+
+    const handleInscripLoadingView = (index: number) => {
+        setInscriptRenderOpts((prevOpt) => {
+            const nuevasOpts = [...prevOpt];
+            nuevasOpts[activeInscComp] = { ...nuevasOpts[activeInscComp], active: false };
+            nuevasOpts[index] = { ...nuevasOpts[index], active: true};
+            return nuevasOpts;
+        });
+        setActiveInscComp(index);
+    }
 
     //Export Context
     const contextValue: CycleCalendarContext = {
@@ -123,6 +176,7 @@ export const CycleSchoolarContextProvider = ({ children }: initProviderProps) =>
         //Stteper Handler
         stepConfig: steppersWrappersComponents,
         stepActivePage: stepperScreen,
+        handleActivePage: handlerStepperRenderByNumber,
         stepsHelper: stepsHelper,
 
         //Validator Stepper
@@ -133,6 +187,15 @@ export const CycleSchoolarContextProvider = ({ children }: initProviderProps) =>
         validator_backView: handleBackValidatorView,
         validator_loadView: handleLoadingView,
         roadmap_count: roadMapCompleted,
+
+        //Stteper Inscripcionts
+        inscription_Opts: inscriptRenderOpts,
+        inscription_indexActive: activeInscComp,
+        inscription_screens: inscriptViewsComponents,
+        inscription_roadmap: inscriptRoadMap,
+        inscripction_nextView: handleNextInscripView,
+        inscripction_backView: handleBackInscripView,
+        inscripction_loadView: handleInscripLoadingView,
     }
 
     return (

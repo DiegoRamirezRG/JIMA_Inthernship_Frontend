@@ -12,6 +12,7 @@
     display: flex;
     flex-direction: column;
     user-select: none;
+    overflow: hidden;
 
     .innerDropHeader{
         width: 100%;
@@ -56,6 +57,7 @@
         gap: 10px !important;
         display: flex;
         flex-direction: column;
+        overflow: auto;
 
         &.over{
             border: 2px solid $iris;
