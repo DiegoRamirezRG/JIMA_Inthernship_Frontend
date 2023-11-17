@@ -1,0 +1,43 @@
+@import '../../../utils/sassConfig/colors';
+@import '../../../utils/sassConfig/fonts';
+
+.stepperContainer{
+    font-family: 'Quicksand', sans-serif !important;
+    height: 100%;
+    width: 100%;
+
+    button{
+        transition: 0.2s all ease-in-out;
+        &:hover{
+            cursor: default;
+        }
+
+        span {
+            font-weight: bold;
+        }
+
+        &.completed{
+            background-color: lighten($bootstrap_success, 15%);
+            &:hover{
+                background-color: lighten($bootstrap_success, 15%);
+            }
+        }
+
+        &.active{
+            background-color: lighten($marian_blue, 15%);
+            &:hover{
+                background-color: lighten($marian_blue, 15%);
+            }
+        }
+
+        &:disabled{
+            background-color: rgba($iris, 0.3);
+        }
+    }
+
+    span{
+        font-family: 'Quicksand', sans-serif !important;
+        font-size: 20px;
+        font-weight: 550;
+    }
+}

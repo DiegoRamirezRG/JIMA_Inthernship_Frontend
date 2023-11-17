@@ -8,7 +8,7 @@ export const StepperNodeComponent = () => {
     const { stepActivePage, stepsHelper } = useCycleSchoolarContext();
 
     return (
-        <div>
+        <div className='stepperContainer'>
             <Stepper steps={stepsHelper} activeStep={stepActivePage}>
                 {
                     stepsHelper.map((item, index) => (

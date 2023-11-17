@@ -21,18 +21,5 @@
         font-size: 30px;
         text-align: center;
         font-weight: 550;
-
-        .loading-text{
-            animation: fadeInOut 2.5s infinite;
-        }
-    }
-}
-
-@keyframes fadeInOut {
-    0%{
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
     }
 }

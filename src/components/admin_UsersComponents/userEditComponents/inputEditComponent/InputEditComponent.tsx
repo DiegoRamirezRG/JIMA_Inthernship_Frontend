@@ -61,6 +61,7 @@ export const SelectedEditComponent = ({ opts, editActive, id, name, label, value
                 value={opts ? opts!.find(opt => opt.value === value) : [{value: 'none', label: 'No tienes opciones'}]}
                 isDisabled={!editActive}
                 name={name} 
+                maxMenuHeight={250}
                 options={opts}
                 onChange={onChange ? (e) => onChange(name, e?.label) : () => {}}
                 styles={{
@@ -93,7 +94,7 @@ export const SelectedEditComponent = ({ opts, editActive, id, name, label, value
     )
 }
 
-export const SelectedEditComponentWithIDS = ({ opts, editActive, id, name, label, value, onChange }: dynamicSelect) => {
+export const SelectedEditComponentWithIDS = ({ opts, editActive, id, name, label, value, onChange, isClearable }: dynamicSelect) => {
 
     return (
         <div className="detailedInputComponent">
@@ -104,6 +105,7 @@ export const SelectedEditComponentWithIDS = ({ opts, editActive, id, name, label
                 name={name} 
                 options={opts}
                 maxMenuHeight={200}
+                isClearable={isClearable}
                 onChange={onChange ? (e) => onChange(name, e?.value) : () => {}}
                 styles={{
                     control: (baseStyles, state) => ({
@@ -136,6 +138,52 @@ export const SelectedEditComponentWithIDS = ({ opts, editActive, id, name, label
 }
 
 export const SelectedEditComponentWithAddBtn = ({ opts, editActive, id, name, label, value, onChange, addBtnAction }: dynamicSelectWithBtn) => {
+
+    return (
+        <div className="customSelectedInput">
+            <label htmlFor={id}>{label}</label>
+            <div className="innerContainer">
+                <Select
+                        value={value ? opts!.find(opts => opts.value === value) : {label: 'Selecciona una opcion', value: ''}}
+                        isDisabled={!editActive}
+                        name={name} 
+                        options={opts}
+                        onChange={onChange ? (e) => onChange(name, e?.value) : () => {}}
+                        styles={{
+                            control: (baseStyles, state) => ({
+                                ...baseStyles,
+                                borderColor: state.isFocused ? '#EBEDF6' : 'transparent',
+                                borderWidth: 1,
+                                borderTopLeftRadius: 40,
+                                borderBottomLeftRadius: 40,
+                                fontFamily: 'Quicksand',
+                                fontSize: 20,
+                                fontWeight: 600,
+                                height: 30,
+                                backgroundColor: 'white',
+                                paddingLeft: 10,
+                                width: '100%',
+                            }),
+                            dropdownIndicator: base => ({
+                                ...base,
+                                borderBottom: 'none',
+                            }),
+                            option: (base, state) => ({
+                                ...base,
+                                backgroundColor: state.isSelected ? '#6941C6' : state.isFocused ? '#E2E8F0' : 'white',
+                                color: state.isSelected ? 'white' : 'black',
+                                fontSize: 15,
+                                fontFamily: 'Quicksand',
+                            }),
+                        }}
+                    />
+                    <button onClick={addBtnAction}><IoMdAddCircleOutline/></button>
+            </div>
+        </div>
+    )
+}
+
+export const SelectedEditComponentWithAddBtnCustomRender = ({ opts, editActive, id, name, label, value, onChange, addBtnAction }: dynamicSelectWithBtn) => {
 
     return (
         <div className="customSelectedInput">

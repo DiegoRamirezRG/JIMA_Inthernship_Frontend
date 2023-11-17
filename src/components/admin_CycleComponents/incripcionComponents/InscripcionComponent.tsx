@@ -17,12 +17,12 @@ import { PlanScheduleMakerModal } from '../../admin_ScheduleMaker/PlanScheduleMa
 
 export const InscripcionComponent = () => {
 
-    const { inscription_Opts, inscription_indexActive, inscription_screens, inscription_roadmap, inscripction_nextView, inscripction_backView, inscripction_loadView } = useCycleSchoolarContext();
+    const { inscription_Opts, inscription_indexActive, inscription_screens, inscription_roadmap, inscripction_nextView, inscripction_backView, inscripction_loadView, handleActivePage, stepActivePage } = useCycleSchoolarContext();
     const { createGroupModal, shiftModal } = useReinsInscrContext();
     const { shiftContextModalState } = useShiftModalContext();
     const { createModalState } = useCareersPlansContext()
     const { isMakingPlanLoading } = usePlanMakerContext();
-    const { groups, subjectsPerGroup, scheduleMakerModal } = useLoadScheduleContext();
+    const { groups, subjectsPerGroup, scheduleMakerModal, groupdDone } = useLoadScheduleContext();
 
     return (
         <>
@@ -61,7 +61,11 @@ export const InscripcionComponent = () => {
                                     ?   <button className='next' onClick={inscripction_nextView}>Siguiente</button>
                                     :   <div></div>
                                 :   <button className='next' onClick={inscripction_nextView}>Siguiente</button>
-                            :   <div></div>
+                            :   inscription_indexActive === 3
+                                ?   groups && groupdDone && groupdDone.length == groups.length
+                                    ?   <button className='next' onClick={() => handleActivePage(stepActivePage + 1)}>Siguiente</button>
+                                    :   <div></div>
+                                :   <div></div>
                         }
                     </div>
                 </div>

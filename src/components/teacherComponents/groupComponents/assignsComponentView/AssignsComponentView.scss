@@ -1,0 +1,106 @@
+@import '../../../../utils/sassConfig/colors';
+@import '../../../../utils/sassConfig/fonts';
+
+.maxAssignmentsContainerView{
+    width: 100%;
+    font-family: 'Quicksand', sans-serif;
+
+    .loaderCOntainer{
+        height: 400px;
+    }
+
+    .realContainer{
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+
+        .sidebarContainer{
+            width: 25%;
+            height: fit-content;
+            border-radius: 10px;
+            box-sizing: border-box;
+            padding: 10px;
+            border: 2px solid $ghostWhite;
+            background-color: white;
+            display: grid;
+            grid-template-columns: 100%;
+            row-gap: 15px;
+            position: sticky;
+            top: 0;
+            overflow: hidden;
+
+            button{
+                width: 100%;
+                box-sizing: border-box;
+                padding: 5px 15px;
+                border-radius: 5px;
+                outline: none;
+                border: none;
+                font-size: 20px;
+                font-family: 'Quicksand', sans-serif;
+                font-weight: 550;
+                align-self: center;
+                justify-self: center;
+                transition: 0.2s all ease-in-out;
+                color: white;
+
+                &:nth-child(2){
+                    background-color: $kyubiDarkOrange;
+                    border-color: $kyubiDarkOrange;
+                }
+
+                &:nth-child(3){
+                    background-color: $iris;
+                }
+
+                &:nth-child(4){
+                    background-color: #16a085;
+                }
+
+                &:nth-child(5){
+                    background-color: #9b59b6;
+                }
+
+                &:hover{
+                    cursor: pointer;
+                    color: white;
+
+                    &:nth-child(2){
+                        background-color: darken($kyubiDarkOrange, 10%);
+                    }
+    
+                    &:nth-child(3){
+                        background-color: darken($iris, 10%);
+                    }
+
+                    &:nth-child(4){
+                        background-color: darken(#16a085, 10%);
+                    }
+
+                    &:nth-child(5){
+                        background-color: darken(#9b59b6, 10%);
+                    }
+                }
+            }
+        }
+
+        .innerContentContainer{
+            width: 75%;
+            height: auto;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+
+            .noUnitWorks{
+                width: 100%;
+                height: auto;
+                background-color: navy;
+                box-sizing: border-box;
+                padding: 10px 25px;
+            }
+        }
+    }
+}

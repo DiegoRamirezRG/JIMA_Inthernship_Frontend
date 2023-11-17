@@ -1,0 +1,65 @@
+@import '../../../../../../utils/sassConfig/colors';
+@import '../../../../../../utils/sassConfig/fonts';
+
+.innerMaxContainerCreateUnit{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: 400px;
+
+    .createUnitModalContainer{
+        width: 80%;
+        display: grid;
+        grid-template-columns: 1fr;
+        row-gap: 20px;
+        box-sizing: border-box;
+        margin-bottom: 20px;
+    
+        .addRubBtn{
+            width: auto;
+            border-radius: 10px;
+            box-sizing: border-box;
+            padding: 5px 20px;
+            outline: none;
+            border: none;
+            font-size: 20px;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 550;
+            width: fit-content;
+            justify-self: center;
+            align-self: center;
+            background-color: $iris;
+            color: white;
+            transition: 0.2s all ease-in-out;
+    
+            &:hover{
+                cursor: pointer;
+                background-color: darken($iris, 10%);
+            }
+        }
+    }
+
+}
+
+.actionsContainer{
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    button{
+        border-radius: 10px;
+        border: none;
+        font-size: 25px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transition: 0.2s all ease-in-out;
+        box-sizing: border-box;
+        padding: 5px 20px;
+    }
+}

@@ -84,7 +84,7 @@ export const WizardSubjectModal = () => {
         <div className='modal-content'>
             <div className="modal-header">
                 <h5>Confirmacion</h5>
-                <button className='modal-btn-close' onClick={ () => {} }>
+                <button className='modal-btn-close' onClick={ () => { handleConfirmSetupModal(); setRequire(false)} }>
                     <IoClose/>
                 </button>
             </div>

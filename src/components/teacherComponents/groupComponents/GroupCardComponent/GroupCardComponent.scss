@@ -1,0 +1,108 @@
+@import '../../../../utils/sassConfig/colors';
+@import '../../../../utils/sassConfig/fonts';
+
+.cardContainer{
+    width: 100%;
+    height: 300px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding: 20px;
+    border: 3px solid rgba($cool_grey, 0.2);
+    background-color: white;
+    box-shadow: rgba($cool_grey, 0.3) 0px 20px 25px -5px, rgba($cool_grey, 0.04) 0px 10px 10px -5px;
+    margin-bottom: 20px;
+    transition: 0.2s all ease;
+
+    &:hover{
+        cursor: pointer;
+        border: 3px solid rgba($iris, 0.5);
+    }
+
+    .imageContainer{
+        width: 100%;
+        height: 70%;
+    }
+
+    .informationContainer{
+        width: 100%;
+        height: 30%;
+        position: relative;
+        box-sizing: border-box;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        font-size: 20px;
+
+        p{
+            margin: 0px;
+            padding: 0px;
+
+            &.subj_title{
+                font-size: 30px;
+            }
+
+            &.subj_area{
+                color: rgba(black, 0.5)
+            }
+        }
+
+        .innerRow{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .floatingActions{
+            position: absolute;
+            width: 37%;
+            height: 96%;
+            top: -96%;
+            right: 0px;
+            border-radius: 20px 0px 0px 0px;
+            display: flex;
+            flex-direction: row;
+            box-sizing: border-box;
+            padding: 10px;
+            justify-content: space-evenly;
+
+            .icons{
+                width: 55px;
+                height: 55px;
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 35px;
+                color: white;
+                transition: 0.2s all ease-in-out;
+
+                &.list{
+                    background-color: lighten($kyubiDarkOrange, 10%);
+
+                    &:hover{
+                        background-color: darken($kyubiDarkOrange, 5%);
+                    }
+                }
+
+                &.add{
+                    background-color: lighten($iris, 10%);
+                    
+                    &:hover{
+                        background-color: darken($iris, 5%);
+                    }
+                }
+
+                a{
+                    margin: 0px;
+                    padding: 0px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+            }
+        }
+    }
+}

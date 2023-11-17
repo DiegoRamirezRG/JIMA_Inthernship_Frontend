@@ -11,6 +11,9 @@ import { SubjectsContextProvider } from './subjectContext/SubjectsContext'
 import { PlanMakerContextProvider } from './planMakerContext/PlanMakerContext'
 import { ReinsInscrContextProvider } from './reins_inscrContext/ReinsInscrContext'
 import { LoadScheduleContextProvider } from './loadScheduleContext/LoadScheduleContext'
+import { TeacherContextProvider } from './teacherContext/TeacherContext'
+import { GroupsContextProvider } from './groupsContext/GroupsContext'
+import { HomeworkContextProvider } from './homeworkContext/HomeworkContext'
 
 export const ContentProvider = (props: any) => {
     return (
@@ -25,7 +28,13 @@ export const ContentProvider = (props: any) => {
                                         <PlanMakerContextProvider>
                                             <ReinsInscrContextProvider>
                                                 <LoadScheduleContextProvider>
-                                                    {props.children}
+                                                    <TeacherContextProvider>
+                                                        <GroupsContextProvider>
+                                                            <HomeworkContextProvider>
+                                                                {props.children}
+                                                            </HomeworkContextProvider>
+                                                        </GroupsContextProvider>
+                                                    </TeacherContextProvider>
                                                 </LoadScheduleContextProvider>
                                             </ReinsInscrContextProvider>
                                         </PlanMakerContextProvider>

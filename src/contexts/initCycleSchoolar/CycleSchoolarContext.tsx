@@ -16,6 +16,7 @@ import { MakeGroupsWithAsp } from '../../components/admin_CycleComponents/incrip
 import { PlanPicker } from '../../components/admin_CycleComponents/incripcionComponents/innerComponents/planPicker/PlanPicker';
 import { LoadSubjects } from '../../components/admin_CycleComponents/incripcionComponents/innerComponents/LoadSubjects/LoadSubjects';
 import { MakeSchedule } from '../../components/admin_CycleComponents/incripcionComponents/innerComponents/makeSchedule/MakeSchedule';
+import { ConfirmationComponents } from '../../components/admin_CycleComponents/confirmationComponents/ConfirmationComponents';
 
 const CycleSchoolarContext = createContext<CycleCalendarContext |undefined>(undefined);
 
@@ -40,8 +41,6 @@ export const CycleSchoolarContextProvider = ({ children }: initProviderProps) =>
                 setGetCycleState(false);
             }
         } catch (error: any) {
-            console.log(error);
-
             if(error.response){
                 showErrorTost({position: 'top-center', text: error.response.data.message})
             }else{
@@ -56,7 +55,7 @@ export const CycleSchoolarContextProvider = ({ children }: initProviderProps) =>
         [0, <ValidateComponents/>],
         [1, <>Reinscripciones</>],
         [2, <InscripcionComponent/>],
-        [3, <>Confirmacion</>],
+        [3, <ConfirmationComponents/>],
     ])
 
     const stepsHelper: StepDTO[] = [

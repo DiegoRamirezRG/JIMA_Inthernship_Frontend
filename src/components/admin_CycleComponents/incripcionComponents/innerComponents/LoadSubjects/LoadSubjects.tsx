@@ -65,7 +65,7 @@ export const LoadSubjects = () => {
                                                     }
                                                 })
                                                 .map((group, index) => (
-                                                    <div className='container-group'>
+                                                    <div className='container-group' key={index}>
                                                         <p>{group.Carrera}</p>
                                                         <button onClick={async () => await getAndSetSubjects([group], 0)}>Cargar Materias</button>
                                                     </div>

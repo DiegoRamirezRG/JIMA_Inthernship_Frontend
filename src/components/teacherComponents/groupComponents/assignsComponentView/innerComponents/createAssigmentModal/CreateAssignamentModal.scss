@@ -1,0 +1,290 @@
+@import '../../../../../../utils/sassConfig/colors';
+
+.maxCreateAssigmentContainer{
+    width: 100%;
+    height: 800px;
+    box-sizing: border-box;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    justify-content: space-between;
+
+    .assignDetails{
+        width: 73%;
+        height: 100%;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+
+        .headerDetails{
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            box-sizing: border-box;
+            padding: 10px 15px;
+            max-height: 10%;
+
+            h5{
+                font-size: 30px;
+                margin: 0px;
+                padding: 0px;
+                font-weight: 550;
+            }
+
+            button{
+                height: 100%;
+                aspect-ratio: 1;
+                border-radius: 50%;
+                font-size: 25px;
+                overflow: hidden;
+                border: none;
+                outline: none;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+
+        .assignDetailInputSection{
+            width: 100%;
+            height: 100%;
+            box-sizing: border-box;
+            padding-bottom: 23px;
+            padding: 20px 15px 23px 15px;
+
+            .titleAndDescContainer{
+                width: 100%;
+                height: auto;
+                max-height: 70%;
+                border: 3px solid $ghostWhite;
+                box-sizing: border-box;
+                padding: 10px 15px;
+                border-radius: 10px;
+                display: grid;
+                grid-template-columns: calc(65% - 10px) calc(35% - 10px);
+                column-gap: 20px;
+
+                .partContainer{
+                    width: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 10px;
+    
+                    label{
+                        font-family: 'Quicksand', sans-serif;
+                        font-weight: 600;
+                        font-size: 15px;
+                        color: $cool_grey;
+                        padding-left: 20px;
+                    }
+    
+                    button{
+                        text-align: start;
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        box-sizing: border-box;
+                        padding: 5px 15px;
+                        background-color: white;
+                        border: none;
+                        border-radius: 40px;
+                        outline: none;
+                        border: 1px solid transparent;
+                        font-size: 20px;
+                        font-family: 'Quicksand', sans-serif;
+    
+                        &:focus{
+                            outline: 1px solid #007bff;
+                        }
+    
+                        &:hover{
+                            border: 1px solid rgba($cool_grey, 0.6);
+                        }
+    
+                        p{
+                            margin: 0px;
+                            padding: 0px;
+                            font-weight: 550;
+                        }
+                        
+                    }
+                }
+            }
+        }
+    }
+
+    .assignConfig{
+        width: 25%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 15px;
+
+        .configsSection{
+            width: 100%;
+            height: auto;
+            max-height: 90%;
+            box-sizing: border-box;
+            padding: 10px 10px;
+            display: grid;
+            grid-template-columns: 100%;
+            gap: 20px;
+            transition: 0.2s all ease-in-out;
+            align-items: end;
+            place-content: center !important;
+
+            .partContainer{
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+
+                label{
+                    font-family: 'Quicksand', sans-serif;
+                    font-weight: 600;
+                    font-size: 15px;
+                    color: $cool_grey;
+                    padding-left: 20px;
+                }
+
+                button{
+                    text-align: start;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    box-sizing: border-box;
+                    padding: 6px 15px;
+                    background-color: white;
+                    border: none;
+                    border-radius: 40px;
+                    outline: none;
+                    border: 1px solid transparent;
+                    font-size: 20px;
+                    font-family: 'Quicksand', sans-serif;
+
+                    &:focus{
+                        outline: 1px solid #007bff;
+                    }
+
+                    &:hover{
+                        border: 1px solid rgba($cool_grey, 0.6);
+                    }
+
+                    p{
+                        margin: 0px;
+                        padding: 0px;
+                        font-weight: 600;
+                    }
+                    
+                }
+            }
+
+            .partContainerExtra{
+                width: 100%;
+                display: grid;
+                grid-template-columns: 99% !important;
+            }
+
+            .partContainerDate{
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+
+                label{
+                    font-family: 'Quicksand', sans-serif;
+                    font-weight: 600;
+                    font-size: 15px;
+                    color: $cool_grey;
+                    padding-left: 20px;
+                }
+            }
+
+            .innerRow{
+                width: 100%;
+                display: grid;
+                grid-template-columns: 80% 15%;
+                align-items: center;
+                box-sizing: border-box;
+                font-size: 25px;
+                padding: 0px 0px 0px 20px;
+
+                p{
+                    margin: 0px;
+                    padding: 0px;
+                    width: 100%;
+                }
+
+
+                .toggle-switch {
+                    position: relative;
+                    display: inline-block;
+                    width: 100%;
+                    height: 34px;
+                }
+            }
+
+            .datetimeContainer{
+                display: grid;
+                grid-template-columns: 100%;
+            }
+
+            .rubricPicker{
+                width: 100%;
+                box-sizing: border-box;
+                padding: 0px 0px 0px 20px;
+
+                .pickRubricBtn{
+                    width: fit-content;
+                    height: auto;
+                    box-sizing: border-box;
+                    padding: 5px 15px;
+                    border: 2px solid $iris;
+                    background-color: white;
+                    color: $iris;
+                    border-radius: 5px;
+                    font-size: 17px;
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 5px;
+                    font-weight: 550;
+                    transition: 0.2s all ease-in-out;
+
+                    &:hover{
+                        cursor: pointer;
+                        background-color: $iris;
+                        color: white;
+                    }
+                }
+            }
+        }
+
+        .btnsSection{
+            width: 100%;
+            height: 10%;
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+
+            button{
+                width: 100%;
+                box-sizing: border-box;
+                padding: 5px 15px;
+                border-radius: 5px;
+                outline: none;
+                border: none;
+                font-size: 20px;
+                font-family: 'Quicksand', sans-serif;
+                font-weight: 550;
+                align-self: center;
+                justify-self: center;
+                transition: 0.2s all ease-in-out;
+                color: white;
+            }
+        }
+    }
+}

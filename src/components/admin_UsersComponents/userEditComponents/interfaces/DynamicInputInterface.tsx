@@ -10,6 +10,7 @@ import { Grade, Group, Shift } from "../../../../models/schoolInfoModels/schoolI
 import { StudentAcademicInfo } from "../../../../models/studentModels/StudentModel";
 import { CalendarEvent, NewCalendarCreation } from "../../../../models/calendarModels/CalendarModels";
 import { AreaModelCreate, SubjectModelCreate, reqSubject } from "../../../../models/subjectsModels/SubjectModels";
+import { CriteriaRubricCreate } from "../../../../models/homeworkModels/HomeworkModels";
 
 export interface dynamicInput{
     id: string;
@@ -30,7 +31,8 @@ export interface dynamicInput{
             | keyof CalendarEvent
             | keyof NewCalendarCreation
             | keyof AreaModelCreate
-            | keyof SubjectModelCreate;
+            | keyof SubjectModelCreate
+            | keyof CriteriaRubricCreate;
     inputType: HTMLInputTypeAttribute;
     editActive: boolean;
     onChange?: any;
@@ -64,6 +66,7 @@ export interface dynamicSelect{
     label: string;
     value: string;
     onChange?: any;
+    isClearable?: boolean;
 }
 
 export interface dynamicSelectWithBtn extends dynamicSelect{

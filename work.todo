@@ -1,1 +1,5 @@
-TODO: Ahora necesito mejorar la vista de las materias en los ciclos, ademas de cancelarlar, y el filtrador funcional
+TODO: Ahora necesito poder mostrar en las columnas de los dias las materias a sus horas
+TODO: UseEffect en las creaciones de grupo a aspirantes
+TODO: Cargar materias individuales
+TODO: Quitar cualquier tipo de accion que no sea ver  para profesor en calendario 
+TODO: Hacer rubricas y unidades, ademas de las tareas

@@ -15,6 +15,9 @@ import { CycleStatus } from "../cycleModels/CycleModels";
 import { CareerPlansActives, ValidCareersPlan } from "../careerPlansModels/CareerPlansModels";
 import { AreaModel, SubjectModel, SubjectsId } from "../subjectsModels/SubjectModels";
 import { GroupNeeded } from "../loadScheduleModels/LoadScheduleModels";
+import { ClassByTeacher, TeacherForPick } from "../teachersModels/TeacherModels";
+import { AttendanceData, GroupClassObject, ScheduleObj } from "../groupsModels/GroupsModels";
+import { Rubric, Unit } from "../homeworkModels/HomeworkModels";
 
 export interface Response {
     success: boolean;
@@ -45,6 +48,13 @@ export interface Response {
             | StudentToBe[]
             | GroupNeeded[]
             | SubjectsId[]
+            | TeacherForPick[]
+            | ClassByTeacher[]
+            | GroupClassObject
+            | AttendanceData[]
+            | ScheduleObj[]
+            | Rubric[]
+            | Unit[]
             | { [key: string]: CareerPlansActives };
     error?: string | any;
 }
