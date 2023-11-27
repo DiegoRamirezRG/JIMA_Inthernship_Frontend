@@ -3,3 +3,25 @@ TODO: UseEffect en las creaciones de grupo a aspirantes
 TODO: Cargar materias individuales
 TODO: Quitar cualquier tipo de accion que no sea ver  para profesor en calendario 
 TODO: Hacer rubricas y unidades, ademas de las tareas
+TODO: Hacer que puedas crear o seleccionar una rubrica en la creacion de tarea
+TODO: Hacer que registrar a las clases
+TODO: Descargar archivos de alumno en tarea
+
+------------------------------------------------
+
+Falta Admin
+    - Reincripcion
+    - Menajo de Pagos
+    - Generar Boletas
+
+Falta profesor:
+    - Calificacion de Asignaturas
+    - Nombramiento de asistencia
+
+Falta estudiante:
+    - Generar Boletas
+    - Pagos
+    - Home
+
+Bugs:
+    - Horaios relativos profesor y alumno

@@ -9,15 +9,16 @@ import { GenderStats } from "../stadisticsModels/stadisticsModels";
 import { City, Country, State } from "../universalApiModels/UniversalApiModel";
 import { persona } from "../usersModels/UserModel";
 import { Grade, Group, Shift } from '../schoolInfoModels/schoolInfoModels';
-import { StudentAcademicInfo, StudentToBe } from "../studentModels/StudentModel";
+import { StudentAcademicInfo, StudentToBe, TodoAssigment } from "../studentModels/StudentModel";
 import { CalendarEvent, CalendarInfo } from "../calendarModels/CalendarModels";
 import { CycleStatus } from "../cycleModels/CycleModels";
 import { CareerPlansActives, ValidCareersPlan } from "../careerPlansModels/CareerPlansModels";
 import { AreaModel, SubjectModel, SubjectsId } from "../subjectsModels/SubjectModels";
 import { GroupNeeded } from "../loadScheduleModels/LoadScheduleModels";
 import { ClassByTeacher, TeacherForPick } from "../teachersModels/TeacherModels";
-import { AttendanceData, GroupClassObject, ScheduleObj } from "../groupsModels/GroupsModels";
-import { Rubric, Unit } from "../homeworkModels/HomeworkModels";
+import { AttendanceData, GroupClassObject, ScheduleObj, studentScheduleObj, teacherScheduleObj } from "../groupsModels/GroupsModels";
+import { AssigmentObject, AssigmentStudentTurnInfo, Rubric, Unit } from "../homeworkModels/HomeworkModels";
+import { AttachmentFile } from "../fileManagmentModels/FileManagmentModels";
 
 export interface Response {
     success: boolean;
@@ -55,6 +56,14 @@ export interface Response {
             | ScheduleObj[]
             | Rubric[]
             | Unit[]
-            | { [key: string]: CareerPlansActives };
+            | AssigmentObject[]
+            | teacherScheduleObj[]
+            | AttachmentFile[]
+            | studentScheduleObj[]
+            | AssigmentStudentTurnInfo
+            | AssigmentStudentTurnInfo[]
+            | TodoAssigment[]
+            | { [key: string]: CareerPlansActives }
+            | boolean;
     error?: string | any;
 }

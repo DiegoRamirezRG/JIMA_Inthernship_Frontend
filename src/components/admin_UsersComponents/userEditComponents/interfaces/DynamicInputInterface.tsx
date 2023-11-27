@@ -10,7 +10,7 @@ import { Grade, Group, Shift } from "../../../../models/schoolInfoModels/schoolI
 import { StudentAcademicInfo } from "../../../../models/studentModels/StudentModel";
 import { CalendarEvent, NewCalendarCreation } from "../../../../models/calendarModels/CalendarModels";
 import { AreaModelCreate, SubjectModelCreate, reqSubject } from "../../../../models/subjectsModels/SubjectModels";
-import { CriteriaRubricCreate } from "../../../../models/homeworkModels/HomeworkModels";
+import { CreateAssigment, CriteriaRubricCreate } from "../../../../models/homeworkModels/HomeworkModels";
 
 export interface dynamicInput{
     id: string;
@@ -32,7 +32,8 @@ export interface dynamicInput{
             | keyof NewCalendarCreation
             | keyof AreaModelCreate
             | keyof SubjectModelCreate
-            | keyof CriteriaRubricCreate;
+            | keyof CriteriaRubricCreate
+            | keyof CreateAssigment;
     inputType: HTMLInputTypeAttribute;
     editActive: boolean;
     onChange?: any;
@@ -55,13 +56,13 @@ export interface dateTimePickerInterface{
     label: string;
     date: string;
     onChange: any;
-    name:  keyof CalendarEvent | keyof NewCalendarCreation;
+    name:  keyof CalendarEvent | keyof NewCalendarCreation | keyof CreateAssigment;
 }
 
 export interface dynamicSelect{
     opts?: optionSelect[];
     id: string;
-    name: keyof SingleUser | keyof AddressModel | keyof createStudentToBe | keyof customStudentToBe | keyof SubjectModelCreate | keyof reqSubject | string;
+    name: keyof SingleUser | keyof AddressModel | keyof createStudentToBe | keyof customStudentToBe | keyof SubjectModelCreate | keyof reqSubject | keyof CreateAssigment | string;
     editActive: boolean;
     label: string;
     value: string;

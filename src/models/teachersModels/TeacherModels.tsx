@@ -11,5 +11,5 @@ export interface ClassByTeacher {
     FK_Profesor:    string;
     Active:         number;
     Creado_En:      string;
-    Actualizado_EN: null;
+    Actualizado_EN: string | null;
 }

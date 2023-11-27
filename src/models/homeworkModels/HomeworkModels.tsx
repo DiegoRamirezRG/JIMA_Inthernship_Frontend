@@ -44,3 +44,31 @@ export interface CreateAssigment{
     Acepta_Despues: boolean;
     Calificable: boolean;
 }
+
+export interface AssigmentObject {
+    ID_Actividad:      string;
+    Titulo:            string;
+    Descripcion:       string | null;
+    Fecha_De_Entrega:  string | null;
+    FK_Clase:          string;
+    FK_Rubrica:        string | null;
+    Fk_Unidad:         string | null;
+    Active:            boolean;
+    Requiere_Anexos:   boolean;
+    Alumnos_Actividad: string[] | null;
+    Acepta_Despues:    boolean;
+    Calificable:       boolean;
+    Creado_En:         string;
+    Actualizado_EN:    string | null;
+    Entregas:          string[] | null;
+}
+
+export interface AssigmentStudentTurnInfo {
+    ID_Entregas:    string;
+    FK_Actividad:   string;
+    FK_Estudiante:  string;
+    Anexos:         string[] | null;
+    Calificacion:   number | null;
+    Creado_En:      string;
+    Actualizado_EN: string | null;
+}

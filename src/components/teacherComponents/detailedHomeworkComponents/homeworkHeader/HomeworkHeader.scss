@@ -1,0 +1,223 @@
+@import '../../../../utils/sassConfig/colors';
+
+.homeworkDetailedHeader{
+    width: 100%;
+    max-width: 1100px;
+    height: auto;
+    box-sizing: border-box;
+    padding: 15px 25px;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+
+    *{
+        padding: 0px;
+        margin: 0px;
+    }
+
+    .homeworksInformationContainer{
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 10px;
+
+        .iconDetailedSection{
+            width: 70px;
+            height: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: start;
+    
+            .assignmentIcon{
+                width: 50px;
+                aspect-ratio: 1;
+                background-color: $iris;
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 35px;
+                overflow: hidden;
+                color: white;
+            }
+        }
+    
+        .informationDetailedSection{
+            width: 95%;
+            height: auto;
+            display: flex;
+            flex-direction: column;
+    
+            .titleContainerSec{
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+    
+                h4{
+                    font-weight: 550;
+                    font-size: 35px;
+                    width: 900px;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+    
+                .iconOptContainer{
+                    height: 100%;
+                    aspect-ratio: 1;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    font-size: 24px;
+                    border-radius: 50%;
+                    transition: 0.2s all ease-in-out;
+                    color: rgba($iris, 0.4);
+    
+                    &:hover{
+                        cursor: pointer;
+                        color: white;
+                        background-color: $iris;
+                    }
+                }
+            }
+    
+            .postedInfo{
+                font-size: 20px;
+                color: $cool_grey;
+            }
+    
+            .dateAndGrade{
+                width: 100%;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-end;
+                font-size: 20px;
+                margin-top: 10px;
+    
+                .gradeAside{
+                    width: auto;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+    
+                    p{
+                        &:first-child{
+                            font-weight: 550;
+                            font-size: 15px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .instructionsContainer{
+        width: 100%;
+        height: auto;
+        box-sizing: border-box;
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        border-top: 2px solid rgba($iris, 0.4);
+        padding: 10px 75px 0px 75px;
+
+        label{
+            font-size: 20px;
+            font-weight: 550;
+            color: $cool_grey;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+        }
+
+        .ql-toolbar.ql-snow{
+            display: none;
+        }
+
+        .ql-container{
+            border: none;
+
+            .ql-editor{
+                padding: 0px;
+                font-family: 'Quicksand', sans-serif;
+                font-size: 17px;
+            }
+        }
+    }
+
+    .anexesFilexContainer{
+        width: 100%;
+        height: auto;
+        box-sizing: border-box;
+        margin-top: 20px;
+        display: flex;
+        flex-wrap: wrap;
+        border-top: 2px solid rgba($iris, 0.4);
+        padding-top: 20px;
+        gap: 10px;
+
+        .fileDisplayView{
+            width: auto;
+            height: 70px;
+            min-width: 70px;
+            max-width: 300px;
+            border-radius: 10px;
+            background-color: white;
+            overflow: hidden;
+            display: flex;
+            flex-direction: row;
+            border: 2px solid rgba($kyubiDarkOrange, 0.3);
+            transition: 0.2s all ease-in-out;
+            user-select: none;
+
+            &:hover{
+                cursor: pointer;
+                border-color: $kyubiDarkOrange;
+
+                .previewContainer{
+                    background-color: $kyubiDarkOrange;
+                }
+
+                .fileInfo{
+                    border-left: 2px solid $kyubiDarkOrange;
+                }
+            }
+
+            .previewContainer{
+                height: 100%;
+                width: 100px;
+                background-color: rgba($kyubiDarkOrange, 0.3);
+                transition: 0.2s all ease-in-out;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                font-size: 45px;
+            }
+
+            .fileInfo{
+                width: 200px;
+                height: 100%;
+                border-left: 2px solid rgba($kyubiDarkOrange, 0.3);
+                box-sizing: border-box;
+                padding: 5px 10px;
+                display: flex;
+                flex-direction: column;
+                align-items: start;
+                justify-content: center;
+                transition: 0.2s all ease-in-out;
+
+                .file_title{
+                    width: 100%;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    font-size: 20px;
+                }
+            }
+        }
+    }
+}

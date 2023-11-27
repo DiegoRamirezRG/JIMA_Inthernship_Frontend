@@ -1,0 +1,76 @@
+@import '../../../../../../../../../utils/sassConfig/colors';
+
+.rubricPicketRenderContainer{
+    width: 100%;
+    height: auto;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    box-sizing: border-box;
+    padding: 10px;
+    text-align: justify;
+    border: 2px solid $iris;
+    background-color: white;
+    transition: 0.2s all ease-in-out;
+    user-select: none;
+
+    &.selected{
+        background-color: $iris;
+
+        .rubricPickerRenderHeader > *{
+            color: white !important;
+        }
+    }
+
+    &:hover{
+        cursor: pointer;
+    }
+
+    .rubricPickerRenderHeader{
+        font-weight: normal;
+        font-size: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+
+        .id_rubric{
+            width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            text-align: center;
+            font-weight: bold;
+            color: $iris;
+        }
+
+        .innerRow{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 17px;
+        }
+    }
+
+    .badgesRendering{
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+        align-items: center;
+
+        .criteria_pill{
+            width: auto;
+            padding: 3px 10px;
+            box-sizing: border-box;
+            background-color: green;
+            border-radius: 15px;
+            font-weight: 550;
+            color: white;
+            font-size: 18px;
+        }
+    }
+}

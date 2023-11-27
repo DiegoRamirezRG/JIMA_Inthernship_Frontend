@@ -92,14 +92,30 @@
             box-sizing: border-box;
             display: flex;
             flex-direction: column;
-            gap: 40px;
+            gap: 20px;
 
             .noUnitWorks{
                 width: 100%;
                 height: auto;
-                background-color: navy;
                 box-sizing: border-box;
-                padding: 10px 25px;
+                padding: 0px 25px;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .noDataContainer{
+                width: 100%;
+                text-align: center;
+                font-size: 30px;
+                box-sizing: border-box;
+                padding: 10px;
+
+                p{
+                    margin: 0px;
+                    padding: 0px;
+                    font-weight: 550;
+                    color: $iris;
+                }
             }
         }
     }

@@ -14,6 +14,15 @@ import { Admin_InitCycleScreen } from '../screens/admin_InitCycleScreen/Admin_In
 import { GroupsScreen } from '../screens/teacher_screens/groupsScreen/GroupsScreen'
 import { SchedulesScreen } from '../screens/teacher_screens/schedulesScreen/SchedulesScreen'
 import { DetailedGroupScreen } from '../screens/teacher_screens/detailedGroupScreen/DetailedGroupScreen'
+import { DetailedAssigmnetScreen } from '../screens/teacher_screens/detailedAssingmentScreen/DetailedAssigmnetScreen'
+import { student } from '../models/userTypesModels/UserTypesModel';
+import { ScheduleScreen } from '../screens/student_screens/scheduleScreen/ScheduleScreen'
+import { ClassesScreen } from '../screens/student_screens/classesScreen/ClassesScreen'
+import { DetailedClassScreen } from '../screens/student_screens/detailedClassScreen/DetailedClassScreen'
+import { AssigmentScreen } from '../screens/student_screens/assigmentScreen/AssigmentScreen'
+import { GradesScreen } from '../screens/student_screens/gradesScreen/GradesScreen'
+import { ClassGradesScreen } from '../screens/student_screens/classGradesScreen/ClassGradesScreen'
+import { AssigmentsToDoScreen } from '../screens/student_screens/assigmentsToDoScreen/AssigmentsToDoScreen'
 
 
 const generalRoutes = [
@@ -103,10 +112,68 @@ const teacherRoutes = [
                     <Admin_CalendarScreen/>
                 </ProtectedRoute>
     },
+    {
+        path: "/teacher/classes/:classId/:assignId",
+        element: <ProtectedRoute>
+                    <DetailedAssigmnetScreen/>
+                </ProtectedRoute>
+    },
+]
+
+const studentRoutes = [
+    {
+        path: "/student/calendar",
+        element: <ProtectedRoute>
+                    <Admin_CalendarScreen/>
+                </ProtectedRoute>
+    },
+    {
+        path: "/student/schedule",
+        element: <ProtectedRoute>
+                    <ScheduleScreen/>
+                </ProtectedRoute>
+    },
+    {
+        path: "/student/classes",
+        element: <ProtectedRoute>
+                    <ClassesScreen/>
+                </ProtectedRoute>
+    },
+    {
+        path: "/student/classes/:classId",
+        element: <ProtectedRoute>
+                    <DetailedClassScreen/>
+                </ProtectedRoute>
+    },
+    {
+        path: "/student/classes/:classId/grades",
+        element: <ProtectedRoute>
+                    <ClassGradesScreen/>
+                </ProtectedRoute>
+    },
+    {
+        path: "/student/classes/:classId/:assignId",
+        element: <ProtectedRoute>
+                    <AssigmentScreen/>
+                </ProtectedRoute>
+    },
+    {
+        path: "/student/grades",
+        element: <ProtectedRoute>
+                    <GradesScreen/>
+                </ProtectedRoute>
+    },
+    {
+        path: "/student/todo",
+        element: <ProtectedRoute>
+                    <AssigmentsToDoScreen/>
+                </ProtectedRoute>
+    },
 ]
 
 export const routes = createBrowserRouter([
     ...generalRoutes,
     ...administrativeRoutes,
     ...teacherRoutes,
+    ...studentRoutes,
 ])

@@ -1,0 +1,182 @@
+@import '../../../utils/sassConfig/colors';
+
+.triggerable_assigment_grade{
+    height: 70px;
+    box-sizing: border-box;
+    padding: 5px 10px;
+    transition: 0.2s all ease-in-out;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 10px;
+
+    &.open{
+        margin-top: 10px;
+        border: 2px solid $iris;
+        border-radius: 10px 10px 0px 0px;
+        border-bottom: none !important;
+
+        &:hover{
+            background-color: white;
+        }
+    }
+
+    .assigmentInfoGrade{
+        height: 100%;
+        width: 80%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: start;
+
+        p{
+            margin: 0px;
+            padding: 0px;
+
+            &:first-child{
+                font-size: 25px;
+                width: 100%;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+            &:last-child{
+                font-size: 13px;
+                width: 100%;
+            }
+        }
+    }
+
+    .gradeContainer{
+        width: 20%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 17px;
+        font-weight: 550;
+
+        .no_turned{
+            color: $bootstrap_danger;
+        }
+    }
+
+    &:hover{
+        cursor: pointer;
+        background-color: rgba($iris, 0.2);
+
+        &.open{
+            border-radius: 10px 10px 0px 0px;
+        }
+    }
+}
+
+.innerCollapsibleContainer{
+    height: auto;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+
+    &.open{
+        border-radius: 0px 0px 10px 10px;
+        margin-bottom: 10px;
+        border: 2px solid $iris;
+        border-top: none !important;
+    }
+
+    .actionBtns{
+        width: 100%;
+        height: auto;
+        box-sizing: border-box;
+        padding: 5px 0px;
+
+        button{
+            border: none;
+            font-size: 25px;
+            border-radius: 5px;
+            box-sizing: border-box;
+            padding: 3px 18px;
+            border: 2px solid $iris;
+            color: $iris;
+            background-color: white;
+            font-weight: 550;
+            transition: 0.2s all ease-in-out;
+
+            &:hover{
+                cursor: pointer;
+                background-color: $iris;
+                color: white;
+            }
+        }
+    }
+
+    .anexesContainer{
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 10px;
+        box-sizing: border-box;
+        padding: 15px 0px;
+
+        .assigmentStudentFile{
+            min-width: 100px;
+            max-width: 250px;
+            height: 60px;
+            border-radius: 5px;
+            border: 2px solid rgba($kyubiDarkOrange, 0.3);
+            overflow: hidden;
+            display: flex;
+            flex-direction: row;
+            transition: 0.2s all ease-in-out;
+
+            &:hover{
+                cursor: pointer;
+                border-color: $kyubiDarkOrange;
+
+                .previewContainerFile{
+                    background-color: $kyubiDarkOrange;
+                }
+
+                .informationFile{
+                    border-left: 2px solid $kyubiDarkOrange;
+                }
+            }
+
+            .previewContainerFile{
+                height: 100%;
+                aspect-ratio: 1;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 40px;
+                background-color: rgba($kyubiDarkOrange, 0.3);
+                transition: 0.2s all ease-in-out;
+            }
+
+            .informationFile{
+                width: auto;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: start;
+                box-sizing: border-box;
+                padding: 10px;
+                border-left: 2px solid rgba($kyubiDarkOrange, 0.3);
+                transition: 0.2s all ease-in-out;
+
+                .file_title{
+                    min-width: 50px;
+                    max-width: 170px;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    font-size: 20px;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,192 @@
+@import '../../../utils/sassConfig/colors';
+
+.gradeRecordClassContainer{
+    width: 100%;
+    height: 200px;
+    perspective: 1000px;
+    border-radius: 10px;
+    transform-style: preserve-3d;
+    transition: transform 0.5s;
+
+    &.flipped {
+        transform: rotateY(180deg);
+    }
+
+    .gradeRecordContainer-inner{
+        width: 100%;
+        height: 100%;
+        transform-style: preserve-3d;
+
+        .classInfo-front, .classInfo-back{
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            backface-visibility: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        .classInfo-front{
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+
+            .imageSection{
+                width: 100%;
+                height: 150px;
+                overflow: hidden;
+                position: relative;
+
+                img{
+                    width: 100%;
+                }
+
+                .floaterHelper{
+                    display: flex;
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    top: 0px;
+                    background: linear-gradient(0deg, white 15%,  transparent);
+                }
+            }
+
+            .classSection{
+                width: 100%;
+                height: 50px;
+                position: relative;
+
+                .realClassSection{
+                    width: 100%;
+                    height: calc(100% + 20px);
+                    position: absolute;
+                    top: -20px;
+                    box-sizing: border-box;
+                    padding: 10px 10px;
+                    display: flex;
+                    flex-direction: row;
+
+                    p{
+                        margin: 0px;
+                        padding: 0px;
+                    }
+
+                    .classInfo{
+                        width: 60%;
+                        height: 100%;
+                        
+                        p{
+                            &:first-child{
+                                font-size: 25px;
+                            }
+
+                            &:last-child{
+                                font-size: 15px;
+                                color: $cool_grey;
+                            }
+                        }
+                    }
+
+                    .actionsAside{
+                        width: 40%;
+                        height: 100%;
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: space-evenly;
+
+                        button{
+                            height: 100%;
+                            aspect-ratio: 1;
+                            font-size: 30px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            border: none;
+                            outline: none;
+                            border-radius: 5px;
+
+                            &:first-child{
+                                background-color: #F40F02;
+                                color: white;
+                
+                                &:hover{
+                                    cursor: pointer;
+                                    background-color: darken(#F40F02, 10%);
+                                }
+                            }
+            
+                            &:last-child{
+                                background-color: #ffdd00;
+                                color: white;
+                
+                                &:hover{
+                                    cursor: pointer;
+                                    background-color: darken(#ffdd00, 10%);
+                                }
+                            }
+
+                            &:hover{
+                                cursor: pointer;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .classInfo-back{
+            background-color: white;
+            transform: rotateY(180deg);
+            box-sizing: border-box;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+
+            .class_picker_header{
+                width: 100%;
+                height: 40px;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                font-size: 25px;
+
+                button{
+                    height: 100%;
+                    aspect-ratio: 1;
+                    font-size: 30px;
+                    border: none;
+                    outline: none;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    border-radius: 5px;
+
+                    background-color: #ffdd00;
+                    color: white;
+    
+                    &:hover{
+                        cursor: pointer;
+                        background-color: darken(#ffdd00, 10%);
+                    }
+                }
+            }
+
+            .pickerUnitBody{
+                width: 100%;
+                height: calc(100% - 60px);
+                display: flex;
+                overflow-x: hidden;
+                overflow-y: scroll;
+                box-sizing: border-box;
+                padding: 0px 20px 0px 20px;
+                background-color: red;
+            }
+        }
+    }
+}

@@ -3,12 +3,20 @@ import './UnitRender.scss'
 import { Unit } from '../../../../../../models/homeworkModels/HomeworkModels'
 import { BsThreeDotsVertical } from 'react-icons/bs';
 import { Tooltip } from 'react-tooltip';
+import { useHomeworkContext } from '../../../../../../contexts/homeworkContext/HomeworkContext';
+import Collapsible from 'react-collapsible';
+import { MdOutlineAssignment } from 'react-icons/md';
+import moment from 'moment';
+import { HomeworkRender } from './innerComponents/homeworkRender/HomeworkRender';
 
 interface internalProps{
     unit: Unit;
 }
 
 export const UnitRender = ({ unit }: internalProps) => {
+
+    const { classAsigments } = useHomeworkContext();
+
     return (
         <div className='UnitContainer'>
             <div className="unitHeader">
@@ -29,11 +37,19 @@ export const UnitRender = ({ unit }: internalProps) => {
             <div className="headerDivider"></div>
             <div className="homeWorksContainer">
                 {
-                    true
+                    !(classAsigments.filter((homework) => homework.Fk_Unidad === unit.ID_Unidad).length > 0)
                     ?   <div className='no-homeworks'>
                             No has añadido ningun trabajo a esta unidad
                         </div>
-                    :   <>Si hay</>
+                    :   <div className='homeworks_container'>
+                            {
+                                classAsigments
+                                .filter((homework) => homework.Fk_Unidad === unit.ID_Unidad)
+                                .map((homework) => (
+                                    <HomeworkRender homework={homework} key={homework.ID_Actividad}/>
+                                ))
+                            }
+                        </div>
                 }
             </div>
             <Tooltip id="title-overflow-helper" />

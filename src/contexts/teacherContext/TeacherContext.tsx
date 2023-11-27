@@ -4,12 +4,13 @@ import { ClassByTeacher, TeacherForPick } from '../../models/teachersModels/Teac
 import { showErrorTost } from '../../components/generalComponents/toastComponent/ToastComponent';
 import { serverRestApi } from '../../utils/apiConfig/apiServerConfig';
 import { Response } from '../../models/responsesModels/responseModel';
+import { teacherScheduleObj } from '../../models/groupsModels/GroupsModels';
 
 const TeacherContext = createContext<TeacherContextModel | undefined>(undefined);
 
 export const TeacherContextProvider = ({ children }: TeacherProvider) => {
 
-    //GetTeachers
+    //GetActiveTeachers
     const [teacherForPick, setTeacherForPick] = useState<TeacherForPick[] | null>(null);
 
     const getTeachers = async() => {
@@ -26,6 +27,30 @@ export const TeacherContextProvider = ({ children }: TeacherProvider) => {
             }else{
                 showErrorTost({position: 'top-center', text: error.message})
             }
+        }
+    }
+
+    //All teachers
+    const [allTeachersObj, setAllTeachersObj] = useState<TeacherForPick[] | null>(null);
+    const [gettingTeachersLoading, setGettingTeachersLoading] = useState(false);
+
+    const getAllTeachers = async () => {
+        try {
+            setGettingTeachersLoading(true);
+            
+            const response = await serverRestApi.get<Response>('/api/teachers/getAllTeachers', { headers: { Authorization: localStorage.getItem('token') } });
+            if(response.data.success){
+                setAllTeachersObj(response.data.data);
+            }
+
+        } catch (error: any) {
+            if(error.response){
+                showErrorTost({position: 'top-center', text: error.response.data.message})
+            }else{
+                showErrorTost({position: 'top-center', text: error.message})
+            }
+        }finally{
+            setGettingTeachersLoading(false);
         }
     }
 
@@ -50,6 +75,27 @@ export const TeacherContextProvider = ({ children }: TeacherProvider) => {
         }
     }
 
+    //Get Teacher Schedule
+    const [teacherSchedule, setTeacherSchedule] = useState<teacherScheduleObj[]>([]);
+    const [getTeacherScheduleLoading, setGetTeacherScheduleLoading] = useState(true);
+
+    const getTeacherSchedule = async (person_id: string) => {
+        try {
+            const response = await serverRestApi.get<Response>(`/api/schedule/getTeacherSchedule/${person_id}`, { headers: { Authorization: localStorage.getItem('token') } });
+            if(response.data.success){
+                setTeacherSchedule(response.data.data);
+            }
+        } catch (error: any) {
+            if(error.response){
+                showErrorTost({position: 'top-center', text: error.response.data.message})
+            }else{
+                showErrorTost({position: 'top-center', text: error.message})
+            }
+        }finally{
+            setGetTeacherScheduleLoading(false);
+        }
+    }
+
     //Context values - return
     const contextVal: TeacherContextModel =  {
         //Teachers
@@ -60,6 +106,16 @@ export const TeacherContextProvider = ({ children }: TeacherProvider) => {
         teachClassLoading: getClassesLoading,
         classes: classes,
         getClasses: getClases,
+
+        //Get all teachers
+        teachersObj: allTeachersObj,
+        teachersObjLoader: gettingTeachersLoading,
+        getAllTeachers: getAllTeachers,
+
+        //Get Teacher Schedule
+        teacherSchedule: teacherSchedule,
+        isTeacherScheduleLoading: getTeacherScheduleLoading,
+        getTeacherSchedule: getTeacherSchedule,
     }
 
     return (

@@ -1,0 +1,79 @@
+@import '../../../utils/sassConfig/colors';
+
+.maxToDoScreen{
+    width: 1100px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Quicksand', sans-serif;
+    gap: 10px;
+
+    .maxTodoScreenHeader{
+        height: 80px;
+        width: 100%;
+        position: sticky;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        box-sizing: border-box;
+        padding: 0px 20px;
+        
+        h2{
+            font-weight: 550;
+            font-size: 40px;
+            margin: 0px;
+            padding: 0px;
+        }
+    }
+
+    .todoScreenBody{
+        width: 100%;
+        height: auto;
+        max-height: 90%;
+        display: flex;
+        flex-direction: column;
+        overflow-y: scroll;
+        box-sizing: border-box;
+        padding: 0px 20px;
+    }
+}
+
+.well_done{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    height: 80%;
+
+    img{
+        width: 30%;
+    }
+
+    .innerCol{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        p{
+            padding: 0px;
+            margin: 0px;
+
+            &:first-child{
+                font-size: 30px;
+                font-weight: 550;
+                color: $iris;
+            }
+
+            &:last-child{
+                font-size: 22px;
+                font-weight: normal;
+                color: $kyubiDarkOrange;
+                font-weight: 550;
+            }
+        }
+    }
+}

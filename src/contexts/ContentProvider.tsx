@@ -14,6 +14,7 @@ import { LoadScheduleContextProvider } from './loadScheduleContext/LoadScheduleC
 import { TeacherContextProvider } from './teacherContext/TeacherContext'
 import { GroupsContextProvider } from './groupsContext/GroupsContext'
 import { HomeworkContextProvider } from './homeworkContext/HomeworkContext'
+import { FileManagmentContextProvider } from './fileManagmentContext/FileManagmentContext'
 
 export const ContentProvider = (props: any) => {
     return (
@@ -31,7 +32,9 @@ export const ContentProvider = (props: any) => {
                                                     <TeacherContextProvider>
                                                         <GroupsContextProvider>
                                                             <HomeworkContextProvider>
-                                                                {props.children}
+                                                                <FileManagmentContextProvider>
+                                                                    {props.children}
+                                                                </FileManagmentContextProvider>
                                                             </HomeworkContextProvider>
                                                         </GroupsContextProvider>
                                                     </TeacherContextProvider>

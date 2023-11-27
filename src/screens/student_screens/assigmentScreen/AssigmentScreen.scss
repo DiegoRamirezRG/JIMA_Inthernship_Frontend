@@ -1,0 +1,215 @@
+@import '../.../../../../utils/sassConfig/colors';
+
+.assigmentStudentMaxContainer{
+    width: 1300px;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    justify-content: space-between;
+    box-sizing: border-box;
+
+    *{
+        font-family: 'Quicksand', sans-serif;
+        padding: 0px;
+        margin: 0px;
+    }
+
+    .assigmentConent{
+        width: 900px;
+        height: fit-content;
+        box-sizing: border-box;
+        padding: 10px 0px;
+        border-radius: 10px;
+        position: sticky;
+        top: 0px;
+    }
+
+    .attachAndOptionsAside{
+        width: calc(95% - 900px);
+        background-color: white;
+        height: fit-content;
+        box-sizing: border-box;
+        padding: 20px 15px;
+        border-radius: 10px;
+        box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+
+        .attachedHeader{
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+
+            p{
+                &:first-child{
+                    font-size: 20px;
+                }
+
+                &:last-child{
+                    font-size: 15px;
+                    font-weight: bold;
+                    color: $bootstrap_success;
+
+                    &.atraso{
+                        color: $bootstrap_danger;
+                    }
+                }
+            }
+        }
+
+        .renderingAttachedFiles{
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: center;
+            justify-content: start;
+            box-sizing: border-box;
+            padding: 10px 0px;
+            max-height: 500px;
+            overflow-y: scroll;
+
+            .attachRenderContainer{
+                height: 56px;
+                width: 90%;
+                background-color: white;
+                border-radius: 10px;
+                box-sizing: border-box;
+                overflow: hidden;
+                display: flex;
+                flex-direction: row;
+                border: 3px solid $ghostWhite;
+                flex-shrink: 0;
+
+                .renderFileInfo{
+                    width: 100%;
+                    display: flex;
+                    justify-content: center;
+                    box-sizing: border-box;
+                    padding: 0px 5px;
+                    border-left: 3px solid $ghostWhite;
+                    flex-direction: column;
+
+                    p{
+                        width: 150px;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+
+                        &:last-child{
+                            font-size: 12px;
+                        }
+                    }
+                }
+
+                .thumbAside, .deleteAttchAside{
+                    height: 100%;
+                    aspect-ratio: 1;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    font-size: 25px;
+                }
+
+                .deleteAttchAside{
+                    transition: 0.15s all ease-in-out;
+                    &:hover{
+                        cursor: pointer;
+                        color: $bootstrap_danger;
+                    }
+                }
+            }
+        }
+
+        .buttonage_section{
+            width: 100%;
+            height: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            justify-content: center;
+            align-items: center;
+
+            button{
+                width: 240px;
+                box-sizing: border-box;
+                padding: 10px;
+                font-size: 17px;
+                border: none;
+                outline: none;
+                border-radius: 5px;
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                gap: 20px;
+                font-weight: 550;
+                overflow: hidden;
+                height: 40px;
+                transition: 0.2s all ease-in-out;
+
+                &:first-child{
+                    border: 2px solid $iris;
+                    background-color: transparent;
+                    color: $iris;
+                    font-weight: bold;
+
+                    &:hover{
+                        background-color: $iris;
+                        color: white;
+                    }
+                }
+
+                &:last-child{
+                    border: 2px solid $kyubiDarkOrange;
+                    background-color: $kyubiDarkOrange;
+                    color: white;
+
+                    &:hover{
+                        border: 2px solid darken($kyubiDarkOrange, 10%);
+                        background-color: darken($kyubiDarkOrange, 10%);
+                    }
+
+                    &.done{
+                        background-color: $bootstrap_primary;
+                        border: 2px solid $bootstrap_primary;
+
+                        &:hover{
+                            border: 2px solid darken($bootstrap_primary, 10%);
+                            background-color: darken($bootstrap_primary, 10%);
+                        }
+                    }
+                }
+
+                .add_icon{
+                    font-size: 25px;
+                }
+
+                &:hover{
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}
+
+.LoadingTurnInContainer{
+    width: 100%;
+    height: 300px;
+    position: relative;
+
+    .lodaing_turn_title{
+        position: absolute;
+        top: 70%;
+        font-family: 'Quicksand', sans-serif;
+        font-size: 30px;
+        left: 50%;
+        width: 100%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+    }
+}

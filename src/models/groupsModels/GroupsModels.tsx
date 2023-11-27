@@ -26,3 +26,19 @@ export interface ScheduleObj {
     Hora_Inicio: string;
     Hora_Fin:    string;
 }
+
+export interface teacherScheduleObj{
+    Dia:         string;
+    Hora_Inicio: string;
+    Hora_Fin:    string;
+    FK_Clase:    string;
+    Nombre:      string;
+}
+
+export interface studentScheduleObj{
+    Dia:         string;
+    Hora_Inicio: string;
+    Hora_Fin:    string;
+    FK_Clase:    string;
+    Nombre:      string;
+}

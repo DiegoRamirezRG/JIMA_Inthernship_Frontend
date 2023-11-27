@@ -9,15 +9,17 @@ import { CreateRubricModal } from './innerComponents/createRubricModal/CreateRub
 import { useParams } from 'react-router-dom'
 import { UnitRender } from './innerComponents/unitRender/UnitRender'
 import { CreateAssignamentModal } from './innerComponents/createAssigmentModal/CreateAssignamentModal';
+import { HomeworkRender } from './innerComponents/unitRender/innerComponents/homeworkRender/HomeworkRender';
 
 export const AssignsComponentView = () => {
 
     const { classId } = useParams();
-    const { unitModalState, handleUnitModalState, rubricModalState, classUnits, classUnitsOpt, unitsLoading, getClassUnits, assigmentCreateModal, handleAssigmentCreateModal } = useHomeworkContext();
+    const { unitModalState, handleUnitModalState, rubricModalState, classUnits, classUnitsOpt, unitsLoading, getClassUnits, assigmentCreateModal, handleAssigmentCreateModal, getAssigmentsByClass, classAsigments } = useHomeworkContext();
 
     useEffect(() => {
         if(classId){
             const awaitFunc = async () => {
+                await getAssigmentsByClass(classId);
                 await getClassUnits(classId);
             }
 
@@ -42,15 +44,29 @@ export const AssignsComponentView = () => {
                             <button>Anexos</button>
                         </div>
                         <div className="innerContentContainer">
-                            <div className="noUnitWorks">
-                                no unit works
-                            </div>
+                            {
+                                classAsigments
+                                .filter((homework) => homework.Fk_Unidad === null).length > 0
+                                ?      <div className="noUnitWorks">
+                                        {
+                                            classAsigments
+                                            .filter((homework) => homework.Fk_Unidad === null)
+                                            .map((homework) => (
+                                                <HomeworkRender homework={homework} key={homework.ID_Actividad}/>
+                                            ))
+                                        }
+                                    </div>
+                                :   <></>
+                            }
+
                             {
                                 classUnits.length > 0
                                 ?   classUnits.map((unit, index) => (
                                         <UnitRender unit={unit} key={`unitrender-${index}`}/>
                                     ))
-                                :   <>No</>
+                                :   <div className='noDataContainer'>
+                                        <p>No has creado ninguna asignacion ni unidad</p>
+                                    </div>
                             }
                         </div>
                     </div>

@@ -1,0 +1,151 @@
+@import '../../../utils/sassConfig/colors';
+
+.collapsibleContainerTriiger{
+    width: 100%;
+    box-sizing: border-box;
+    padding: 5px 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 25px;
+    height: auto;
+
+
+    &:hover{
+        cursor: pointer;
+    }
+
+    p{
+        padding: 0px;
+        margin: 0px;
+    }
+
+    .helperDisplay{
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+        align-items: center;
+        justify-content: center;
+
+        .icon{
+            transition: 0.2s all ease-in-out;
+    
+            &.open{
+                transform: rotate(180deg);
+            }
+        }
+    }
+}
+
+.renderingAssignmentsTodoInnerContainer{
+    width: 100%;
+    box-sizing: border-box;
+    padding: 5px 0px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 0px 10px;
+
+    .assigmentTodoContainer{
+        width: 100%;
+        height: auto;
+        background-color: white;
+        min-height: 60px;
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        box-sizing: border-box;
+        padding: 10px;
+        border-radius: 10px;
+        box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+        transition: 0.2s all ease-in-out;
+
+        &:hover{
+            cursor: pointer;
+            background-color: rgba($iris, 0.15);
+        }
+
+        .typeIconSection{
+            height: 56px;
+            width: 56px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            .icon_container{
+                width: 80%;
+                aspect-ratio: 1;
+                border-radius: 50%;
+                background-color: $iris;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 30px;
+                color: white;
+            }
+        }
+
+        .assigmentInfo{
+            width: calc(100% - 60px);
+            min-height: 56px;
+            height: auto;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+
+            .assigmentData{
+                width: 70%;
+                display: flex;
+                flex-direction: column;
+                box-sizing: border-box;
+                padding: 0px 20px;
+
+                p{
+                    margin: 0px;
+                    padding: 0px;
+
+                    &:first-child{
+                        font-size: 30px;
+                        width: 100%;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                        font-weight: 550;
+                    }
+
+                    &:nth-child(2){
+                        font-size: 20px;
+                        width: 100%;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                    }
+
+                    &:last-child{
+                        font-size: 14px;
+                        width: 100%;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                        color: $cool_grey;
+                    }
+                }
+            }
+
+            .dateLimit{
+                display: flex;
+                width: 20%;
+                justify-content: flex-end;
+                align-items: center;
+                font-size: 22px;
+                font-weight: 550;
+                color: green;
+                box-sizing: border-box;
+                padding-right: 20px;
+            }
+        }
+    }
+}

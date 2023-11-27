@@ -1,0 +1,241 @@
+@import '../../../../../../../../utils/sassConfig/colors';
+
+.createRubricCompContainer{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    box-sizing: border-box;
+    transition: 0.2s all ease-in-out;
+    user-select: none;
+
+    *{
+        padding: 0px;
+        margin: 0px;
+    }
+
+    .createRubricCompHeader{
+        height: 35px;
+        width: 60%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+
+        h4{
+            font-weight: 550;
+            font-size: 25px;
+            width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+    }
+
+    .createRubricCompBody{
+        width: 100%;
+        height: calc(90% - 50px);
+        display: flex;
+        flex-direction: column;
+        box-sizing: border-box;
+        overflow: hidden;
+        gap: 15px;
+
+        .renderingBadgesContainer{
+            width: 100%;
+            height: 60%;
+            display: flex;
+            box-sizing: border-box;
+            flex-direction: column;
+            padding: 10px;
+            align-items: center;
+            justify-content: space-between;
+
+            .renderingBadgesHeader{
+                width: 70%;
+                height: auto;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                font-size: 20px;
+                height: 10%;
+
+                & p:last-child{
+                    color: red;
+                    font-weight: 550;
+                }
+            }
+
+            .badgesRenderingBody{
+                width: 100%;
+                height: 80%;
+                overflow: hidden;
+
+                .pillContainer{
+                    display: flex;
+                    flex-wrap: wrap;
+                    width: 100%;
+                    height: auto;
+                    gap: 10px;
+                    justify-content: center;
+                    align-items: center;
+                    overflow-y: scroll;
+    
+                    .criteria_pill_create{
+                        width: auto;
+                        padding: 3px 10px;
+                        box-sizing: border-box;
+                        background-color: green;
+                        border-radius: 15px;
+                        font-weight: 550;
+                        color: white;
+                        font-size: 18px;
+                        position: relative;
+                        overflow: hidden;
+                        transition: 0.2s all ease-in-out;
+
+                        &:hover{
+                            cursor: pointer;
+
+                            .deleteFloat {
+                                opacity: 1;
+                            }
+                        }
+
+                        .deleteFloat{
+                            position: absolute;
+                            width: 100%;
+                            height: 100%;
+                            background-color: red;
+                            top: 0px;
+                            left: 0px;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            gap: 10px;
+                            opacity: 0;
+                            transition: 0.1s all ease-in-out;
+                            border-radius: 15px;
+                        }
+                    }
+                }
+            }
+        }
+
+        .inputsValuesContainer{
+            width: 100%;
+            height: 40%;
+            display: flex;
+            flex-direction: row;
+            box-sizing: border-box;
+            padding: 10px;
+            justify-content: space-between;
+
+            .inputsSectionContainer{
+                width: 80%;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                box-sizing: border-box;
+                padding: 0px 10px;
+                justify-content: space-between;
+
+                .innerInptuageRow{
+                    width: 100%;
+                    box-sizing: border-box;
+                    display: grid;
+                    grid-template-columns: 70% calc(30% - 10px);
+                    gap: 10px;
+                }
+
+                textarea{
+                    width: 100%;
+                    resize: none;
+                    margin: 0px;
+                    height: 80px;
+                    box-sizing: border-box;
+    
+                    border: 2px solid transparent;
+                    border-radius: 10px;
+    
+                    outline: none;
+                    font-family: 'Quicksand', sans-serif;
+                    font-weight: 550;
+                    font-size: 15px;
+                    padding: 5px 20px 3px 20px;
+    
+                    &:focus-within{
+                        border: 2px solid $ghostWhite;
+                    }
+                }
+            }
+
+            .actionsBtnsContainer{
+                height: 100%;
+                width: min-content;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                box-sizing: border-box;
+                padding: 5px 5px;
+                gap: 15px;
+
+                button{
+                    width: 55px;
+                    aspect-ratio: 1;
+                    border-radius: 10px;
+                    border: none;
+                    font-size: 30px;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    transition: 0.2s all ease-in-out;
+                    color: white;
+
+                    &:disabled{
+                        opacity: 0.3;
+                        &:hover{
+                            cursor: not-allowed;
+                        }
+                    }
+
+                    &:hover{
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+    }
+
+    .cancelBtns{
+        width: 100%;
+        height: 10%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+
+        button{
+            width: auto;
+            box-sizing: border-box;
+            padding: 5px 15px;
+            border-radius: 5px;
+            outline: none;
+            border: none;
+            font-size: 20px;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 550;
+            align-self: center;
+            justify-self: center;
+            transition: 0.2s all ease-in-out;
+            color: white;
+
+            &:disabled{
+                cursor: not-allowed;
+                opacity: 0.3;
+            }
+        }
+    }
+}
