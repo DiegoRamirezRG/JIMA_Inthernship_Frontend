@@ -1,0 +1,402 @@
+@import '../../../utils/sassConfig/colors';
+
+.paymentsMaxContainer{
+    width: 75%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: scroll !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    font-family: 'Quicksand', sans-serif;
+
+    .paymentHeader{
+        width: 100%;
+        box-sizing: border-box;
+        height: fit-content;
+        display: flex;
+        align-items: center;
+        margin: 0px;
+        padding: 0px;
+        justify-content: space-between;
+
+        h2{
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 600;
+            font-size: 50px;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        button{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            box-sizing: border-box;
+            font-size: 25px;
+            gap: 10px;
+            padding: 3px 10px;
+            font-family: 'Quicksand', sans-serif;
+            border-radius: 5px;
+            border: none;
+            background-color: lighten($iris, 10%);
+            color: white;
+            font-weight: 550;
+            transition: 0.2s all ease-in-out;
+
+            &:hover{
+                cursor: pointer;
+                background-color: $iris;
+            }
+        }
+    }
+
+    .paymentsContentSection{
+        width: 100%;
+        height: 90%;
+        display: flex;
+        flex-direction: column;
+        box-sizing: border-box;
+        gap: 15px;
+
+        .paymentConentHeader{
+            width: 100%;
+            height: 8%;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            padding: 7px 0px;
+            box-sizing: border-box;
+
+            .searcherSection{
+                height: 100%;
+                width: 400px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: row;
+                border-radius: 5px;
+                box-sizing: border-box;
+                padding: 0px 5px;
+                background-color: $ghostWhite;
+
+                .icon{
+                    width: 10%;
+                    aspect-ratio: 1;
+                }
+
+                input{
+                    width: 90%;
+                    height: 90%;
+                    outline: none;
+                    padding: 0px 5px;
+                    margin: 0px;
+                    box-sizing: border-box;
+                    border: none;
+                    background-color: transparent;
+                    font-size: 20px;
+                    font-family: 'Quicksand', sans-serif;
+                    font-weight: 550;
+
+                }
+            }
+
+            .activeSection{
+                display: flex;
+                justify-content: center;
+                align-items: baseline;
+                width: 210px;
+                height: 100%;
+                padding: 7px 0px;
+                box-sizing: border-box;
+
+                button{
+                    width: auto;
+                    box-sizing: border-box;
+                    height: 100%;
+                    width: 100%;
+                    border: none;
+                    font-size: 20px;
+                    font-family: 'Quicksand', sans-serif;
+                    font-weight: 550;
+                    transition: 0.2s all ease-in-out;
+
+                    &.active{
+                        background-color: $kyubiDarkOrange;
+                        color: white;
+
+                        &:hover{
+                            background-color: darken($kyubiDarkOrange, 10%);
+                        }
+                    }
+
+                    &.no-active{
+                        background-color: $kyubiLightOrange;
+                        color: white;
+
+                        &:hover{
+                            background-color: darken($kyubiLightOrange, 5%);
+                        }
+                    }
+                    
+                    &:first-child{
+                        border-radius: 5px 0px 0px 5px;
+                    }
+
+                    &:last-child{
+                        border-radius: 0px 5px 5px 0px;
+                    }
+
+                    &:hover{
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+
+        .paymentContentBody{
+            width: 100%;
+            height: calc(100% - 8%);
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            position: relative;
+            overflow: hidden;
+
+            .dinamicHeight{
+                height: min-content;
+                width: 75%;
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+                padding: 0px 20px 0px 0px;
+                overflow-y: scroll;
+
+
+                .paymentCard{
+                    width: 100%;
+                    height: 150px;
+                    border-radius: 10px;
+                    box-sizing: border-box;
+                    padding: 5px 10px;
+                    background-color: white;
+                    border: 2px solid $ghostWhite;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                    align-items: center;
+
+                    .iconAside{
+                        width: 15%;
+                        height: 100%;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: space-evenly;
+                        align-items: center;
+
+                        .icon{
+                            width: 50px;
+                            aspect-ratio: 1;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            font-size: 25px;
+                            border-radius: 50%;
+                            transition: 0.2s all ease-in-out;
+                            color: white;
+
+                            &:first-child{
+                                background-color: $iris;
+                            }
+
+                            &:last-child{
+                                background-color: $kyubiDarkOrange;
+
+                                &:hover{
+                                    cursor: pointer;
+                                    background-color: darken($kyubiDarkOrange, 10%);
+                                }
+                            }
+                        }
+                    }
+
+                    .conentAside{
+                        width: 80%;
+                        height: 100%;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: start;
+                        justify-content: space-between;
+                        box-sizing: border-box;
+                        padding: 10px 0px;
+                    }
+                    
+                    p{
+                        padding: 0px;
+                        margin: 0px;
+                        width: 100%;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+
+                        &.title{
+                            font-size: 25px;
+                            font-weight: bold;
+                        }
+
+                        &.subtitle{
+                            font-size: 16px;
+                            font-weight: 550;
+                        }
+
+                        &.price, .limit{
+                            font-size: 16px;
+                        }
+                    }
+
+                    &:hover{
+                        cursor: pointer;
+                    }
+                }
+            }
+
+            .sideBarOpts{
+                width: 334px;
+                height: 100%;
+                position: sticky;
+                top: 0px;
+                border-radius: 10px;
+                box-sizing: border-box;
+                background-color: $ghostWhite;
+                padding: 10px;
+
+                .optGridDynamic{
+                    width: 100%;
+                    overflow-x: hidden;
+                    height: min-content;
+                    display: grid;
+                    grid-template-columns: repeat(2, 1fr);
+                    gap: 10px;
+
+                    button{
+                        width: 100%;
+                        aspect-ratio: 1;
+                        border: none;
+                        border-radius: 10px;
+                        color: white;
+                        font-size: 20px;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        align-items: center;
+                        font-family: 'Quicksand', sans-serif;
+                        box-sizing: border-box;
+                        padding: 10px;
+                        gap: 10px;
+
+                        &:first-child{
+                            background-color: #3498db;
+                            &:hover{
+                                cursor: pointer;
+                                background-color: darken(#3498db, 10%);
+                            }
+                        }
+
+                        &:nth-child(2){
+                            background-color: #27ae60;
+                            &:hover{
+                                cursor: pointer;
+                                background-color: darken(#27ae60, 10%);
+                            }
+                        }
+
+                        .iconly{
+                            font-size: 50px;
+                        }
+                    }
+                }
+            }
+        }
+
+        .no_payments_container{
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 30px;
+
+            p{
+                margin: 0px;
+                padding: 0px;
+                font-size: 25px;
+                width: 70%;
+                text-align: center;
+
+                &.no_payment_banner{
+                    font-weight: 550;
+                }
+            }
+
+            ol{
+                margin: 0px;
+                padding: 0px;
+                font-size: 25px;
+                text-align: center;
+                list-style: none;
+            }
+
+            .advice{
+                font-size: 20px;
+                font-weight: 550;
+                color: $bootstrap_danger;
+            }
+
+            button{
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                box-sizing: border-box;
+                font-size: 25px;
+                gap: 10px;
+                padding: 3px 10px;
+                font-family: 'Quicksand', sans-serif;
+                border-radius: 5px;
+                border: none;
+                background-color: lighten($iris, 15%);
+                color: white;
+                font-weight: 550;
+                transition: 0.2s all ease-in-out;
+
+                &:hover{
+                    cursor: pointer;
+                    background-color: $iris;
+                }
+            }
+        }
+    }
+}
+
+.loadingCreatingPayment{
+    width: 100%;
+    height: 200px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+
+    .banner{
+        position: absolute;
+        font-family: 'Quicksand', sans-serif;
+        font-size: 20px;
+        font-weight: 550;
+        top: 65%;
+    }
+}

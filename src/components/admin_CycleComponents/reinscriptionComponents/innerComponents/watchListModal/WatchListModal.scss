@@ -1,0 +1,124 @@
+@import '../../../../../utils/sassConfig/colors';
+
+.watchStudentListModalContainer{
+    width: 100%;
+    height: 700px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-family: 'Quicksand', sans-serif;
+
+    .watchListHeader{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        height: 50px;
+
+        h2{
+            margin: 0px;
+            padding: 0px;
+            font-size: 30px;
+            font-weight: 550;
+        }
+        
+        button{
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            outline: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 25px;
+        }
+    }
+
+    .watchListContent{
+        height: calc(100% - 70px);
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        .searcher{
+            height: 45px;
+            width: 100%;
+            box-sizing: border-box;
+
+            .searchContainer{
+                width: 100%;
+                height: 100%;
+                background-color: $ghostWhite;
+                border-radius: 30px;
+                box-sizing: border-box;
+                padding: 0px 20px;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                gap: 10px;
+
+                &:focus-within{
+                    .iconly{
+                        opacity: 1;
+                    }
+                }
+
+                .iconly{
+                    font-size: 30px;
+                    opacity: 0.2;
+                    transition: 0.2s all ease-in-out;
+                }
+
+                input{
+                    font-size: 25px;
+                    width: 90%;
+                    outline: none;
+                    border: none;
+                    background-color: transparent;
+                    font-family: 'Quicksand', sans-serif;
+                }
+            }
+        }
+
+        .studentsList{
+            width: 100%;
+            height: calc(100% - 55px);
+            box-sizing: border-box;
+            padding: 0px 25px 0px 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            overflow-y: scroll;
+
+            .studentListItem{
+                width: 100%;
+                height: 60px;
+                box-sizing: border-box;
+                display: flex;
+                flex-direction: column;
+                padding: 0px 10px;
+                justify-content: center;
+                border-bottom: 2px solid $ghostWhite;
+                
+                &.first{
+                    border-top: 2px solid $ghostWhite;
+                }
+
+                p{
+                    margin: 0px;
+                    padding: 0px;
+                    width: 100%;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    white-space: nowrap;
+
+                    &:first-child{
+                        font-size: 25px;
+                    }
+                }
+            }
+        }
+    }
+}

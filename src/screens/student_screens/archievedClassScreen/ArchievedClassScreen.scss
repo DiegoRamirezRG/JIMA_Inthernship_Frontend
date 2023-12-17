@@ -1,0 +1,100 @@
+.maxArchievedStudentClasses{
+    width: 1400px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    *{
+        font-family: 'Quicksand', sans-serif;
+    }
+
+    .headerGradesContainer{
+        height: 80px;
+        width: 100%;
+        position: sticky;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        box-sizing: border-box;
+        padding: 0px 20px;
+
+        h2{
+            font-weight: 550;
+            font-size: 50px;
+            margin: 0px;
+            padding: 0px;
+        }
+        
+        .acctionsContainer{
+            height: 100%;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+
+            button{
+                width: auto;
+                box-sizing: border-box;
+                padding: 5px 15px;
+                font-size: 25px;
+                border: none;
+                outline: none;
+                border-radius: 5px;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+
+                &:first-child{
+                    background-color: #F40F02;
+                    color: white;
+    
+                    &:hover{
+                        cursor: pointer;
+                        background-color: darken(#F40F02, 10%);
+                    }
+                }
+
+                &:last-child{
+                    background-color: #00a4e4;
+                    color: white;
+    
+                    &:hover{
+                        cursor: pointer;
+                        background-color: darken(#00a4e4, 10%);
+                    }
+                }
+
+            }
+        }
+    }
+
+    .gradesBody{
+        width: 100%;
+        height: calc(100% - 90px);
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+
+        .activeSubjects{
+            width: 100%;
+            height: 100%;
+            max-height: 100%;
+            box-sizing: border-box;
+            padding: 10px 20px;
+            overflow-x: hidden;
+            overflow-y: scroll;
+
+            .classesDynamic{
+                width: 100%;
+                height: auto;
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 10px;
+            }
+        }
+    }
+
+}

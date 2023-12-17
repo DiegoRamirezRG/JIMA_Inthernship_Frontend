@@ -20,6 +20,23 @@
         display: flex;
         justify-content: center;
         box-sizing: border-box;
+        position: relative;
+
+        .kyubiLogo{
+            position: absolute;
+            height: 70px;
+            width: 65%;
+            top: 50px;
+            right: 10%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            img{
+                height: 80%;
+            }
+        }
 
         @include screen_size.xl{
             width: 25%;

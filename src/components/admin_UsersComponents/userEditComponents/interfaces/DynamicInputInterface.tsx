@@ -11,6 +11,7 @@ import { StudentAcademicInfo } from "../../../../models/studentModels/StudentMod
 import { CalendarEvent, NewCalendarCreation } from "../../../../models/calendarModels/CalendarModels";
 import { AreaModelCreate, SubjectModelCreate, reqSubject } from "../../../../models/subjectsModels/SubjectModels";
 import { CreateAssigment, CriteriaRubricCreate } from "../../../../models/homeworkModels/HomeworkModels";
+import { PaymentModel } from "../../../../models/paymentModels/PaymentModels";
 
 export interface dynamicInput{
     id: string;
@@ -33,7 +34,8 @@ export interface dynamicInput{
             | keyof AreaModelCreate
             | keyof SubjectModelCreate
             | keyof CriteriaRubricCreate
-            | keyof CreateAssigment;
+            | keyof CreateAssigment
+            | keyof PaymentModel;
     inputType: HTMLInputTypeAttribute;
     editActive: boolean;
     onChange?: any;

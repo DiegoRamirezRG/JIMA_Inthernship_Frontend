@@ -11,6 +11,7 @@ import './NavigationComponent.scss'
 import { API_ADDR, APT_PORT } from '../../../utils/env/config';
 import { AiOutlineLogout } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
+import kyubiWhiteLogo from '../../../assets/svg/kyubiWhite.svg'
 
 export const NavigationComponent = ({children}: any) => {
 
@@ -45,6 +46,9 @@ export const NavigationComponent = ({children}: any) => {
                         <div className={`icon ${!closeMenu ? 'hide': ''}`}>
                             <BiMenu />
                         </div>
+                    </div>
+                    <div className="kyubiLogo">
+                        <img src={kyubiWhiteLogo} alt="" />
                     </div>
                     <div className="menuSection">
                         <div className="optionsArticles">

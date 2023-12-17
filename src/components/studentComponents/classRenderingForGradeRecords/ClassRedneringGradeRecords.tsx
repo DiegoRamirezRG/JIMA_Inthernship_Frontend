@@ -9,9 +9,10 @@ import { HiDocumentDownload } from 'react-icons/hi';
 interface innerProps{
     subject: SubjectModel;
     group: ClassByTeacher;
+    generateReport: (class_id: string) => Promise<void>;
 }
 
-export const ClassRedneringGradeRecords = ({ group, subject } : innerProps) => {
+export const ClassRedneringGradeRecords = ({ group, subject, generateReport } : innerProps) => {
 
     const [isFlipped, setIsFlipped] = useState(false);
     const [defaultSrc, setDefaultSrc] = useState(wlld);
@@ -35,12 +36,12 @@ export const ClassRedneringGradeRecords = ({ group, subject } : innerProps) => {
                                 <p>{ subject.Codigo_De_Area } | { subject.Codigo_De_Materia }</p>
                             </div>
                             <div className="actionsAside">
-                                <button>
+                                <button onClick={() => generateReport(group.ID_Clase)}>
                                     <HiDocumentDownload />
                                 </button>
-                                <button onClick={() => setIsFlipped(true)}>
+                                {/* <button onClick={() => setIsFlipped(true)}>
                                     <HiArrowUturnLeft />
-                                </button>
+                                </button> */}
                             </div>
                         </div>
                     </div>

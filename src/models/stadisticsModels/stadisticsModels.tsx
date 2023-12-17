@@ -11,3 +11,23 @@ export interface GenderStats {
     value:  number;
     color:  string;
 }
+
+export interface stattsCycleStudent {
+    ID_Estudiante: string;
+    ID_Persona:    string;
+    Numero:        number;
+    Indicador:     string;
+    Turno:         string;
+    Carrera:       string;
+}
+
+
+export interface stadisticObjCareers {
+    Carrera: string;
+    [grado: string]: number | string;
+}
+
+export interface stadisticObjStudentByCareer{
+    career: string;
+    students: number;
+}

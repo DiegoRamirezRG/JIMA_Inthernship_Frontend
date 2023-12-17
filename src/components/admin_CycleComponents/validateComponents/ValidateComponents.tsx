@@ -50,7 +50,7 @@ export const ValidateComponents = () => {
                                 ?   <button className='next' onClick={validator_nextView}>Siguiente</button>
                                 :   <></>
                         :   validator_indexActive === validator_Opts.length - 1
-                            ?   lastYearStudents.lenght > 0
+                            ?   lastYearStudents.length > 0
                                 ?   <button className='next' onClick={() => handleActivePage(stepActivePage + 1)}>Pasar a Reinscripciones</button>
                                 :   <button className='next' onClick={() => handleActivePage(stepActivePage + 2)}>Pasar a Inscripciones</button>
                             :   <div></div>

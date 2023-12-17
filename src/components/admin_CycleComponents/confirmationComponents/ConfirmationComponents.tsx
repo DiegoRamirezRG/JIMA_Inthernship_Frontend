@@ -5,22 +5,34 @@ import { LoadingComponent } from '../../generalComponents/loadingComponent/Loadi
 import { useLoadScheduleContext } from '../../../contexts/loadScheduleContext/LoadScheduleContext';
 import { useCycleSchoolarContext } from '../../../contexts/initCycleSchoolar/CycleSchoolarContext';
 import { useNavigate } from 'react-router-dom';
+import { useLoadReinsScheduleContext } from '../../../contexts/loadScheduleContext/loadReinsScheduleContext';
+import { showErrorTost } from '../../generalComponents/toastComponent/ToastComponent';
 
 export const ConfirmationComponents = () => {
 
-    const { sendScheduleLoader, sendSchedule } = useLoadScheduleContext();
+    const { sendScheduleLoader, sendSchedule, subjectsPerGroup } = useLoadScheduleContext();
+    const { sendReinsSchedule, merguedData } = useLoadReinsScheduleContext();
     const { handleActivePage, stepActivePage, getCycleStatusFunc } = useCycleSchoolarContext();
     const [sureModal, setSureModal] = useState(false);
+    const [loader, setLoader] = useState(false);
     const navigate = useNavigate();
 
     const handleSendUpdate = async () => {
-        await sendSchedule()
-            .then(async () => {
-                await getCycleStatusFunc()
-                    .then(() => {
-                        navigate('/admin_cycle');
-                    })
-            })
+        try {
+            setLoader(true);
+            merguedData.length > 0 &&  await sendReinsSchedule();
+            subjectsPerGroup.length > 0 && await sendSchedule();
+            await getCycleStatusFunc();
+            navigate('/admin_cycle');
+        } catch (error: any) {
+            if(error.response){
+                showErrorTost({position: 'top-center', text: error.response.data.message})
+            }else{
+                showErrorTost({position: 'top-right', text: error.message})
+            }
+        } finally {
+            setLoader(false);
+        }
     }
 
     const texts = [
@@ -89,7 +101,7 @@ export const ConfirmationComponents = () => {
             </div>
             <ModalComponent modalState={sureModal} handleModalState={() => {}}>
                 {
-                    sendScheduleLoader
+                    loader
                     ?   <div className='loadingPlanMakerContainer'>
                             <div className="loadingBanner">
                                 <LoadingComponent/>

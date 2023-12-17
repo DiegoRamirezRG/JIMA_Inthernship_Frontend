@@ -1,0 +1,34 @@
+@import '../../../utils/sassConfig/colors';
+
+.no_classes{
+    width: 100%;
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+
+    img{
+        width: 45%;
+    }
+
+    p{
+        padding: 0px;
+        margin: 0px;
+
+        &.banner{
+            font-size: 35px;
+            color: $iris;
+            font-weight: bold;
+        }
+
+        &:last-child{
+            font-size: 20px;
+            width: 50%;
+            text-align: center;
+            color: $bootstrap_danger;
+            font-weight: 550;
+        }
+    }
+}

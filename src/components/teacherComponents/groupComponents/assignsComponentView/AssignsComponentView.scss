@@ -109,14 +109,46 @@
                 font-size: 30px;
                 box-sizing: border-box;
                 padding: 10px;
+                display: flex;
+                flex-direction: column;
+                height: 400px;
 
                 p{
                     margin: 0px;
                     padding: 0px;
                     font-weight: 550;
                     color: $iris;
+                    font-size: 25px;
+                }
+
+                img{
+                    width: 70%;
                 }
             }
         }
+    }
+}
+
+.graderContainer{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+
+    .closeBtn{
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        height: 45px;
+        width: 45px;
+        border-radius: 50%;
+        border: 0px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 30px;
     }
 }

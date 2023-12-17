@@ -1,0 +1,142 @@
+@import '../../utils/sassConfig/colors';
+
+.mainScreenContainer{
+    height: 100%;
+    width: 1400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    * {
+        font-family: 'Quicksand', sans-serif;
+    }
+
+    .mainScreenHeader{
+        width: 100%;
+        height: 20%;
+        display: flex;align-items: center;
+        justify-content: space-between;
+
+        .welcomeBanner{
+            width: 70%;
+            height: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+    
+            p{
+                margin: 0px;
+                padding: 0px;
+    
+                &:nth-child(1){
+                    font-weight: 550;
+                    font-size: 50px;
+                    color: $iris;
+                }
+    
+                &:nth-child(2){
+                    font-weight: 550;
+                    font-size: 30px;
+                }
+    
+                &:nth-child(3){
+                    font-size: 15px;
+                }
+            }
+        }
+    
+        .schoolLogo{
+            width: 20%;
+            height: auto;
+            font-size: 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+
+            img{
+                height: 100px;
+                overflow: hidden;
+            }
+        }
+    }
+
+    .containerMainBody{
+        width: 100%;
+        height: calc(100% - 30% - 40px);
+        margin-bottom:50px;
+
+        p{
+            font-size: 20px;
+            font-weight: 550;
+            font-style: italic;
+        }
+
+        .dinamycHeight{
+            width: 100%;
+            height: auto;
+            max-height: 90%;
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 10px;
+            padding: 0px 25px 0px 0px;
+            box-sizing: border-box;
+            
+
+            .menuRenderOpt{
+                width: 100%;
+                background-color: white;
+                border: 2px solid $ghostWhite;
+                aspect-ratio: 1;
+                border-radius: 10px;
+                box-sizing: border-box;
+                padding: 10px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transition: 0.2s all ease-in-out;
+                box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+
+                &:hover{
+                    cursor: pointer;
+                    background-color: $ghostWhite;
+                }
+
+                p{
+                    margin: 0px;
+                    padding: 0px;
+                    font-style: normal;
+                }
+
+                .icon{
+                    font-size: 50px;
+                }
+            }
+        }
+    }
+
+    .bannerBrand{
+        width: 100%;
+        height: calc(15%);
+        overflow: hidden;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+
+        p{
+            margin: 0px;
+            padding: 0px;
+            font-weight: 550;
+            font-size: 20px;
+            color: $cool_grey;
+        }
+
+        img{
+            height: 35px;
+        }
+    }
+}

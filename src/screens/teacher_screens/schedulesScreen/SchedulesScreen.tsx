@@ -16,6 +16,7 @@ import { daysOfTheWeekAccent } from '../../../utils/calendarHelpers/DaysOfTheWee
 import moment from 'moment'
 import { DarkColorsForWhite } from '../../../utils/colorRandom/ColorArrayRandom'
 import { useNavigate } from 'react-router-dom'
+import noSchedule from '../../../assets/svg/no_schedule.svg'
 
 export const SchedulesScreen = () => {
 
@@ -83,41 +84,46 @@ export const SchedulesScreen = () => {
                 {
                     isTeacherScheduleLoading
                     ?   <LoadingComponent/>
-                    :   <>
-                            <div className="scheduleHeader">
-                                <h2>Horario</h2>
-                                <div className="acctionsContainer">
-                                    <button>
-                                        <FaFileExport />
-                                        Exportar a PDF
-                                    </button>
+                    :   teacherSchedule.length > 0
+                        ?   <>
+                                <div className="scheduleHeader">
+                                    <h2>Horario</h2>
+                                    {/* <div className="acctionsContainer">
+                                        <button>
+                                            <FaFileExport />
+                                            Exportar a PDF
+                                        </button>
+                                    </div> */}
                                 </div>
+                                <div className="scheduleBody">
+                                    <FullCalendar
+                                        plugins={[ dayGridPlugin, timeGridPlugin, interactionPlugin ]}
+                                        locales={[esLocale]}
+                                        allDaySlot={false}
+                                        editable={false}
+                                        selectable={false}
+                                        expandRows={true}
+                                        headerToolbar={{}}
+                                        initialView="timeGridWeek"
+                                        slotMinTime="07:00"
+                                        slotMaxTime="13:00"
+                                        slotDuration="00:30:00"
+                                        eventOverlap={false}
+                                        firstDay={0}
+                                        dayHeaderFormat={{ weekday: 'long'}}
+                                        eventContent={eventRender}
+                                        events={events}
+                                        eventClick={(event) => {
+                                            localStorage.setItem('showedPage', '1');
+                                            navigate(`/teacher/classes/${event.event.extendedProps.ID_Clase}`)
+                                        }}
+                                    />
+                                </div>
+                            </>
+                        :   <div className='no_schedule'>
+                                <p>No tienes un horario activo</p>
+                                <img src={noSchedule} />
                             </div>
-                            <div className="scheduleBody">
-                                <FullCalendar
-                                    plugins={[ dayGridPlugin, timeGridPlugin, interactionPlugin ]}
-                                    locales={[esLocale]}
-                                    allDaySlot={false}
-                                    editable={false}
-                                    selectable={false}
-                                    expandRows={true}
-                                    headerToolbar={{}}
-                                    initialView="timeGridWeek"
-                                    slotMinTime="07:00"
-                                    slotMaxTime="13:00"
-                                    slotDuration="00:30:00"
-                                    eventOverlap={false}
-                                    firstDay={0}
-                                    dayHeaderFormat={{ weekday: 'long'}}
-                                    eventContent={eventRender}
-                                    events={events}
-                                    eventClick={(event) => {
-                                        localStorage.setItem('showedPage', '1');
-                                        navigate(`/teacher/classes/${event.event.extendedProps.ID_Clase}`)
-                                    }}
-                                />
-                            </div>
-                        </>
                 }
             </div>
         </NavigationComponent>

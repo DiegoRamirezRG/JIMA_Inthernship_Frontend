@@ -33,30 +33,6 @@ export const GroupCardComponent = ({ group, subject } : cardProps) => {
                     <p className='subj_area'>Area: {subject.Area_Nombre}</p>
                     <p className='subj_area'>Horas: {subject.Horas_De_Clase}</p>
                 </div>
-                {
-                    state.loggedUser?.Rol != 'Profesor'
-                    ?   <></>
-                    :   <div className="floatingActions">
-                            <div className="icons list">
-                                <a
-                                    data-tooltip-id="helper_tooltip"
-                                    data-tooltip-content="Nombrar Lista"
-                                    data-tooltip-place="top"
-                                >
-                                    <HiOutlineClipboardList/>
-                                </a>
-                            </div>
-                            <div className="icons add">
-                                <a
-                                    data-tooltip-id="helper_tooltip"
-                                    data-tooltip-content="Agregar Tarea"
-                                    data-tooltip-place="top"
-                                > 
-                                    <HiOutlineDocumentAdd/>
-                                </a>
-                            </div>
-                        </div>
-                }
             </div>
             <Tooltip id="helper_tooltip" />
         </div>

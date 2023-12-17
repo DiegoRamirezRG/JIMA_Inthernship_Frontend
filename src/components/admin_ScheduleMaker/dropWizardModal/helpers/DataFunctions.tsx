@@ -3,6 +3,7 @@ import { optionSelect } from "../../../../models/universalApiModels/UniversalApi
 import { AsignClasses, GroupNeeded } from "../../../../models/loadScheduleModels/LoadScheduleModels";
 import { daysOfTheWeek } from "../../../../utils/calendarHelpers/DaysOfTheWeek";
 import { SubjectModel } from "../../../../models/subjectsModels/SubjectModels";
+import { GroupSchedule } from "../../../../models/loadScheduleModels/LoadReinsScheduleModels";
 
 export const getLeftScheduleHoursByDay = ({ day, group_scope, schedule_obj } : getAvailableHours): string[] => {
     const groupSelected = schedule_obj.find((group) => group.id_Grupo === group_scope.ID_Grupo && group.id_Career === group_scope.ID_Carrera && group.id_Turno === group_scope.ID_Turno);
@@ -84,6 +85,66 @@ export const formatSelectOpt = (data: rowDataToSelect[]) : optionSelect[] => {
 }
 
 
+// Reinscripcion Data Funcs
+// Reinscripcion Data Funcs
+
+export const getLeftClassAvailavleHoursReins = ({ group_scope, schedule_obj, subject } : calcClassHoursReins): number => {
+    const groupSelected = schedule_obj.find((group) => group.id_Grupo === group_scope.id_Grupo && group.id_Career === group_scope.id_Career && group.id_Turno === group_scope.id_Turno);
+    let horasTotales = 0;
+
+    if(groupSelected){
+        groupSelected.class_teacher
+            .forEach((clase) => {
+                if(clase.FK_Materia === subject.ID_Materia){
+                    if(clase.schedule){
+                        clase.schedule.forEach((sche) => {
+                            const inicio = moment(`1970-01-01T${sche.Hora_Inicio}:00`);
+                            const fin = moment(`1970-01-01T${sche.Hora_Fin}:00`);
+
+                            const duracion = moment.duration(fin.diff(inicio));
+                            horasTotales += duracion.asHours();
+                        })
+                    }
+                }
+            })
+    }
+    
+    return subject.Horas_De_Clase - horasTotales;
+}
+
+export const getLeftScheduleHoursByDayReins = ({ day, group_scope, schedule_obj } : getAvailableHoursReins): string[] => {
+    const groupSelected = schedule_obj.find((group) => group.id_Grupo === group_scope.id_Grupo && group.id_Career === group_scope.id_Career && group.id_Turno === group_scope.id_Turno);
+    const notAvailableHours: string[] = [];
+
+    //Validate
+    if(groupSelected){
+        groupSelected.class_teacher.forEach((clase) => {
+            if(clase.schedule){
+                clase.schedule.forEach((sche) => {
+                    if(sche.Dia === daysOfTheWeek[day]){
+                        const temp_init = new Date(`1970-01-01T${sche.Hora_Inicio}:00`);
+                        const temp_end = new Date(`1970-01-01T${sche.Hora_Fin}:00`);
+
+                        while(temp_init < temp_end){
+                            notAvailableHours.push(
+                                temp_init.toLocaleTimeString('en-US', {
+                                    hour: 'numeric',
+                                    minute: 'numeric',
+                                    hour12: false,
+                                })
+                            );
+
+                            temp_init.setMinutes(temp_init.getMinutes() + 30);
+                        }
+                    }
+                })
+            }
+        })
+    }
+    
+    return notAvailableHours;
+}
+
 //-----------------------------------------
 // Helepr Interfaces
 //-----------------------------------------
@@ -108,4 +169,19 @@ interface calcClassHours{
     group_scope: GroupNeeded;
     schedule_obj: AsignClasses[];
     subject: SubjectModel;
+}
+
+// Reinscripcion Interfaces
+// Reinscripcion Interfaces
+
+interface calcClassHoursReins{
+    group_scope: GroupSchedule;
+    schedule_obj: AsignClasses[];
+    subject: SubjectModel;
+}
+
+interface getAvailableHoursReins{
+    group_scope: GroupSchedule;
+    schedule_obj: AsignClasses[];
+    day: number;
 }

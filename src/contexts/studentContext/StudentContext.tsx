@@ -1,5 +1,5 @@
 import React, { ReactNode, createContext, useContext, useState } from 'react'
-import { StudentAcademicInfo, StudentToBe, TodoAssigment } from '../../models/studentModels/StudentModel';
+import { LastYeatStudentsObj, StudentAcademicInfo, StudentObj, StudentToBe, TodoAssigment } from '../../models/studentModels/StudentModel';
 import { showErrorTost } from '../../components/generalComponents/toastComponent/ToastComponent';
 import { serverRestApi } from '../../utils/apiConfig/apiServerConfig';
 import { Response } from '../../models/responsesModels/responseModel';
@@ -17,7 +17,7 @@ interface StudentContextInterface{
 
     //Last Year Student
     lastYearLoader: boolean;
-    lastYearStudents: any;
+    lastYearStudents: LastYeatStudentsObj[];
     getLastYearStudents: () => Promise<void>;
 
     //Students To Be
@@ -39,6 +39,10 @@ interface StudentContextInterface{
     getTodoLoader: boolean;
     todoStudent: TodoAssigment[];
     getTodo: (person_id: string) => Promise<void>;
+
+    //Get All Students
+    allStudents: StudentObj[];
+    getAllStudents: () => Promise<void>;
 }
 
 interface StudentProviderProps{
@@ -94,11 +98,10 @@ export const StudentContextProvider = ({ children }: StudentProviderProps) => {
 
     //Get Students
     const [isGettingLastYearStudentLoading, setIsGettingLastYearStudentLoading] = useState(true);
-    const [lastYearStudent, setLastYearStudent] = useState([]);
+    const [lastYearStudent, setLastYearStudent] = useState<LastYeatStudentsObj[]>([]);
 
     const getLastYearStudents = async () => {
         try {
-
             const response = await serverRestApi.get<Response>('/api/students/getLastYearStudents', { headers: { Authorization: localStorage.getItem('token') } });
             if(response.data.success){
                 setLastYearStudent(response.data.data);
@@ -202,6 +205,25 @@ export const StudentContextProvider = ({ children }: StudentProviderProps) => {
         }
     }
 
+    //Get All Students
+    const [allStudents, setAllStudents] = useState<StudentObj[]>([]);
+
+    const getAllStudents = async () => {
+        try {
+            const response = await serverRestApi.get<Response>('/api/students/getAllStudents', { headers: { Authorization: localStorage.getItem('token') } });
+
+            if(response.data.success){
+                setAllStudents(response.data.data);
+            }
+        } catch (error: any) {
+            if(error.response){
+                showErrorTost({position: 'top-center', text: error.response.data.message})
+            }else{
+                showErrorTost({position: 'top-center', text: error.message})
+            }
+        }
+    }
+
     const contextValue : StudentContextInterface = {
         loader: studentGeneralLoader,
         confirmModalState: confirmModal,
@@ -233,6 +255,10 @@ export const StudentContextProvider = ({ children }: StudentProviderProps) => {
         getTodoLoader: isGettingTodoLoading,
         todoStudent: studentTodo,
         getTodo: getStudentTodo,
+
+        //Get All Students
+        allStudents: allStudents,
+        getAllStudents: getAllStudents,
     };
 
     return (

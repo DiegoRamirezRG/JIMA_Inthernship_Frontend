@@ -15,6 +15,12 @@ import { TeacherContextProvider } from './teacherContext/TeacherContext'
 import { GroupsContextProvider } from './groupsContext/GroupsContext'
 import { HomeworkContextProvider } from './homeworkContext/HomeworkContext'
 import { FileManagmentContextProvider } from './fileManagmentContext/FileManagmentContext'
+import { GradeContextProvider } from './gradeContext/GradeContext'
+import { AttendanceContextProvider } from './attendanceContext/AttendanceContext'
+import { PaymentContextProvider } from './paymentsContext/PaymentContext'
+import { StadisticsContextProvider } from './stadisticsContext/StadisticsContext'
+import { EndCycleSchoolarContextProvider } from './endCycleSchoolar/EncCycleSchoolarContext'
+import { LoadReinsScheduleContextProvider } from './loadScheduleContext/loadReinsScheduleContext'
 
 export const ContentProvider = (props: any) => {
     return (
@@ -29,15 +35,27 @@ export const ContentProvider = (props: any) => {
                                         <PlanMakerContextProvider>
                                             <ReinsInscrContextProvider>
                                                 <LoadScheduleContextProvider>
-                                                    <TeacherContextProvider>
-                                                        <GroupsContextProvider>
-                                                            <HomeworkContextProvider>
-                                                                <FileManagmentContextProvider>
-                                                                    {props.children}
-                                                                </FileManagmentContextProvider>
-                                                            </HomeworkContextProvider>
-                                                        </GroupsContextProvider>
-                                                    </TeacherContextProvider>
+                                                    <LoadReinsScheduleContextProvider>
+                                                        <TeacherContextProvider>
+                                                            <GroupsContextProvider>
+                                                                <HomeworkContextProvider>
+                                                                    <FileManagmentContextProvider>
+                                                                        <GradeContextProvider>
+                                                                            <AttendanceContextProvider>                                                                            
+                                                                                <PaymentContextProvider>
+                                                                                    <StadisticsContextProvider>
+                                                                                        <EndCycleSchoolarContextProvider>
+                                                                                            {props.children}
+                                                                                        </EndCycleSchoolarContextProvider>
+                                                                                    </StadisticsContextProvider>
+                                                                                </PaymentContextProvider>
+                                                                            </AttendanceContextProvider>
+                                                                        </GradeContextProvider>
+                                                                    </FileManagmentContextProvider>
+                                                                </HomeworkContextProvider>
+                                                            </GroupsContextProvider>
+                                                        </TeacherContextProvider>
+                                                    </LoadReinsScheduleContextProvider>
                                                 </LoadScheduleContextProvider>
                                             </ReinsInscrContextProvider>
                                         </PlanMakerContextProvider>

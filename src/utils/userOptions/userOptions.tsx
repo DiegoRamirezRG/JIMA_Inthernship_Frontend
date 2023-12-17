@@ -13,6 +13,7 @@ const administrativeOptions: Option[] = [
     {text: 'Usuarios', id: 'usersAdmin', icon: <IoPeopleOutline/>, route: '/admin_users'},
     {text: 'Ciclo Escolar', id: 'cycleAdmin', icon: <IoFileTrayFullOutline/>, route: '/admin_cycle'},
     {text: 'Calendario', id: 'calendarAdmin', icon: <IoCalendarOutline/>, route: '/admin_calendar'},
+    {text: 'Pagos', id: 'paymentsAdmin', icon: <LiaMoneyCheckAltSolid/>, route: '/admin_payments'},
 ]
 
 const teacherOptions: Option[] = [

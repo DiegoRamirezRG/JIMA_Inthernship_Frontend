@@ -122,7 +122,7 @@ export const HomeworkHeader = ({ homeworkId }: innerProps) => {
                             </div>
                         </div>
                         {
-                            assignmentObj!.Descripcion!
+                            assignmentObj?.Descripcion && assignmentObj!.Descripcion!
                             ?   <div className="instructionsContainer">
                                     <label>Descripcion</label>
                                     <ReactQuill className='textEditor' value={assignmentObj!.Descripcion!} readOnly/>

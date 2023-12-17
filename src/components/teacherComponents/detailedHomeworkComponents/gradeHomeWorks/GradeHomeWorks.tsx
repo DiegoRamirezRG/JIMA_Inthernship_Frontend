@@ -1,4 +1,6 @@
 import React from 'react'
+import './GradeHomeWorks.scss'
+import { AssigmentGradeComponent } from '../../assigmnetGradeComponent/AssigmentGradeComponent';
 
 interface innerProps{
     homeworkId: string;
@@ -6,6 +8,8 @@ interface innerProps{
 
 export const GradeHomeWorks = ({ homeworkId } : innerProps) => {
     return (
-        <div>GradeHomeWorks</div>
+        <div className='gradeMaxContainer'>
+            <AssigmentGradeComponent/>
+        </div>
     )
 }

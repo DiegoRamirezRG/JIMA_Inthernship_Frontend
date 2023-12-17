@@ -8,6 +8,7 @@ import Collapsible from 'react-collapsible';
 import { MdOutlineAssignment } from 'react-icons/md';
 import moment from 'moment';
 import { HomeworkRender } from './innerComponents/homeworkRender/HomeworkRender';
+import { sortByDate } from '../../helpers/sortDates';
 
 interface internalProps{
     unit: Unit;
@@ -45,6 +46,7 @@ export const UnitRender = ({ unit }: internalProps) => {
                             {
                                 classAsigments
                                 .filter((homework) => homework.Fk_Unidad === unit.ID_Unidad)
+                                .sort(sortByDate)
                                 .map((homework) => (
                                     <HomeworkRender homework={homework} key={homework.ID_Actividad}/>
                                 ))

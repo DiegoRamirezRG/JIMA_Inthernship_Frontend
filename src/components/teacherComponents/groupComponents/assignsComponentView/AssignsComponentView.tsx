@@ -10,11 +10,19 @@ import { useParams } from 'react-router-dom'
 import { UnitRender } from './innerComponents/unitRender/UnitRender'
 import { CreateAssignamentModal } from './innerComponents/createAssigmentModal/CreateAssignamentModal';
 import { HomeworkRender } from './innerComponents/unitRender/innerComponents/homeworkRender/HomeworkRender';
+import { AssigmentGradeComponent } from '../../assigmnetGradeComponent/AssigmentGradeComponent';
+import { useGradeContext } from '../../../../contexts/gradeContext/GradeContext';
+import { IoClose } from 'react-icons/io5';
+import { sortByDate } from './helpers/sortDates';
+import noDataMadeIt from '../../../../assets/svg/organized_data.svg'
 
 export const AssignsComponentView = () => {
 
     const { classId } = useParams();
     const { unitModalState, handleUnitModalState, rubricModalState, classUnits, classUnitsOpt, unitsLoading, getClassUnits, assigmentCreateModal, handleAssigmentCreateModal, getAssigmentsByClass, classAsigments } = useHomeworkContext();
+    const { quickGraderSave, handleQuickGraderSave } = useGradeContext();
+
+    
 
     useEffect(() => {
         if(classId){
@@ -40,8 +48,6 @@ export const AssignsComponentView = () => {
                             <SelectedEditComponentWithIDS id={''} name={''} editActive={true} label={'Filtrar por Unidad'} value={''} opts={classUnitsOpt} isClearable={true}/>
                             <button onClick={ handleUnitModalState }>Crear Unidad</button>
                             <button onClick={ handleAssigmentCreateModal }>Crear Tarea</button>
-                            <button>Informacion</button>
-                            <button>Anexos</button>
                         </div>
                         <div className="innerContentContainer">
                             {
@@ -51,6 +57,7 @@ export const AssignsComponentView = () => {
                                         {
                                             classAsigments
                                             .filter((homework) => homework.Fk_Unidad === null)
+                                            .sort(sortByDate)
                                             .map((homework) => (
                                                 <HomeworkRender homework={homework} key={homework.ID_Actividad}/>
                                             ))
@@ -65,7 +72,8 @@ export const AssignsComponentView = () => {
                                         <UnitRender unit={unit} key={`unitrender-${index}`}/>
                                     ))
                                 :   <div className='noDataContainer'>
-                                        <p>No has creado ninguna asignacion ni unidad</p>
+                                        <p>No se ha creado ninguna asignacion ni unidad</p>
+                                        <img src={noDataMadeIt}/>
                                     </div>
                             }
                         </div>
@@ -77,8 +85,13 @@ export const AssignsComponentView = () => {
             <ModalComponent modalState={rubricModalState} handleModalState={() => {}}>
                 <CreateRubricModal/>
             </ModalComponent>
-            <ModalComponent modalState={assigmentCreateModal} handleModalState={() => {}} modalSize='modal-xxxl'>
-                <CreateAssignamentModal/>
+            <ModalComponent modalState={quickGraderSave != ''} handleModalState={() => {}} modalSize='grader'>
+                <div className="graderContainer">
+                    <button className='closeBtn cancel-btn' onClick={() => handleQuickGraderSave('')}>
+                        <IoClose/>
+                    </button>
+                    <AssigmentGradeComponent/>
+                </div>
             </ModalComponent>
         </div>
     )

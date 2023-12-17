@@ -1,5 +1,5 @@
 import { Dispatch, ReactNode, SetStateAction } from "react";
-import { CalendarEvent, ConfirmEventModalType } from "./CalendarModels";
+import { CalendarEvent, CalendarInfo, ConfirmEventModalType } from "./CalendarModels";
 import { DateSelectArg, EventClickArg, EventContentArg, EventInput } from "@fullcalendar/core";
 
 export interface CalendarContextInterface{
@@ -51,6 +51,9 @@ export interface CalendarContextInterface{
     //Create New Calendar
     createCalendar: (title: string, init: string, end: string) => Promise<void>;
     createCalendarLoader: boolean;
+
+    //Calendar Info
+    calendarInfo: CalendarInfo | null;
 }
 
 export interface CalendarProviderProps{

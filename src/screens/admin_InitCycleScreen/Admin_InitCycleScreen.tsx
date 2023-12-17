@@ -18,7 +18,7 @@ export const Admin_InitCycleScreen = () => {
         <NavigationComponent>
             <div className="AdminCycleInitContainer">
                 {
-                    false
+                    false //TODO: HE NOMAME
                     ?   <LoadingComponent/>
                     :   <>
                             <div className="headerTitle">

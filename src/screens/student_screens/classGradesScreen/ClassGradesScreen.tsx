@@ -20,6 +20,7 @@ import 'react-tooltip/dist/react-tooltip.css'
 import { fileExt, getFileIcon } from '../../../utils/iconFilesMap/IconFilesMap'
 import { AssigmentGradeRender } from '../../../components/studentComponents/assigmentGradeRender/AssigmentGradeRender'
 import done from '../../../assets/svg/no_assigns_more.svg'
+import { sortByDate } from '../../../components/teacherComponents/groupComponents/assignsComponentView/helpers/sortDates'
 
 
 export const ClassGradesScreen = () => {
@@ -143,6 +144,7 @@ export const ClassGradesScreen = () => {
                                                                 {
                                                                     classAsigments
                                                                     .filter((homework) => homework.Fk_Unidad === unit.ID_Unidad)
+                                                                    .sort(sortByDate)
                                                                     .map((homework, index) => {
 
                                                                         const workingAssig = turnInObjs.find((obj) => obj.FK_Actividad == homework.ID_Actividad);

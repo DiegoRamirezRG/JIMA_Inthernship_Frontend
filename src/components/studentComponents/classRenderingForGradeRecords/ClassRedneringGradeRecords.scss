@@ -96,7 +96,7 @@
                         height: 100%;
                         display: flex;
                         flex-direction: row;
-                        justify-content: space-evenly;
+                        justify-content: flex-end;
 
                         button{
                             height: 100%;
@@ -119,15 +119,15 @@
                                 }
                             }
             
-                            &:last-child{
-                                background-color: #ffdd00;
-                                color: white;
+                            // &:last-child{
+                            //     background-color: #ffdd00;
+                            //     color: white;
                 
-                                &:hover{
-                                    cursor: pointer;
-                                    background-color: darken(#ffdd00, 10%);
-                                }
-                            }
+                            //     &:hover{
+                            //         cursor: pointer;
+                            //         background-color: darken(#ffdd00, 10%);
+                            //     }
+                            // }
 
                             &:hover{
                                 cursor: pointer;

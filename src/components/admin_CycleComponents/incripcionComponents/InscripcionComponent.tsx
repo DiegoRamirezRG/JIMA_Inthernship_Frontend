@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './InscripcionComponent.scss'
 import { useCycleSchoolarContext } from '../../../contexts/initCycleSchoolar/CycleSchoolarContext'
 import { inscriptionsOptions } from '../validateComponents/helpers/renderingOpts';
@@ -14,6 +14,7 @@ import { useCareersPlansContext } from '../../../contexts/careersContext/Careers
 import { usePlanMakerContext } from '../../../contexts/planMakerContext/PlanMakerContext';
 import { useLoadScheduleContext } from '../../../contexts/loadScheduleContext/LoadScheduleContext';
 import { PlanScheduleMakerModal } from '../../admin_ScheduleMaker/PlanScheduleMakerModal/PlanScheduleMakerModal';
+import { useStudentContext } from '../../../contexts/studentContext/StudentContext';
 
 export const InscripcionComponent = () => {
 
@@ -22,7 +23,15 @@ export const InscripcionComponent = () => {
     const { shiftContextModalState } = useShiftModalContext();
     const { createModalState } = useCareersPlansContext()
     const { isMakingPlanLoading } = usePlanMakerContext();
+    const { isStudentsToBeLoading, studentsToBe, getStudentsToBe } = useStudentContext();
     const { groups, subjectsPerGroup, scheduleMakerModal, groupdDone } = useLoadScheduleContext();
+
+    useEffect(() => {
+        const awaitFun = async () => {
+            await getStudentsToBe();
+        }
+        awaitFun();
+    }, [])
 
     return (
         <>
@@ -60,7 +69,7 @@ export const InscripcionComponent = () => {
                                 ?   groups && groups.length === subjectsPerGroup.length
                                     ?   <button className='next' onClick={inscripction_nextView}>Siguiente</button>
                                     :   <div></div>
-                                :   <button className='next' onClick={inscripction_nextView}>Siguiente</button>
+                                :   <button className='next' onClick={() => studentsToBe?.length == 0 ? handleActivePage(stepActivePage + 1) : inscripction_nextView}>Siguiente</button> // If there is no asp then skip
                             :   inscription_indexActive === 3
                                 ?   groups && groupdDone && groupdDone.length == groups.length
                                     ?   <button className='next' onClick={() => handleActivePage(stepActivePage + 1)}>Siguiente</button>

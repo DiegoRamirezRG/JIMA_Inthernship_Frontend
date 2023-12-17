@@ -8,6 +8,7 @@ import { MdGrade } from 'react-icons/md'
 import { useNavigate, useParams } from 'react-router-dom'
 import done from '../../../assets/svg/no_assigns_more.svg';
 import AuthContext from '../../../contexts/authContext/AuthContext'
+import { sortByDate } from '../../teacherComponents/groupComponents/assignsComponentView/helpers/sortDates'
 
 export const StudentGradesComponent = () => {
 
@@ -45,6 +46,7 @@ export const StudentGradesComponent = () => {
                                 {
                                     classAsigments
                                     .filter((homework) => homework.Fk_Unidad === null)
+                                    .sort(sortByDate)
                                     .map((homework) => (
                                         <HomeworkRender homework={homework} key={homework.ID_Actividad}/>
                                     ))

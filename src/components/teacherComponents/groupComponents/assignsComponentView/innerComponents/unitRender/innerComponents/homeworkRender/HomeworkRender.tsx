@@ -9,6 +9,7 @@ import { formatMonthDate } from '../../../../../../../../utils/dateSpanishFormat
 import ReactQuill from 'react-quill';
 import { useNavigate, useParams } from 'react-router-dom';
 import AuthContext from '../../../../../../../../contexts/authContext/AuthContext';
+import { useGradeContext } from '../../../../../../../../contexts/gradeContext/GradeContext';
 
 interface innerProps{
     homework: AssigmentObject;
@@ -18,6 +19,7 @@ export const HomeworkRender = ({ homework } : innerProps) => {
 
     const [opened, setOpened] = useState(false);
     const { state } = useContext(AuthContext);
+    const { handleQuickGraderSave } = useGradeContext()
     const { classId } = useParams();
     const navigate = useNavigate();
 
@@ -87,7 +89,7 @@ export const HomeworkRender = ({ homework } : innerProps) => {
                     {
                         state && state.loggedUser?.Rol != 'Profesor'
                         ?   <></>
-                        :   <p className='info-btn'>Calificar</p>
+                        :   <p className='info-btn' onClick={ () => handleQuickGraderSave(homework.ID_Actividad)}>Calificar</p>
                     }
                 </div>
             </div>

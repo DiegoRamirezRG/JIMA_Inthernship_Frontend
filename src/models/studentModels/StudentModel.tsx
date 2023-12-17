@@ -35,3 +35,35 @@ export interface TodoAssigment {
     clase_nombre:      string;
     FK_Profesor:       string;
 }
+
+export interface StudentObj {
+    ID_Estudiante:     string;
+    ID_Persona:        string;
+    Nombre_Estudiante: string;
+    Active:            boolean;
+    Imagen:            null | string;
+}
+
+export interface LastYeatStudentsObj {
+    ID_Inscripciones:           string;
+    FK_Carrera:                 string;
+    FK_Grado:                   string;
+    FK_Grupo:                   string;
+    FK_Turno:                   string;
+    ID_Estudiante:              string;
+    ID_Persona:                 string;
+    Nombre:                     string;
+    Apellido_Paterno:           string;
+    Apellido_Materno:           string;
+    ID_Carrera:                 string;
+    Carrera:                    string;
+    Numero_De_Ciclos:           number;
+    Duracion_Mensual_De_Ciclos: number;
+    Descripcion:                string | null;
+    ID_Grupo:                   string;
+    Indicador:                  string;
+    ID_Grado:                   string;
+    Numero:                     number;
+    ID_Turno:                   string;
+    Turno:                      string;
+}

@@ -60,8 +60,6 @@ export const LoginScreen = () => {
                         <button onClick={handleButtonGetAuth}>Iniciar sesión</button>
                     </div>
                     <div className="actionsSection">
-                        <a href="#">Recuperar contraseña</a>
-                        <button>Solicitar acceso</button>
                     </div>
                 </div>
 

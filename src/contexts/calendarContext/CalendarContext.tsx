@@ -409,7 +409,10 @@ export const CalendarContextProvider = ({ children }: CalendarProviderProps) => 
 
     //Create Calendar
     createCalendar: handleCreateNewCalendar,
-    createCalendarLoader: calendarGeneralLoader
+    createCalendarLoader: calendarGeneralLoader,
+
+    //Calendar Info
+    calendarInfo: calendarInfo,
   }
 
   useEffect(() => {

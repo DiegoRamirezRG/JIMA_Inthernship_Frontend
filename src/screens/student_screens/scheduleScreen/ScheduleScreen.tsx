@@ -16,6 +16,10 @@ import moment from 'moment'
 import { studentScheduleObj } from '../../../models/groupsModels/GroupsModels'
 import { daysOfTheWeekAccent } from '../../../utils/calendarHelpers/DaysOfTheWeek'
 import { DarkColorsForWhite } from '../../../utils/colorRandom/ColorArrayRandom'
+import { showErrorTost } from '../../../components/generalComponents/toastComponent/ToastComponent'
+import { ModalComponent } from '../../../components/generalComponents/modalComponent/ModalComponent'
+import { API_ADDR, APT_PORT } from '../../../utils/env/config'
+import noSchedule from '../../../assets/svg/no_schedule.svg'
 
 export const ScheduleScreen = () => {
 
@@ -25,6 +29,7 @@ export const ScheduleScreen = () => {
     const navigate = useNavigate();
 
     const [events, setEvents] = useState<EventInput[]>([]);
+    const [isExportingToPdfLoading, setIsExportingToPdfLoading] = useState(false);
 
     const fechaActual = moment();
     const diaDeLaSemana = fechaActual.day();
@@ -62,6 +67,22 @@ export const ScheduleScreen = () => {
         setEvents(formated)
     }
 
+    const handleScheduleMakerPdf = async () => {
+        try {
+            setIsExportingToPdfLoading(true);
+            const pdfUrl = `http://${API_ADDR}:${APT_PORT}/api/student/schedule/generateSchedule/${state.loggedUser?.ID_Persona}`;
+            window.open(pdfUrl, '_blank');
+        } catch (error: any) {
+            if(error.response){
+                showErrorTost({position: 'top-center', text: error.response.data.message})
+            }else{
+                showErrorTost({position: 'top-center', text: error.message})
+            }
+        } finally {
+            setIsExportingToPdfLoading(false);
+        }
+    }
+
     useEffect(() => {
         if(state.loggedUser?.ID_Persona){
             const awaitFc = async () => {
@@ -83,42 +104,54 @@ export const ScheduleScreen = () => {
                 {
                     studentScheduleLoading
                     ?   <LoadingComponent/>
-                    :   <>
-                            <div className="scheduleHeader">
-                                <h2>Horario</h2>
-                                <div className="acctionsContainer">
-                                    <button>
-                                        <FaFileExport />
-                                        Exportar a PDF
-                                    </button>
+                    :   studentSchedule.length > 0
+                        ?
+                            <>
+                                <div className="scheduleHeader">
+                                    <h2>Horario</h2>
+                                    <div className="acctionsContainer">
+                                        <button onClick={handleScheduleMakerPdf}>
+                                            <FaFileExport />
+                                            Exportar a PDF
+                                        </button>
+                                    </div>
                                 </div>
+                                <div className="scheduleBody">
+                                    <FullCalendar
+                                        plugins={[ dayGridPlugin, timeGridPlugin, interactionPlugin ]}
+                                        locales={[esLocale]}
+                                        allDaySlot={false}
+                                        editable={false}
+                                        selectable={false}
+                                        expandRows={true}
+                                        headerToolbar={{}}
+                                        initialView="timeGridWeek"
+                                        slotMinTime="07:00"
+                                        slotMaxTime="13:00"
+                                        slotDuration="00:30:00"
+                                        eventOverlap={false}
+                                        firstDay={0}
+                                        dayHeaderFormat={{ weekday: 'long'}}
+                                        eventContent={eventRender}
+                                        events={events}
+                                        eventClick={(event) => {
+                                            localStorage.setItem('showedPage', '1');
+                                            navigate(`/student/classes/${event.event.extendedProps.ID_Clase}`)
+                                        }}
+                                    />
+                                </div>
+                            </>
+                        :   <div className='no_schedule'>
+                                <p>No tienes un horario activo</p>
+                                <img src={noSchedule} />
                             </div>
-                            <div className="scheduleBody">
-                                <FullCalendar
-                                    plugins={[ dayGridPlugin, timeGridPlugin, interactionPlugin ]}
-                                    locales={[esLocale]}
-                                    allDaySlot={false}
-                                    editable={false}
-                                    selectable={false}
-                                    expandRows={true}
-                                    headerToolbar={{}}
-                                    initialView="timeGridWeek"
-                                    slotMinTime="07:00"
-                                    slotMaxTime="13:00"
-                                    slotDuration="00:30:00"
-                                    eventOverlap={false}
-                                    firstDay={0}
-                                    dayHeaderFormat={{ weekday: 'long'}}
-                                    eventContent={eventRender}
-                                    events={events}
-                                    // eventClick={(event) => {
-                                    //     localStorage.setItem('showedPage', '1');
-                                    //     navigate(`/student/classes/${event.event.extendedProps.ID_Clase}`)
-                                    // }}
-                                />
-                            </div>
-                        </>
                 }
+                <ModalComponent modalState={isExportingToPdfLoading} handleModalState={() => {}}>
+                    <div className="loadingExportContainer">
+                        <LoadingComponent/>
+                        <p className='loading_banner'>Exportando tu horario</p>
+                    </div>
+                </ModalComponent>
             </div>
         </NavigationComponent>
     )

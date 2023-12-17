@@ -33,6 +33,15 @@ export interface CycleCalendarContext{
     validator_loadView: (index: number) => void;
     roadmap_count: number;
 
+    //Stepper Reinscriptions
+    reinscription_Opts: innerStepper[];
+    reinscription_indexActive: number;
+    reinscription_screens: Map<number, JSX.Element>;
+    reinscription_roadmap: number;
+    reinscripction_nextView: () => void;
+    reinscripction_backView: () => void;
+    reinscripction_loadView: (index: number) => void;
+
     //Stteper Inscripcionts
     inscription_Opts: innerStepper[];
     inscription_indexActive: number;

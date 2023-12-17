@@ -109,3 +109,44 @@
         }
     }
 }
+
+.no_active_clases{
+    width: 70%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Quicksand', sans-serif;
+    gap: 40px;
+
+    p{
+        padding: 0px;
+        margin: 0px;
+        font-size: 30px;
+        font-weight: 550;
+        color: $iris;
+    }
+
+    img{
+        height: 50%;
+    }
+
+    button{
+        background-color: $iris;
+        border: none;
+        border-radius: 5px;
+        width: auto;
+        box-sizing: border-box;
+        padding: 5px 15px;
+        font-size: 20px;
+        color: white;
+        font-family: 'Quicksand', sans-serif;
+        transition: 0.2s all ease-in-out;
+
+        &:hover{
+            cursor: pointer;
+            background-color: darken($iris, 10%);
+        }
+    }
+}

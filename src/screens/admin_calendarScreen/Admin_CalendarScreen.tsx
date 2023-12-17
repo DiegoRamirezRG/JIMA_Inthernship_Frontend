@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import './Admin_CalendarScreen.scss'
 import { NavigationComponent } from "../../components/generalComponents/navigationComponent/NavigationComponent"
 import FullCalendar from '@fullcalendar/react'
@@ -15,10 +15,12 @@ import { ConfirmEventActionModal } from '../../components/admin_CalendarComponen
 import { DetailEventModal } from '../../components/admin_CalendarComponents/DetailEventModal/DetailEventModal'
 import { CreateNewCalendarComponent } from '../../components/admin_CalendarComponents/CreateNewCalendar/CreateNewCalendarComponent'
 import { CreateNewCalendarModal } from '../../components/admin_CalendarComponents/CreateNewCalendarModal/CreateNewCalendarModal'
+import AuthContext from '../../contexts/authContext/AuthContext'
 
 export const Admin_CalendarScreen = () => {
 
     const { fullCalendarArray, eventLoader, getEventsFunction, eventResize, eventRender, createEventModal, handleCreateEventModal, confirmChangeModal, eventDrop, eventClick, detailEventModal, handleDetailEventModal, isCalendarExist, createCalendarModal, isCalendarExistLoading } = useCalendarContext();
+    const { state } = useContext(AuthContext);
     useEffect(() => {
         const asyncHelper = async () => {
             isCalendarExist
@@ -26,7 +28,7 @@ export const Admin_CalendarScreen = () => {
             : () => {}
         }
         asyncHelper();
-    }, [isCalendarExist])
+    }, [isCalendarExist]);
 
     return (
         <NavigationComponent>
@@ -49,9 +51,9 @@ export const Admin_CalendarScreen = () => {
                                                 right: 'multiMonthYear,dayGridMonth,timeGridWeek,timeGridDay'
                                             }}
                                             locales={[esLocale]}
-                                            editable={true}
-                                            selectable={true}
-                                            selectMirror={true}
+                                            editable={ state.loggedUser && state.loggedUser.Rol == 'Administrativo' ? true : false }
+                                            selectable={ state.loggedUser && state.loggedUser.Rol == 'Administrativo' ? true : false }
+                                            selectMirror={ state.loggedUser && state.loggedUser.Rol == 'Administrativo' ? true : false }
                                             dayMaxEvents={true}
                                             eventResize={eventResize}
                                             eventContent={eventRender}

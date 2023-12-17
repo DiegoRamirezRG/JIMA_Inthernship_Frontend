@@ -7,6 +7,7 @@ import { LoadingComponent } from '../../../components/generalComponents/loadingC
 import AuthContext from '../../../contexts/authContext/AuthContext'
 import { GroupCardComponent } from '../../../components/teacherComponents/groupComponents/GroupCardComponent/GroupCardComponent'
 import { useSubjectsContext } from '../../../contexts/subjectContext/SubjectsContext'
+import no_classes from '../../../assets/svg/no_schedule_day.svg'
 
 export const GroupsScreen = () => {
 
@@ -39,22 +40,10 @@ export const GroupsScreen = () => {
             {
                 teachClassLoading || isSubjectsLoading
                 ?   <LoadingComponent/>
-                :   <div className="maxGroupsContainer">
+                :   classes.length > 0
+                ?   <div className="maxGroupsContainer">
                         <div className="headerGroups">
                             <h2>Manejo de Clases</h2>
-                            <div className="acctionsContainer">
-                                <div className="listForFastAccionts">
-                                    <ul className="menu">
-                                        <li>Acciones Rapidas
-                                            <ul className="submenu">
-                                                <li>Tomar Asistencia</li>
-                                                <li>Generar Boletas</li>
-                                                <li>Clases Archivadas</li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
                         </div>
                         <div className="groupsContent">
                             <div className="groupsDynamic">
@@ -65,6 +54,11 @@ export const GroupsScreen = () => {
                                 }
                             </div>
                         </div>
+                    </div>
+                :   <div className='no_active_clases'>
+                        <p>No tienes clases activas</p>
+                        <img src={no_classes}/>
+                        <button>Ver clases archivadas</button>
                     </div>
             }
         </NavigationComponent>

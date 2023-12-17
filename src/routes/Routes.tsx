@@ -23,6 +23,9 @@ import { AssigmentScreen } from '../screens/student_screens/assigmentScreen/Assi
 import { GradesScreen } from '../screens/student_screens/gradesScreen/GradesScreen'
 import { ClassGradesScreen } from '../screens/student_screens/classGradesScreen/ClassGradesScreen'
 import { AssigmentsToDoScreen } from '../screens/student_screens/assigmentsToDoScreen/AssigmentsToDoScreen'
+import { PaymentsScreen } from '../screens/admin_screens/paymentsScreen/PaymentsScreen'
+import { PaymentScreen } from '../screens/student_screens/paymentScreen/PaymentScreen'
+import { ArchievedClassScreen } from '../screens/student_screens/archievedClassScreen/ArchievedClassScreen'
 
 
 const generalRoutes = [
@@ -83,6 +86,12 @@ const administrativeRoutes = [
         path: "/admin_cycle/init",
         element: <ProtectedRoute>
             <Admin_InitCycleScreen/>
+        </ProtectedRoute>
+    },
+    {
+        path: "/admin_payments",
+        element: <ProtectedRoute>
+            <PaymentsScreen/>
         </ProtectedRoute>
     }
 ]
@@ -167,6 +176,18 @@ const studentRoutes = [
         path: "/student/todo",
         element: <ProtectedRoute>
                     <AssigmentsToDoScreen/>
+                </ProtectedRoute>
+    },
+    {
+        path: "/student/payments",
+        element: <ProtectedRoute>
+                    <PaymentScreen/>
+                </ProtectedRoute>
+    },
+    {
+        path: "/student/classes/archieved",
+        element: <ProtectedRoute>
+                    <ArchievedClassScreen/>
                 </ProtectedRoute>
     },
 ]

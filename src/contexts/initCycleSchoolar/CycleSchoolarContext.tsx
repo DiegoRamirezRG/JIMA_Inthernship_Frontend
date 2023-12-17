@@ -6,7 +6,7 @@ import { Response } from '../../models/responsesModels/responseModel';
 import { CycleStatus, innerStepper } from '../../models/cycleModels/CycleModels';
 import { StepDTO } from 'react-form-stepper/dist/components/Step/StepTypes';
 import { ValidateComponents } from '../../components/admin_CycleComponents/validateComponents/ValidateComponents';
-import { inscriptionsOptions, options } from '../../components/admin_CycleComponents/validateComponents/helpers/renderingOpts';
+import { inscriptionsOptions, options, reinscriptionsOpts } from '../../components/admin_CycleComponents/validateComponents/helpers/renderingOpts';
 import { ValdidateCareerComponent } from '../../components/admin_CycleComponents/validateComponents/validateCareersComponent/ValdidateCareerComponent';
 import { ValidatePlansComponent } from '../../components/admin_CycleComponents/validateComponents/validatePlansComponent/ValidatePlansComponent';
 import { ValidateStudentComponent } from '../../components/admin_CycleComponents/validateComponents/validateStudentsComponent/ValidateStudentComponent';
@@ -17,6 +17,10 @@ import { PlanPicker } from '../../components/admin_CycleComponents/incripcionCom
 import { LoadSubjects } from '../../components/admin_CycleComponents/incripcionComponents/innerComponents/LoadSubjects/LoadSubjects';
 import { MakeSchedule } from '../../components/admin_CycleComponents/incripcionComponents/innerComponents/makeSchedule/MakeSchedule';
 import { ConfirmationComponents } from '../../components/admin_CycleComponents/confirmationComponents/ConfirmationComponents';
+import { ReinscriptionComponents } from '../../components/admin_CycleComponents/reinscriptionComponents/ReinscriptionComponents';
+import { ConfirmGroups } from '../../components/admin_CycleComponents/reinscriptionComponents/innerComponents/confirmGroups/ConfirmGroups';
+import { LoadReinsSubjects } from '../../components/admin_CycleComponents/reinscriptionComponents/innerComponents/loadReindSubjects/LoadReinsSubjects';
+import { LoadReinsSchedule } from '../../components/admin_CycleComponents/reinscriptionComponents/innerComponents/loadReincSchedule/LoadReinsSchedule';
 
 const CycleSchoolarContext = createContext<CycleCalendarContext |undefined>(undefined);
 
@@ -53,7 +57,7 @@ export const CycleSchoolarContextProvider = ({ children }: initProviderProps) =>
     //Stepper and Render
     const steppersWrappersComponents = new Map<number, JSX.Element>([
         [0, <ValidateComponents/>],
-        [1, <>Reinscripciones</>],
+        [1, <ReinscriptionComponents/>],
         [2, <InscripcionComponent/>],
         [3, <ConfirmationComponents/>],
     ])
@@ -115,7 +119,51 @@ export const CycleSchoolarContextProvider = ({ children }: initProviderProps) =>
         setActiveComponent(index);
     }
 
-    //Stepper of Resincripciton
+    //Stepper of Reinscription
+    const [reinscriptRenderOpts, setreinscriptRenderOpts] = useState<innerStepper[]>(reinscriptionsOpts);
+    const [activeReincComp, setActiveReincComp] = useState(0);
+    const [reinscriptRoadMap, setReinscriptRoadMap] = useState(0);
+
+    const reinscriptViewsComponents = new Map<number, JSX.Element>([
+        [0, <ConfirmGroups/>],
+        [1, <LoadReinsSubjects/>],
+        [2, <LoadReinsSchedule/>],
+    ]);
+
+    const handleNextReinscripView = () => {
+        setreinscriptRenderOpts((prevOpt) => {
+            const nuevasOpts = [...prevOpt];
+            nuevasOpts[activeReincComp] = { ...nuevasOpts[activeReincComp], active: false, completed: true };
+            nuevasOpts[activeReincComp + 1] = { ...nuevasOpts[activeReincComp + 1], active: true};
+            return nuevasOpts;
+        })
+        activeReincComp == reinscriptRoadMap
+        ?   setReinscriptRoadMap(activeReincComp + 1)
+        :   () => {}
+        setActiveReincComp(activeReincComp + 1);
+    }
+
+    const handleBackReinscripView = () => {
+        setreinscriptRenderOpts((prevOpt) => {
+            const nuevasOpts = [...prevOpt];
+            nuevasOpts[activeReincComp] = { ...nuevasOpts[activeReincComp], active: false };
+            nuevasOpts[activeReincComp - 1] = { ...nuevasOpts[activeReincComp - 1], active: true};
+            return nuevasOpts;
+        });
+        setActiveReincComp(activeReincComp - 1);
+    }
+
+    const handleReinscripLoadingView = (index: number) => {
+        setreinscriptRenderOpts((prevOpt) => {
+            const nuevasOpts = [...prevOpt];
+            nuevasOpts[activeReincComp] = { ...nuevasOpts[activeReincComp], active: false };
+            nuevasOpts[index] = { ...nuevasOpts[index], active: true};
+            return nuevasOpts;
+        });
+        setActiveReincComp(index);
+    }
+
+    //Stepper of Inscriprion
     const [inscriptRenderOpts, setInscriptRenderOpts] = useState<innerStepper[]>(inscriptionsOptions);
     const [activeInscComp, setActiveInscComp] = useState(0);
     const [inscriptRoadMap, setInscriptRoadMap] = useState(0);
@@ -186,6 +234,15 @@ export const CycleSchoolarContextProvider = ({ children }: initProviderProps) =>
         validator_backView: handleBackValidatorView,
         validator_loadView: handleLoadingView,
         roadmap_count: roadMapCompleted,
+
+        //Stepper Reinscriptions
+        reinscription_Opts: reinscriptRenderOpts,
+        reinscription_indexActive: activeReincComp,
+        reinscription_screens: reinscriptViewsComponents,
+        reinscription_roadmap: reinscriptRoadMap,
+        reinscripction_nextView: handleNextReinscripView,
+        reinscripction_backView: handleBackReinscripView,
+        reinscripction_loadView: handleReinscripLoadingView,
 
         //Stteper Inscripcionts
         inscription_Opts: inscriptRenderOpts,

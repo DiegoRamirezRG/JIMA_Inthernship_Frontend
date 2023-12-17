@@ -1,27 +1,17 @@
-TODO: Ahora necesito poder mostrar en las columnas de los dias las materias a sus horas
 TODO: UseEffect en las creaciones de grupo a aspirantes
 TODO: Cargar materias individuales
-TODO: Quitar cualquier tipo de accion que no sea ver  para profesor en calendario 
-TODO: Hacer rubricas y unidades, ademas de las tareas
-TODO: Hacer que puedas crear o seleccionar una rubrica en la creacion de tarea
-TODO: Hacer que registrar a las clases
-TODO: Descargar archivos de alumno en tarea
-
+TODO: Registrar manualmente estudiante a materias aunque estas se interpongan
+TODO: Buf en tomar asistencia
+TODO: Bug entrega de tareas (dobles)
+TODO: Calificar
+TODO: Bug en calendario sobre otro calendario inactivo pero dentro de fechas
 ------------------------------------------------
 
 Falta Admin
     - Reincripcion
-    - Menajo de Pagos
-    - Generar Boletas
 
-Falta profesor:
-    - Calificacion de Asignaturas
-    - Nombramiento de asistencia
-
-Falta estudiante:
-    - Generar Boletas
-    - Pagos
-    - Home
+Teacher
+    - Clases archivadas
 
 Bugs:
     - Horaios relativos profesor y alumno

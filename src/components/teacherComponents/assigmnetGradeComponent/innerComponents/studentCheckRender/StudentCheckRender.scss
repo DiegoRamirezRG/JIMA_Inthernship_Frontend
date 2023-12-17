@@ -1,0 +1,124 @@
+@import '../../../../../utils/sassConfig/colors';
+
+.selectorRowContainer{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    height: 60px;
+    box-sizing: border-box;
+    padding: 5px 0px;
+    flex-shrink: 0;
+    border-bottom: 2px solid $ghostWhite;
+    
+    &.first{
+        border-top: 2px solid $ghostWhite;
+    }
+
+    &.allPick{
+        background-color: $ghostWhite;
+    }
+
+    .inputCheckAside{
+        width: 40px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: center;
+
+        input{
+            width: 25px;
+            height: 25px;
+
+            &:hover{
+                cursor: pointer;
+            }
+        }
+    }
+
+    .displayedInfoAside{
+        display: flex;
+        flex-direction: row;
+        box-sizing: border-box;
+        padding: 0px 10px 0px 10px;
+        align-items: center;
+        font-size: 20px;
+        width: calc(100% - 40px);
+        gap: 5px;
+
+        &:hover{
+            cursor: pointer;
+        }
+
+        .iconCol{
+            height: 80%;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 25px;
+            background-color: $iris;
+            color: white;
+        }
+
+        .imageCol{
+            height: 80%;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+
+            img{
+                width: 100%;
+            }
+        }
+
+        .nametitle{
+            font-weight: 550;
+            width: 230px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            align-items: center;
+        }
+
+
+        .graderCol{
+            width: 90px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-content: center;
+            box-sizing: border-box;
+            border-left: 2px solid $ghostWhite;
+            position: relative;
+
+            input{
+                width: 70px;
+                border: none;
+                padding: none;
+                outline: none;
+                font-size: 20px;
+                box-sizing: border-box;
+                padding: 0px 0px 0px 15px;
+                font-family: 'Quicksand', sans-serif;
+            }
+
+            .floatingIndc{
+                position: absolute;
+                left: 30px;
+                font-size: 15px;
+                font-weight: bold;
+                transition: 0.2s all ease-in-out;
+
+                &.grade{
+                    left: 60px
+                }
+            }
+        }
+    }
+}

@@ -16,3 +16,9 @@ export const inscriptionsOptions: innerStepper[] = [
     {label: 'Materias', active: false, completed: false, icon: <PiBooksFill/>},
     {label: 'Horario', active: false, completed: false, icon: <HiMiniIdentification/>},
 ]
+
+export const reinscriptionsOpts: innerStepper[] = [
+    {label: 'Grupos', active: true, completed: false, icon: <HiMiniUserGroup/>},
+    {label: 'Materias', active: false, completed: false, icon: <PiBooksFill/>},
+    {label: 'Horarios', active: false, completed: false, icon: <HiMiniIdentification/>},
+]

@@ -14,23 +14,29 @@ import { AssignsComponentView } from '../../../components/teacherComponents/grou
 import { StudentsListComponentView } from '../../../components/teacherComponents/groupComponents/studentsListComponentView/StudentsListComponentView';
 import { GradesComponentView } from '../../../components/teacherComponents/groupComponents/gradesComponentView/GradesComponentView';
 import { ScheduleComponentView } from '../../../components/teacherComponents/groupComponents/scheduleComponentView/ScheduleComponentView';
+import { useHomeworkContext } from '../../../contexts/homeworkContext/HomeworkContext';
+import { ModalComponent } from '../../../components/generalComponents/modalComponent/ModalComponent';
+import { CreateRubricModal } from '../../../components/teacherComponents/groupComponents/assignsComponentView/innerComponents/createRubricModal/CreateRubricModal';
+import { CreateAssignamentModal } from '../../../components/teacherComponents/groupComponents/assignsComponentView/innerComponents/createAssigmentModal/CreateAssignamentModal';
+import { AttendanceTakeComponent } from '../../../components/teacherComponents/attendanceTakeComponent/AttendanceTakeComponent';
+import { useAttendanceContext } from '../../../contexts/attendanceContext/AttendanceContext';
 
 export const DetailedGroupScreen = () => {
 
     const { classId } = useParams();
     const { activeGroup, getActiveGroupData, getActiveGroupLoading, groupAttendance, groupSchedule } = useGroupsContext();
     const { subjectsData, getSubjectsData } = useSubjectsContext();
+    const { handleAssigmentCreateModal, assigmentCreateModal } = useHomeworkContext();
+    const { attendanceModal, handleAttendanceModal } = useAttendanceContext();
 
     const [workingSubject, setWorkingSubject] = useState<SubjectModel>();
     const [defaultSrc, setDefaultSrc] = useState(wlld);
     const [renderingIndex, setRenderingIndex] = useState<number>(0);
 
     const renderingPage = new Map<number, JSX.Element>([
-        [0, <HomeComponent/>],
-        [1, <AssignsComponentView/>],
-        [2, <StudentsListComponentView/>],
-        [3, <GradesComponentView/>],
-        [4, <ScheduleComponentView/>],
+        [0, <AssignsComponentView/>],
+        [1, <StudentsListComponentView/>],
+        [2, <ScheduleComponentView/>],
     ])
 
     const onLoadImage = () => {
@@ -77,7 +83,7 @@ export const DetailedGroupScreen = () => {
                                         <p>{workingSubject!.Area_Nombre}</p>
                                     </div>
                                     <div className="realActionageContainer">
-                                        <div className="icons list">
+                                        <div className="icons list" onClick={ handleAttendanceModal }>
                                             <a
                                                 data-tooltip-id="helper_tooltip"
                                                 data-tooltip-content="Nombrar Lista"
@@ -86,7 +92,7 @@ export const DetailedGroupScreen = () => {
                                                 <HiOutlineClipboardList/>
                                             </a>
                                         </div>
-                                        <div className="icons add">
+                                        <div className="icons add" onClick={ handleAssigmentCreateModal }>
                                             <a
                                                 data-tooltip-id="helper_tooltip"
                                                 data-tooltip-content="Agregar Tarea"
@@ -100,11 +106,9 @@ export const DetailedGroupScreen = () => {
                             </div>
                             <div className="navigatorRender">
                                 <div className="buttonageRendering">
-                                    <button key={0} className={`${renderingIndex == 0 ? 'active' : ''}`} onClick={() => setRenderingIndex(0)}>Home</button>
-                                    <button key={1} className={`${renderingIndex == 1 ? 'active' : ''}`} onClick={() => setRenderingIndex(1)}>Trabajos</button>
-                                    <button key={2} className={`${renderingIndex == 2 ? 'active' : ''}`} onClick={() => setRenderingIndex(2)}>Estudiantes</button>
-                                    <button key={3} className={`${renderingIndex == 3 ? 'active' : ''}`} onClick={() => setRenderingIndex(3)}>Calificaciones</button>
-                                    <button key={3} className={`${renderingIndex == 4 ? 'active' : ''}`} onClick={() => setRenderingIndex(4)}>Horario</button>
+                                    <button key={1} className={`${renderingIndex == 0 ? 'active' : ''}`} onClick={() => setRenderingIndex(0)}>Trabajos</button>
+                                    <button key={2} className={`${renderingIndex == 1 ? 'active' : ''}`} onClick={() => setRenderingIndex(1)}>Estudiantes</button>
+                                    <button key={3} className={`${renderingIndex == 2 ? 'active' : ''}`} onClick={() => setRenderingIndex(2)}>Horario</button>
                                 </div>
                             </div>
                             <div className="contentRenderDynamicContainer">
@@ -115,6 +119,12 @@ export const DetailedGroupScreen = () => {
                         </>
                 }
                 <Tooltip id="helper_tooltip" />
+                <ModalComponent modalState={assigmentCreateModal} handleModalState={() => {}} modalSize='modal-xxxl'>
+                    <CreateAssignamentModal/>
+                </ModalComponent>
+                <ModalComponent modalState={attendanceModal} handleModalState={() => {}} modalSize='modal-lg'>
+                    <AttendanceTakeComponent/>
+                </ModalComponent>
             </div>
         </NavigationComponent>
     )
