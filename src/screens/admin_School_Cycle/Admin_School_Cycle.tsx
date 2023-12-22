@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import './Admin_School_Cycle.scss'
 import { NavigationComponent } from '../../components/generalComponents/navigationComponent/NavigationComponent'
 import { CareerSliderComponent } from '../../components/admin_CycleComponents/careersSliderComponents/careerSliderComponent/CareerSliderComponent'
@@ -29,7 +29,9 @@ export const Admin_School_Cycle = () => {
     const { isCalendarExist, createCalendarModal, calendarInfo } = useCalendarContext();
     const { getCycleStatusLoader, getCycleStatusFunc, cycleStatusState } = useCycleSchoolarContext();
     const { cycleStats, getCycleStats } = useStadisticsContext();
-    const { endCycleModal, completelySureModal, handleCompletelySureModal } = useEndCycleSchoolarContext();
+    const { endCycleModal, completelySureModal, handleCompletelySureModal, endCycleFunc } = useEndCycleSchoolarContext();
+
+    const [endingLoading, setEndingLoading] = useState(false);
 
     const { 
         //Data
@@ -47,6 +49,14 @@ export const Admin_School_Cycle = () => {
         awaitF();
     }, [])
     
+
+    const handleEnd = async () => {
+        setEndingLoading(true);
+        await endCycleFunc();
+        await getCycleStats();
+        await getCycleStatusFunc();
+        setEndingLoading(false);
+    }
 
     return (
         <NavigationComponent>
@@ -108,8 +118,10 @@ export const Admin_School_Cycle = () => {
             <ModalComponent modalState={completelySureModal} handleModalState={() => {}}>
                 <div className="surellyModal">
                     {
-                        false
-                        ?   <>Loading</>
+                        endingLoading
+                        ?   <>  
+                                <LoadingComponent/>
+                            </>
                         :   <div className="warningContainer">
                                 <div className="animationContainer">
                                     <Lottie animationData={warning} className='lootie-animation' loop={false}/>;
@@ -119,7 +131,7 @@ export const Admin_School_Cycle = () => {
                                 </div>
                                 <div className="actions">
                                     <button className='cancel-btn' onClick={handleCompletelySureModal}>Cancelar</button>
-                                    <button className='save-btn' >Terminar Ciclo</button>
+                                    <button className='save-btn' onClick={ handleEnd }>Terminar Ciclo</button>
                                 </div>
                             </div>
                     }

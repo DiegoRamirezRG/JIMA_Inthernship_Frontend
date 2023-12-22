@@ -22,7 +22,7 @@ export const PlanPicker = () => {
             {
                 plansStatusLoading
                 ?   <LoadingComponent/>
-                :   plansStatus
+                :   plansStatus === false
                     ?   <PlansViewerChanger/>
                     :   <></> //No puede no haber planes
             }

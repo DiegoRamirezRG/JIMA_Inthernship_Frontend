@@ -2,12 +2,16 @@ import React from 'react'
 import './NoPlansActivedComponent.scss'
 import { CareerMissingPlans, ValidCareersPlan } from '../../../../../../models/careerPlansModels/CareerPlansModels';
 import { NoPlanCardComponent } from '../noPlanCard/NoPlanCardComponent';
+import { useCareersContext } from '../../../../../../contexts/careersContext/CareersContext';
 
 interface NoPlansActiveProps{
     careersNeedPlan?: false | CareerMissingPlans[];
 }
 
 export const NoPlansActivedComponent = ({ careersNeedPlan } : NoPlansActiveProps) => {
+
+    const { careers } = useCareersContext();
+
     return (
         <div className='noPlansContainer'>
             <div className="noPlansInnerContainer">
@@ -17,7 +21,9 @@ export const NoPlansActivedComponent = ({ careersNeedPlan } : NoPlansActiveProps
                 <div className="gridNoPlans">
                     {
                         !careersNeedPlan
-                        ?   <>Es un falso, sepa que paso</>
+                        ?   careers?.map((item, index) => (
+                            <NoPlanCardComponent key={index} career={item}/>
+                        ))
                         :   careersNeedPlan.map((item, index) => (
                             <NoPlanCardComponent key={index} career={item}/>
                         ))

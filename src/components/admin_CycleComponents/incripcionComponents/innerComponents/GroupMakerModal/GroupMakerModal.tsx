@@ -140,7 +140,7 @@ export const GroupMakerModal = () => {
                         </div>
                         <div className="studentIngroup">
                             {
-                                Object.values(groups[groupRendering]).length > 0
+                                groups[groupRendering] && Object.values(groups[groupRendering]).length > 0
                                 ?   Object.values(groups[groupRendering]).map((item: string[], index) => (
                                     <div key={index} className='listItemsStudents'>
                                         {

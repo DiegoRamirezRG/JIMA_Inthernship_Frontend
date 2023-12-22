@@ -44,13 +44,14 @@ export const ValidateComponents = () => {
                     }
                     {
                         validator_indexActive !== validator_Opts.length - 1
-                        ?   validator_indexActive === 0 && careers != null && careers.length > 0
+                        ?   true
                             ?   <button className='next' onClick={validator_nextView}>Siguiente</button>
                             :   plansStatus
                                 ?   <button className='next' onClick={validator_nextView}>Siguiente</button>
                                 :   <></>
                         :   validator_indexActive === validator_Opts.length - 1
-                            ?   lastYearStudents.length > 0
+                            // ?   lastYearStudents.length > 0
+                            ?   false
                                 ?   <button className='next' onClick={() => handleActivePage(stepActivePage + 1)}>Pasar a Reinscripciones</button>
                                 :   <button className='next' onClick={() => handleActivePage(stepActivePage + 2)}>Pasar a Inscripciones</button>
                             :   <div></div>

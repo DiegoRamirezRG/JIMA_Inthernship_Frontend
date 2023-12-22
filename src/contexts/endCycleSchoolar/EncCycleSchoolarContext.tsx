@@ -1,5 +1,7 @@
 import React, { createContext, useContext, useState } from 'react'
 import { endCycleSchoolarContext, endCycleSchoolarProvider } from '../../models/endCycleSchoolarModels/endCycleSchoolarContextModels';
+import { showErrorTost } from '../../components/generalComponents/toastComponent/ToastComponent';
+import { serverRestApi } from '../../utils/apiConfig/apiServerConfig';
 
 const EndCycleSchoolarContext = createContext<endCycleSchoolarContext | undefined>(undefined);
 
@@ -21,6 +23,16 @@ export const EndCycleSchoolarContextProvider = ({ children } : endCycleSchoolarP
         }
     }
 
+    const handleEndCycleFunc = async () => {
+        try {
+            await serverRestApi.put('/api/cycle/endSchoolarCycle', {}, { headers: { Authorization: localStorage.getItem('token') } });
+            setCompletlySure(false);
+            setEndCycleModal(false);
+        } catch (error: any) {
+            showErrorTost({position: 'top-center', text: error.message})
+        }
+    }
+
     //Returning
     const contextVal: endCycleSchoolarContext = {
         //End Cycle Modal
@@ -30,6 +42,9 @@ export const EndCycleSchoolarContextProvider = ({ children } : endCycleSchoolarP
         //Completely Sure Modal
         completelySureModal: completlySure,
         handleCompletelySureModal: handleComplentlySure,
+
+        //End cucle Func
+        endCycleFunc: handleEndCycleFunc,
     }
 
     return (

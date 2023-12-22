@@ -17,7 +17,10 @@ export const CareersPlansContextProvider = ({ children } : CareerPlanProviderInt
         try {
             const response = await serverRestApi.get<Response>('/api/plans/validCareerPlans', { headers: { Authorization : localStorage.getItem('token') } });
             if(response.data.success){
-                setCareerPlanState(response.data.data);
+                if(response.data.data.lenght > 0){
+                    setCareerPlanState(Object.values(response.data.data)[0]!.Valid!);
+                }
+
             }
             setGetInitialLoading(false);
         } catch (error: any) {
@@ -58,11 +61,6 @@ export const CareersPlansContextProvider = ({ children } : CareerPlanProviderInt
 
             setIsGettingPlansLoading(false);
         } catch (error: any) {
-            if(error.response){
-                showErrorTost({position: 'top-center', text: error.response.data.message})
-            }else{
-                showErrorTost({position: 'top-center', text: error.message})
-            }
             setIsGettingPlansLoading(false);
         }
     }

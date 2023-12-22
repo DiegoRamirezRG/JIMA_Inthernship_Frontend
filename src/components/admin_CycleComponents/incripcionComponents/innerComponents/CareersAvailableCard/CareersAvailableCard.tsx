@@ -4,24 +4,26 @@ import { CareerPlansActives } from '../../../../../models/careerPlansModels/Care
 import { StudentToBe } from '../../../../../models/studentModels/StudentModel';
 import { HiMiniUserGroup } from 'react-icons/hi2';
 import { useReinsInscrContext } from '../../../../../contexts/reins_inscrContext/ReinsInscrContext';
+import { useCareersContext } from '../../../../../contexts/careersContext/CareersContext';
 
 interface CareerAvailableProps {
-    careerOfPlan: CareerPlansActives;
+    careerId: string;
     asp: StudentToBe[];
 }
 
-export const CareersAvailableCard = ({ careerOfPlan, asp } : CareerAvailableProps) => {
+export const CareersAvailableCard = ({ careerId, asp } : CareerAvailableProps) => {
 
     const { handleGroupModal } = useReinsInscrContext();
+    const { careers } = useCareersContext();
 
     const handleCreateModal = () => {
-        handleGroupModal(careerOfPlan.ID_Carrera!);
+        handleGroupModal(careerId);
     }
 
     return (
         <div className='CareerMakerGroupCard' onClick={handleCreateModal}>
             <div className="header">
-                <p>{careerOfPlan.Nombre}</p>
+                <p>{careers!.find(item => item.ID_Carrera === careerId)?.Nombre}</p>
             </div>
             <div className="aspSection">
                 <p>Aspirantes</p>

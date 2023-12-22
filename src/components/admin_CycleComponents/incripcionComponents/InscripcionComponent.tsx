@@ -64,17 +64,7 @@ export const InscripcionComponent = () => {
                             :   <div></div>
                         }
                         {
-                            inscription_indexActive !== inscription_Opts.length - 1
-                            ?   inscription_indexActive === 2
-                                ?   groups && groups.length === subjectsPerGroup.length
-                                    ?   <button className='next' onClick={inscripction_nextView}>Siguiente</button>
-                                    :   <div></div>
-                                :   <button className='next' onClick={() => studentsToBe?.length == 0 ? handleActivePage(stepActivePage + 1) : inscripction_nextView}>Siguiente</button> // If there is no asp then skip
-                            :   inscription_indexActive === 3
-                                ?   groups && groupdDone && groupdDone.length == groups.length
-                                    ?   <button className='next' onClick={() => handleActivePage(stepActivePage + 1)}>Siguiente</button>
-                                    :   <div></div>
-                                :   <div></div>
+                            <button className='next' onClick={() => handleActivePage(stepActivePage + 1)}>Siguiente</button>
                         }
                     </div>
                 </div>

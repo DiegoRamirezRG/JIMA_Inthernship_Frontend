@@ -8,6 +8,9 @@ export interface endCycleSchoolarContext {
     //Completely Sure Modal
     completelySureModal: boolean;
     handleCompletelySureModal: () => void;
+
+    //End cucle Func
+    endCycleFunc: () => Promise<void>;
 }
 
 export interface endCycleSchoolarProvider {

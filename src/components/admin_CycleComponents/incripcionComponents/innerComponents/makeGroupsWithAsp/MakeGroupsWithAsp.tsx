@@ -54,16 +54,14 @@ export const MakeGroupsWithAsp = () => {
                                             ?   <LoadingComponent/>
                                             :   <div className="dynamicHeighContainer">
                                                     {
-                                                        activePlans && Object.values(activePlans)
-                                                        .filter(item => item.Active == true)
+                                                        studentsToBe && studentsToBe
                                                         .map((item, index) => {
-
                                                             const aspCareer = studentsToBe ? studentsToBe.filter(aspirante => aspirante.ID_Carrera === item.ID_Carrera) : [];
                                                             
                                                             if(aspCareer!.length > 0){
-                                                                return <CareersAvailableCard key={index} careerOfPlan={item} asp={aspCareer}/>
+                                                                return <CareersAvailableCard key={index} careerId={item.ID_Carrera} asp={aspCareer}/>
                                                             }else{
-                                                                return <>No more asp</>
+                                                                return <></>
                                                             }
                                                         })
                                                     }

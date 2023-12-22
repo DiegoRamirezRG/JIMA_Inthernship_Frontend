@@ -27,7 +27,7 @@ export const ValidatePlansComponent = () => {
             {
                 plansStatusLoading
                 ?   <LoadingComponent/>
-                :   plansStatus
+                :   plansStatus == false
                     ?   <PlansViewer/>
                     :   <NoPlansActivedComponent careersNeedPlan={plansStatus}/>
             }
