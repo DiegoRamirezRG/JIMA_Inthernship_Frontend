@@ -57,6 +57,25 @@ export const AuthProvider = ({children}: any) => {
         });
     }
 
+    const logout = async () => {
+        try {
+            const response = await serverRestApi.get<Response>(`/api/auth/logout/${state.loggedUser?.ID_Persona}`);
+            if (!response.data.success) {
+                throw new Error(response.data.message);
+            }else{
+                localStorage.clear();
+            }
+
+            dispatch({
+                type: 'logout',
+                payload: null
+            });
+
+        } catch (error) {
+            console.error('Error loging out data: ', error);
+        }
+    }
+
     useEffect(() => {
         const awaitFunction = async () => {
             try {
@@ -81,7 +100,8 @@ export const AuthProvider = ({children}: any) => {
             state,
             dispatch,
             getAuthFuncion: getAuthorized,
-            validateToken: getValidateToken
+            validateToken: getValidateToken,
+            logoutFunction: logout
         }}>
             {children}
         </AuthContext.Provider>

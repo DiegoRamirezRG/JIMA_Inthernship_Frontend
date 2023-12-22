@@ -1,0 +1,139 @@
+@import '../../../../../utils/sassConfig/colors';
+
+.maxLoadScheduleContainer{
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    font-family: 'Quicksand', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    gap: 10px;
+
+    .loadScheduleHeader{
+        width: 100%;
+        height: 50px;
+        text-align: center;
+        height: 10%;
+        position: sticky;
+        top: 0;
+        background-color: white;
+    }
+
+    .renderNeedOfSchedule{
+        height: calc(100% - 60px);
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: start;
+        overflow: hidden;
+
+        .dinamycGridContainer{
+            width: 75%;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-height: 90%;
+
+            .groupLoadScheduleContainer{
+                width: 100%;
+                height: 150px;
+                border-radius: 10px;
+                border: 2px solid $ghostWhite;
+                box-sizing: border-box;
+                padding: 5px 10px;
+                gap: 10px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                position: relative;
+                overflow: hidden;
+
+                .career_name{
+                    width: 275px;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    font-size: 25px;
+                    text-align: center;
+                }
+
+                .innerRow{
+                    width: 100%;
+                    display: flex;
+                    justify-content: space-evenly;
+                    align-items: center;
+                    text-align: center;
+
+                    p{
+                        width: 30%;
+                    }
+                }
+
+                .crearHorario{
+                    height: auto;
+                    box-sizing: border-box;
+                    padding: 5px 0px;
+
+                    button{
+                        width: auto;
+                        font-family: 'Quicksand', sans-serif;
+                        font-size: 20px;
+                        box-sizing: border-box;
+                        padding: 3px 10px;
+                        border: none;
+                        border-radius: 5px;
+                        font-weight: 550;
+                        transition: 0.2s all ease-in-out;
+
+                        &:hover{
+                            cursor: pointer;
+                        }
+
+                        &.createScheduleBtn{
+                            color: white;
+                            background-color: lighten($bootstrap_success, 10%);
+                            &:hover{
+                                background-color: $bootstrap_success;
+                            }
+                        }
+                    }
+                }
+
+                p{
+                    padding: 0px;
+                    margin: 0px;
+                }
+            }
+        }
+    }
+}
+
+.isMadeIt{
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background-color: white;
+    
+    button{
+        width: auto;
+        font-family: 'Quicksand', sans-serif;
+        font-size: 20px;
+        box-sizing: border-box;
+        padding: 3px 10px;
+        border: none;
+        border-radius: 5px;
+        font-weight: 550;
+        transition: 0.2s all ease-in-out;
+    }
+}

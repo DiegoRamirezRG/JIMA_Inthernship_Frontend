@@ -13,8 +13,50 @@
     position: relative;
 
     background-color: #6941C6;
+    background-image: url('../../assets/img/SchoolBfLogin.jpg');
+    background-position: center;
+    background-size: cover;
+    mix-blend-mode: multiply;
 
-    //Just to identificated the size
+    .overlayDiv{
+        width: 100vw;
+        height: 100vh;
+        position: absolute;
+        background-color: rgba($iris, 0.6);
+        box-sizing: border-box;
+
+        .textOverlay{
+            width: 80%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            background: linear-gradient(transparent, $iris);
+            position: absolute;
+            box-sizing: border-box;
+            padding: 50px;
+            padding-right: 300px;
+            bottom: 0;
+
+            p{
+                font-family: 'Quicksand', sans-serif;
+                font-weight: 550;
+                color: white;
+                font-size: 70px;
+                margin: 0px;
+                padding: 0px;
+                
+                &:first-child{
+                    line-height: 85%;
+                }
+
+                &:last-child{
+                    font-family: 'Quicksand', sans-serif;
+                    font-weight: bold;
+                    font-size: 50px;
+                }
+            }
+        }
+    }
 
     .sideCardCredentials{
         width: 30%;
@@ -64,7 +106,7 @@
 
         .instructionsSection{
             h2{
-                font-family: 'Segoe UI', sans-serif;
+                font-family: 'Quicksand', sans-serif;
                 font-weight: bold;
                 font-size: 50px;
                 margin: 0;

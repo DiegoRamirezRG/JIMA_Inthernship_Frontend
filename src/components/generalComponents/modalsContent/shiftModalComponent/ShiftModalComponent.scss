@@ -1,0 +1,152 @@
+@import '../../../../utils/sassConfig/colors';
+
+.shiftModalContainerBody{
+    width: 100%;
+    height: 450px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    gap: 10px;
+
+    .availableShifts{
+        height: 100%;
+        width: 70%;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        flex-shrink: 0;
+        overflow-x: visible;
+        overflow-y: scroll;
+        gap: 10px;
+        box-sizing: border-box;
+        padding: 15px;
+    }
+
+    .createNewShift{
+        height: 100%;
+        width: 30%;
+        display: flex;
+        justify-content: center;
+        align-items: self-start;
+        flex-shrink: 0;
+        margin-top: 20px;
+
+        .createTurnoBtnContainer{
+            width: 90%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            button{
+                font-family: 'Quicksand', sans-serif;
+                font-size: 20px;
+                box-sizing: border-box;
+                padding: 5px 15px;
+                font-weight: 550;
+                border-radius: 5px;
+                border: none;
+                outline: none;
+                background-color: lighten($bootstrap_success, 10%);
+                color: white;
+                transition: 0.2s all ease-in-out;
+
+                &:hover{
+                    cursor: pointer;
+                    background-color: $bootstrap_success;
+                }
+            }
+        }
+
+        .createNewShiftInnerContainer{
+            width: 90%;
+            height: auto;
+            box-sizing: border-box;
+            padding: 4px;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            background: linear-gradient(-45deg, transparent, lighten(#d9d9d9, 7%));
+            box-shadow:  20px 20px 60px #d9d9d9,
+                        -20px -20px 60px #ffffff;
+
+            .innerBody{
+                width: 100%;
+                height: 100%;
+                background: white;
+                box-sizing: border-box;
+                padding: 6px;
+                border-radius: 10px;
+
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                gap: 10px;
+
+                .createHeader{
+                    width: 100%;
+                    box-sizing: border-box;
+                    margin-left: 20px;
+                    padding-top: 10px;
+                    font-size: 20px;
+                    text-transform: uppercase;
+                    font-family: 'Quicksand', sans-serif;
+                    font-weight: 550;
+                }
+
+                .nameSection{
+                    box-sizing: border-box;
+                    padding: 0px 10px;
+                    margin-top: 10px;
+                }
+
+    
+                .actionsButtonsFooter{
+                    width: 100%;
+                    display: flex;
+                    justify-content: space-evenly;
+                    align-items: center;
+                    margin-top: 25px;
+                    margin-bottom: 10px;
+    
+                    button{
+                        border: none;
+                        outline: none;
+                        border-radius: 5px;
+    
+                        font-size: 20px;
+                        font-family: 'Quicksand', sans-serif;
+                        box-sizing: border-box;
+                        padding: 5px 15px;
+                        font-weight: 550;
+                        color: white;
+                        transition: 0.2s all ease-in;
+    
+                        &:first-child{
+                            background-color: lighten($bootstrap_success, 10%);
+                            &:hover{
+                                cursor: pointer;
+                                background-color: $bootstrap_success;
+                            }
+                        }
+    
+                        &:last-child{
+                            background-color: lighten($bootstrap_danger, 5%);
+                            &:hover{
+                                cursor: pointer;
+                                background-color: darken($bootstrap_danger, 5%);
+                            }
+                        }
+                    }
+                }
+            }
+
+            p{
+                margin: 0px;
+                padding: 0px;
+            }
+
+        }
+    }
+}

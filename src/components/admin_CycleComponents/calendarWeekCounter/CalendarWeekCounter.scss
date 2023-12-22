@@ -1,0 +1,67 @@
+@import '../../../utils/sassConfig/colors';
+
+.weekCounterContainer{
+    width: 100%;
+    height: fit-content;
+    box-sizing: border-box;
+    padding: 10px 15px 15px 15px;
+    background-color: $ghostWhite;
+    border-radius: 10px;
+
+    p{
+        margin: 0px;
+        padding: 0px;
+        
+    }
+
+    .cardHeader{
+        font-size: 25px;
+        font-weight: 550;
+        margin-bottom: 25px;
+    }
+
+    .innerRow{
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .weeksDis{
+        font-weight: 550;
+    }
+
+    .displayers{
+        width: 100%;
+        height: 20px;
+        margin-top: 10px;
+        position: relative;
+        border-radius: 15px;
+        
+        .noColoredBar{
+            width: 100%;
+            height: 100%;
+            background-color: rgba($kyubiDarkOrange, 0.3);
+            position: absolute;
+            z-index: 1;
+            top: 0px;
+            border-radius: 15px;
+        }
+        
+        .weekIndicatorBar{
+            border-radius: 15px;
+            background-color: $kyubiDarkOrange;
+            height: 100%;
+            position: absolute;
+            z-index: 2;
+            top: 0px;
+        }
+    }
+}
+
+.weekerTooltip{
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 550;
+    font-size: 16px !important;
+    background-color: $iris !important;
+}

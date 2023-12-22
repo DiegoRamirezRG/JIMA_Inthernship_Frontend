@@ -8,6 +8,24 @@ import { SettingsScreen } from '../screens/settingsScreen/SettingsScreen'
 import { Admin_UserScreen } from '../screens/admin_UserScreen/Admin_UserScreen'
 import { Admin_UserCreateScree } from '../screens/admin_UserCreateScreen/Admin_UserCreateScree'
 import { Admin_UserEditScreen } from '../screens/admin_UserEditScreen/Admin_UserEditScreen'
+import { Admin_School_Cycle } from '../screens/admin_School_Cycle/Admin_School_Cycle'
+import { Admin_CalendarScreen } from '../screens/admin_calendarScreen/Admin_CalendarScreen'
+import { Admin_InitCycleScreen } from '../screens/admin_InitCycleScreen/Admin_InitCycleScreen'
+import { GroupsScreen } from '../screens/teacher_screens/groupsScreen/GroupsScreen'
+import { SchedulesScreen } from '../screens/teacher_screens/schedulesScreen/SchedulesScreen'
+import { DetailedGroupScreen } from '../screens/teacher_screens/detailedGroupScreen/DetailedGroupScreen'
+import { DetailedAssigmnetScreen } from '../screens/teacher_screens/detailedAssingmentScreen/DetailedAssigmnetScreen'
+import { student } from '../models/userTypesModels/UserTypesModel';
+import { ScheduleScreen } from '../screens/student_screens/scheduleScreen/ScheduleScreen'
+import { ClassesScreen } from '../screens/student_screens/classesScreen/ClassesScreen'
+import { DetailedClassScreen } from '../screens/student_screens/detailedClassScreen/DetailedClassScreen'
+import { AssigmentScreen } from '../screens/student_screens/assigmentScreen/AssigmentScreen'
+import { GradesScreen } from '../screens/student_screens/gradesScreen/GradesScreen'
+import { ClassGradesScreen } from '../screens/student_screens/classGradesScreen/ClassGradesScreen'
+import { AssigmentsToDoScreen } from '../screens/student_screens/assigmentsToDoScreen/AssigmentsToDoScreen'
+import { PaymentsScreen } from '../screens/admin_screens/paymentsScreen/PaymentsScreen'
+import { PaymentScreen } from '../screens/student_screens/paymentScreen/PaymentScreen'
+import { ArchievedClassScreen } from '../screens/student_screens/archievedClassScreen/ArchievedClassScreen'
 
 
 const generalRoutes = [
@@ -51,11 +69,132 @@ const administrativeRoutes = [
         element: <ProtectedRoute>
             <Admin_UserEditScreen/>
         </ProtectedRoute>
+    },
+    {
+        path: "/admin_cycle",
+        element: <ProtectedRoute>
+            <Admin_School_Cycle/>
+        </ProtectedRoute>
+    },
+    {
+        path: "/admin_calendar",
+        element: <ProtectedRoute>
+            <Admin_CalendarScreen/>
+        </ProtectedRoute>
+    },
+    {
+        path: "/admin_cycle/init",
+        element: <ProtectedRoute>
+            <Admin_InitCycleScreen/>
+        </ProtectedRoute>
+    },
+    {
+        path: "/admin_payments",
+        element: <ProtectedRoute>
+            <PaymentsScreen/>
+        </ProtectedRoute>
     }
 ]
 
+const teacherRoutes = [
+    {
+        path: "/teacher/classes",
+        element: <ProtectedRoute>
+                    <GroupsScreen/>
+                </ProtectedRoute>
+    },
+    {
+        path: "/teacher/classes/:classId",
+        element: <ProtectedRoute>
+                    <DetailedGroupScreen/>
+                </ProtectedRoute>
+    },
+    {
+        path: "/teacher/schedules",
+        element: <ProtectedRoute>
+                    <SchedulesScreen/>
+                </ProtectedRoute>
+    },
+    {
+        path: "/teacher/calendar",
+        element: <ProtectedRoute>
+                    <Admin_CalendarScreen/>
+                </ProtectedRoute>
+    },
+    {
+        path: "/teacher/classes/:classId/:assignId",
+        element: <ProtectedRoute>
+                    <DetailedAssigmnetScreen/>
+                </ProtectedRoute>
+    },
+]
+
+const studentRoutes = [
+    {
+        path: "/student/calendar",
+        element: <ProtectedRoute>
+                    <Admin_CalendarScreen/>
+                </ProtectedRoute>
+    },
+    {
+        path: "/student/schedule",
+        element: <ProtectedRoute>
+                    <ScheduleScreen/>
+                </ProtectedRoute>
+    },
+    {
+        path: "/student/classes",
+        element: <ProtectedRoute>
+                    <ClassesScreen/>
+                </ProtectedRoute>
+    },
+    {
+        path: "/student/classes/:classId",
+        element: <ProtectedRoute>
+                    <DetailedClassScreen/>
+                </ProtectedRoute>
+    },
+    {
+        path: "/student/classes/:classId/grades",
+        element: <ProtectedRoute>
+                    <ClassGradesScreen/>
+                </ProtectedRoute>
+    },
+    {
+        path: "/student/classes/:classId/:assignId",
+        element: <ProtectedRoute>
+                    <AssigmentScreen/>
+                </ProtectedRoute>
+    },
+    {
+        path: "/student/grades",
+        element: <ProtectedRoute>
+                    <GradesScreen/>
+                </ProtectedRoute>
+    },
+    {
+        path: "/student/todo",
+        element: <ProtectedRoute>
+                    <AssigmentsToDoScreen/>
+                </ProtectedRoute>
+    },
+    {
+        path: "/student/payments",
+        element: <ProtectedRoute>
+                    <PaymentScreen/>
+                </ProtectedRoute>
+    },
+    {
+        path: "/student/classes/archieved",
+        element: <ProtectedRoute>
+                    <ArchievedClassScreen/>
+                </ProtectedRoute>
+    },
+]
 
 export const routes = createBrowserRouter([
     ...generalRoutes,
-    ...administrativeRoutes
+    ...administrativeRoutes,
+    ...teacherRoutes,
+    ...studentRoutes,
 ])

@@ -1,1 +1,17 @@
-TODO: Necesito hacer un loading para que no se cajete la traida de las cosas de los paises
+TODO: UseEffect en las creaciones de grupo a aspirantes
+TODO: Cargar materias individuales
+TODO: Registrar manualmente estudiante a materias aunque estas se interpongan
+TODO: Buf en tomar asistencia
+TODO: Bug entrega de tareas (dobles)
+TODO: Calificar
+TODO: Bug en calendario sobre otro calendario inactivo pero dentro de fechas
+------------------------------------------------
+
+Falta Admin
+    - Reincripcion
+
+Teacher
+    - Clases archivadas
+
+Bugs:
+    - Horaios relativos profesor y alumno

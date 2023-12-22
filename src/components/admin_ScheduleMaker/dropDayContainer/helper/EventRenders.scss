@@ -1,0 +1,39 @@
+.event-container{
+    box-sizing: border-box;
+    padding: 5px 10px;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 20px;
+
+    p{
+        margin: 0px;
+        padding: 0px;
+    }
+
+    .event-info{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 20px;
+
+        b{
+            font-size: 15px;
+        }
+
+        p{
+            font-weight: 550;
+        }
+    }
+
+    .teacherInformation{
+        width: 100%;
+        text-align: center;
+        p{
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+}

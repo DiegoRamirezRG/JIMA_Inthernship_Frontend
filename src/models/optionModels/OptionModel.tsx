@@ -4,3 +4,7 @@ export interface Option {
     id: string,
     route?: string;
 }
+
+export interface cycle_sidebar_opt extends Option{
+    color: string;
+}

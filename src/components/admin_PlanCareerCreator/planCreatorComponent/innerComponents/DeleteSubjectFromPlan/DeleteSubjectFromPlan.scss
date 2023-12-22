@@ -1,0 +1,54 @@
+@import '../../../../../utils/sassConfig/colors';
+@import '../../../../../utils/sassConfig/fonts';
+
+.deleteFromPlan{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Quicksand', sans-serif;
+
+    h3{
+        font-size: 45px;
+        text-align: center;
+        font-style: normal;
+        font-weight: 550;
+    }
+
+    .innerRow{
+        display: flex;
+        flex-direction: row;
+        font-size: 30px;
+        width: 100%;
+        justify-content: space-evenly;
+
+        button{
+            border: none;
+            border-radius: 5px;
+            outline: none;
+            font-size: 25px;
+            box-sizing: border-box;
+            padding: 5px 20px;
+            font-weight: normal;
+            color: white;
+            transition: 0.2s all ease;
+            
+            &:first-child{
+                background-color: lighten($bootstrap_success, 10%);
+                &:hover{
+                    cursor: pointer;
+                    background-color: $bootstrap_success;
+                }
+            }
+
+            &:last-child{
+                background-color: lighten($bootstrap_danger, 10%);
+                &:hover{
+                    cursor: pointer;
+                    background-color: $bootstrap_danger;
+                }
+            }
+        }
+    }
+}

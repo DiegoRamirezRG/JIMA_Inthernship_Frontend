@@ -102,7 +102,7 @@ export const useUsersCreate = () => {
 
     const handleRegister = async (confirmPassword: string) => {
         return new Promise(async (resolve, reject) => {
-            if(confirmPassword === 'Arandas2021'){
+            if(confirmPassword === newUserState.Contraseña){
                 const response = await serverRestApi.post<Response>('/api/users/create', {
                     "user": {
                         ...newUserState

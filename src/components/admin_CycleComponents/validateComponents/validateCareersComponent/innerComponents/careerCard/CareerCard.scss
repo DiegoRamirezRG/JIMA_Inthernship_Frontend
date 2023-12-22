@@ -1,0 +1,75 @@
+@import '../../../../../../utils/sassConfig/colors';
+@import '../../../../../../utils/sassConfig/fonts';
+
+.career_card{
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    background-color: lighten($kyubiLightOrange, 20%);
+    box-sizing: border-box;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Quicksand', sans-serif;
+    gap: 10px;
+    justify-content: space-between;
+    transition: 0.2s all ease-in-out;
+    position: relative;
+
+    &:hover{
+        cursor: pointer;
+        background-color: lighten($iris, 10%);
+        color: white;
+
+        & > .indicator{
+            &.active{
+                background-color: lighten($bootstrap_success, 40%);
+            }
+    
+            &.inactive{
+                background-color: lighten($bootstrap_danger, 40%);
+            }
+        }
+    }
+
+    .desc{
+        width: 100%;
+        text-align: justify;
+    }
+
+    h5, p{
+        padding: 0px;
+        margin: 0px;
+    }
+
+    h5{
+        font-size: 20px;
+        width: 80%;
+    }
+
+    .innerRow{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+
+        p{
+            font-size: 18px;
+        }
+    }
+
+    .indicator{
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        right: 10px;
+        border-radius: 50%;
+
+        &.active{
+            background-color: $bootstrap_success;
+        }
+
+        &.inactive{
+            background-color: $bootstrap_danger;
+        }
+    }
+}

@@ -1,0 +1,80 @@
+@import '../../../../../../utils/sassConfig/colors';
+
+.UnitContainer{
+    width: 100%;
+    height: auto;
+    box-sizing: border-box;
+    padding: 20px 25px 25px 25px;
+    border: 2px solid $ghostWhite;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .unitHeader{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        box-sizing: border-box;
+        h3{
+            margin: 0px;
+            padding: 0px;
+            font-size: 35px;
+            font-weight: 550;
+            color: $iris;
+            width: 90%;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .optionage{
+            height: 100%;
+            aspect-ratio: 1;
+            font-size: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            box-sizing: border-box;
+            padding: 5px;
+            color: $iris;
+
+            &:hover{
+                cursor: pointer;
+            }
+        }
+    }
+
+    .headerDivider{
+        width: calc(100% + 25px);
+        height: 3px;
+        background-color: $iris;
+        border-radius: 50px;
+        box-sizing: border-box;
+        margin-left: calc(-25px / 2);
+    }
+
+    .homeWorksContainer{
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-self: flex-start;
+        box-sizing: border-box;
+        margin-top: 10px;
+
+        .no-homeworks{
+            font-size: 20px;
+        }
+
+        .homeworks_container{
+            width: 100%;
+            height: auto;
+            display: flex;
+            flex-direction: column;
+        }
+    }
+}

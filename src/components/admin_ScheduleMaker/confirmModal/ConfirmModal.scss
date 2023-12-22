@@ -1,0 +1,76 @@
+@import '../../../utils/sassConfig/colors';
+@import '../../../utils/sassConfig/fonts';
+
+.confirmModal{
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    font-family: 'Quicksand', sans-serif;
+
+    p{
+        padding: 0px;
+        margin: 0px;
+        font-size: 35px;
+        text-align: center;
+        font-weight: 550;
+    }
+
+    .innerRow{
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+        justify-content: space-evenly;
+
+        button{
+            font-family: 'Quicksand', sans-serif;
+            font-size: 20px;
+            box-sizing: border-box;
+            border-radius: 5px;
+            outline: none;
+            border: none;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            justify-content: space-between;
+    
+            box-sizing: border-box;
+            padding: 8px 15px;
+        }
+    }
+}
+
+.save-btn{
+    background-color: lighten($bootstrap_success, 10%);
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    color: white;
+    font-weight: 550;
+    transition: 0.2s all ease-in-out;
+
+    &:hover{
+        cursor: pointer;
+        background-color: $bootstrap_success;
+    }
+}
+
+.cancel-btn{
+    background-color: lighten($bootstrap_danger, 5%);
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    color: white;
+    font-weight: 550;
+    transition: 0.2s all ease-in-out;
+
+    &:hover{
+        cursor: pointer;
+        background-color: $bootstrap_danger;
+    }
+}

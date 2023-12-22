@@ -12,6 +12,7 @@ export interface defaultProps{
     btnText?: string;
     btnFunc?: () => any;
     children: any;
+    isActive?: boolean;
 }
 
 export interface inputProps{

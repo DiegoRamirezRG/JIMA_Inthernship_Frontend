@@ -1,0 +1,101 @@
+@import '../../../utils/sassConfig/colors';
+@import '../../../utils/sassConfig/fonts';
+
+.wizardDropModal{
+    width: 100%;
+    height: 700px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    justify-content: space-between;
+
+    .messageConfirm{
+        width: 80%;
+        height: auto;
+        font-family: 'Quicksand', sans-serif;
+        font-size: 20px;
+        text-align: center;
+        align-self: center;
+    }
+
+    .dataWrapper{
+        width: 100%;
+        height: 70%;
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+        box-sizing: border-box;
+        padding: 0px 25px;
+
+        .timers{
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+
+            .extLabel{
+                color: black;
+                font-size: 20px;
+            }
+
+            label{
+                font-family: 'Quicksand', sans-serif;
+                font-weight: 600;
+                font-size: 15px;
+                color: $cool_grey;
+                padding-left: 20px;
+            }
+
+            .timersGridSelec{
+                display: grid;
+                grid-template-columns: 100%;
+                gap: 10px;
+            }
+        }
+    }
+
+    .actionsFooter{
+        display: flex;
+        justify-content: space-evenly;
+
+        button{
+            font-family: 'Quicksand', sans-serif;
+            font-size: 20px;
+            box-sizing: border-box;
+            padding: 5px 20px;
+            border-radius: 5px;
+            outline: none;
+            border: none;
+        }
+    }
+}
+
+.save-btn{
+    background-color: lighten($bootstrap_success, 10%);
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    color: white;
+    font-weight: 550;
+    transition: 0.2s all ease-in-out;
+
+    &:hover{
+        cursor: pointer;
+        background-color: $bootstrap_success;
+    }
+}
+
+.cancel-btn{
+    background-color: lighten($bootstrap_danger, 5%);
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    color: white;
+    font-weight: 550;
+    transition: 0.2s all ease-in-out;
+
+    &:hover{
+        cursor: pointer;
+        background-color: $bootstrap_danger;
+    }
+}

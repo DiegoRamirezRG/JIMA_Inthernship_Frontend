@@ -8,6 +8,7 @@ interface props{
     alergies: AlergiesModel[] | null;
     handleAlergies: (alergie: AlergiesModelCreate) => void;
     deleteAlergie: (searchedTitle: string) => void;
+    showSable?: boolean;
 }
 
 interface alergie{
@@ -79,9 +80,9 @@ export const AlergieInputsAdd = ({ value, onChange, addGlobal }: alergiesOnChang
     )
 }
 
-export const AlergiesComponent = ({ alergies, handleAlergies, deleteAlergie }: props) => {
+export const AlergiesComponent = ({ alergies, handleAlergies, deleteAlergie, showSable }: props) => {
 
-    const [showNewAlergie, setShowNewAlergie] = useState(true);
+    const [showNewAlergie, setShowNewAlergie] = useState( showSable != null && showSable != undefined ? showSable : true );
 
     const [newAlergieToPush, setNewAlergieToPush] = useState<AlergiesModel>({
         Nombre: '',
@@ -134,7 +135,7 @@ export const AlergiesComponent = ({ alergies, handleAlergies, deleteAlergie }: p
                 <p>Alergias</p>
             </div>
             <div className="alergiesPlaceSection">
-                <AddNewOneBtn onClickFunction={handleNewAlergie}/>
+                <AddNewOneBtn onClickFunction={handleNewAlergie} isDisabled={true}/>
                 {
                     showNewAlergie ? <AlergieInputsAdd  value={{...newAlergieToPush}} onChange={writeAlergieHandler} addGlobal={addNewAlergie}/> : <></>
                 }

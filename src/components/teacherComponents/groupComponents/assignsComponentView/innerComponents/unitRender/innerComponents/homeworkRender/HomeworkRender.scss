@@ -1,0 +1,260 @@
+@import '../../../../../../../../utils/sassConfig/colors';
+
+.homework-item{
+    width: 100%;
+    height: 60px;
+    background-color: white;
+    border-radius: 10px;
+    box-sizing: border-box;
+    padding: 0px 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 5px;
+    overflow: hidden;
+    border: 2px solid transparent;
+
+    &.open{
+        border-radius: 10px 10px 0px 0px;
+        border: 2px solid $ghostWhite;
+        border-bottom: none;
+
+        .optionageSection{
+            opacity: 1;
+        }
+    }
+
+    &:hover{
+        cursor: pointer;
+        background-color: rgba($iris, 0.1);
+
+        .optionageSection{
+            opacity: 1;
+        }
+    }
+
+    .typeIconSection{
+        height: 100%;
+        aspect-ratio: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-sizing: border-box;
+        
+        .icon_container{
+            height: 70%;
+            aspect-ratio: 1;
+            background-color: $iris;
+            font-size: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            color: white;
+        }
+    }
+
+    .titleHomSection{
+        width: 400px;
+        height: 100%;
+        font-size: 20px;
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+        box-sizing: border-box;
+        text-overflow: ellipsis;
+
+        p{
+            padding: 0px;
+            margin: 0px;
+            width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            font-weight: 550;
+        }
+    }
+
+    .dateHomSection{
+        width: 30%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+
+        p{
+            margin: 0px;
+            padding: 0px;
+            color: rgba(black, 0.6);
+
+            &:first-child{
+                font-size: 14px;
+            }
+
+            &:last-child{
+                font-size: 20px;
+            }
+        }
+    }
+
+    .optionageSection{
+        height: 60%;
+        aspect-ratio: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        opacity: 0;
+        transition: 0.2s all ease-in-out;
+        font-size: 20px;
+        color: black;
+        transition: 0.2s all ease-in-out;
+
+        &:hover{
+            background-color: $iris;
+            cursor: pointer;
+            color: white;
+        }
+    } 
+}
+
+
+.detailedHomeWorkCollapse{
+    width: 100%;
+    box-sizing: border-box;
+    padding: 15px 20px;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    border-radius: 0px 0px 10px 10px;
+    border: 2px solid $ghostWhite;
+    border-top: none;
+
+    .homework_detailed{
+        width: 100%;
+        height: auto    ;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 10px;
+
+        .descSection{
+            width: 60%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+            padding: 10px 0px;
+            gap: 20px;
+
+            p{
+                padding: 0px;
+                margin: 0px;
+            }
+
+            .pubDetail{
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                gap: 10px;
+            }
+
+            .pub_container{
+                width: 100%;
+                height: 30px;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                font-size: 15px;
+            }
+
+            .inst_container{
+                width: 100%;
+                height: auto;
+                box-sizing: border-box;
+
+                .ql-toolbar.ql-snow{
+                    display: none;
+                }
+
+                .ql-container{
+                    border: none;
+                    padding: 0px 25px;
+
+                    .ql-editor{
+                        padding: 0px;
+                        font-family: 'Quicksand', sans-serif;
+                        font-size: 17px;
+                    }
+                }
+            }
+        }
+
+        .metricsSections{
+            width: 40%;
+            height: 100px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            position: relative;
+
+            .assigned_sec, .completed_sec{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                width: 45%;
+
+                p{
+                    padding: 0px;
+                    margin: 0px;
+
+                    &:first-child{
+                        font-weight: 550;
+                    }
+
+                    &:last-child{
+                        margin-top: 10px;
+                        box-sizing: border-box;
+                        font-size: 50px;
+                        line-height: 50px;
+                    }
+                }
+
+            }
+
+            .vert_divider{
+                width: 4px;
+                height: 100%;
+                background-color: rgba($iris, 0.2);
+                display: block;
+                border-radius: 100px;
+            }
+        }
+    }
+
+    .navigateActionsFooter{
+        width: 100%;
+        height: auto;
+        box-sizing: border-box;
+        padding: 10px 0px 0px 0px;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: row;
+        gap: 10px;
+
+        p{
+            margin: 0px;
+            padding: 0px;
+            width: auto;
+            box-sizing: border-box;
+            padding: 3px 15px;
+            border-radius: 5px;
+            font-size: 20px;
+        }
+    }
+}

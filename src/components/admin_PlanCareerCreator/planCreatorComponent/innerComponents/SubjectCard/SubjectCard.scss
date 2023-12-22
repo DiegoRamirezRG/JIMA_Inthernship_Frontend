@@ -1,0 +1,79 @@
+@import '../../../../../utils/sassConfig/colors';
+@import '../../../../../utils/sassConfig/fonts';
+
+.subject-in-drop-container{
+    width: 100%;
+    height: auto;
+    background-color: white;
+    border-radius: 5px;
+    box-sizing: border-box;
+    padding: 5px 10px;
+    overflow: hidden;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 17px;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+    border: 2px solid transparent;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex-shrink: 0;
+
+    p{
+        margin: 0px;
+        padding: 0px;
+    }
+
+    .subject-in-drop-header{
+        width: 85%;
+        font-weight: 550;
+        font-size: 20px;
+    }
+
+    .deleteContainer{
+        position: absolute;
+        width: 25px;
+        height: 25px;
+        top: 5px;
+        right: 10px;
+        border-radius: 50%;
+        overflow: hidden;
+        font-size: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: $bootstrap_danger;
+        transition: 0.2s all ease;
+        border: 1px solid $bootstrap_danger;
+
+        &:hover{
+            background-color: $bootstrap_danger;
+            color: white;
+        }
+    }
+
+    .subjectInfoSection{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        font-size: 15px;
+    }
+
+    .reqNeeded{
+        width: 100%;
+        border-radius: 5px;
+        background-color: $kyubiDarkOrange;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 5px;
+        font-weight: 550;
+        color: white;
+    }
+
+    &:hover{
+        cursor: pointer;
+        border: 2px solid $kyubiLightOrange;
+    }
+}

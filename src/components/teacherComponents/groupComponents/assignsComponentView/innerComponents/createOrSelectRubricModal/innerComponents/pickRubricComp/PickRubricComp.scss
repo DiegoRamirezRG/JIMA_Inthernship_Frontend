@@ -1,0 +1,75 @@
+@import '../../../../../../../../utils/sassConfig/colors';
+
+.pickerRubricCompContainer{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    box-sizing: border-box;
+    transition: 0.2s all ease-in-out;
+
+    *{
+        padding: 0px;
+        margin: 0px;
+    }
+
+    .pickerRubricHeader{
+        height: 35px;
+        width: 60%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+
+        h4{
+            font-weight: 550;
+            font-size: 25px;
+            width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+    }
+
+    .pickerRubricsBody{
+        width: 100%;
+        height: calc(90% - 50px);
+        display: flex;
+        flex-direction: column;
+        box-sizing: border-box;
+        padding: 0px 25px;
+        overflow-x: hidden;
+        overflow-y: scroll;
+        gap: 15px;
+    }
+
+    .cancelBtns{
+        width: 100%;
+        height: 10%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+
+        button{
+            width: auto;
+            box-sizing: border-box;
+            padding: 5px 15px;
+            border-radius: 5px;
+            outline: none;
+            border: none;
+            font-size: 20px;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 550;
+            align-self: center;
+            justify-self: center;
+            transition: 0.2s all ease-in-out;
+            color: white;
+
+            &:disabled{
+                cursor: not-allowed;
+                opacity: 0.3;
+            }
+        }
+    }
+}
