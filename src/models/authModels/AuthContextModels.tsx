@@ -1,8 +1,8 @@
 import { UserModel } from "./UserModel";
 
 export interface AuthContextActions {
-    type: 'getAuthorized' | 'validateToken';
-    payload?: UserModel;
+    type: 'getAuthorized' | 'validateToken' | 'logout';
+    payload?: UserModel | null;
 }
 
 export interface AuthContextState {
@@ -14,4 +14,5 @@ export interface AuthContextInterface {
     dispatch: React.Dispatch<AuthContextActions>;
     getAuthFuncion?: any;
     validateToken?: any;
+    logoutFunction?: any;
 }

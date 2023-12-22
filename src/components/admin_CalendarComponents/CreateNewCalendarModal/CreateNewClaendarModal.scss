@@ -1,0 +1,58 @@
+
+@import '../../../utils/sassConfig/colors';
+
+.createCalendarModalInnerBody{
+    height: 500px;
+    box-sizing: border-box;
+    padding: 0px 10px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .autoGridContainer{
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+        font-family: 'Quicksand', sans-serif;
+        gap: 30px;
+        overflow: scroll;
+        height: 100%;
+        width: 85%;
+        box-sizing: border-box;
+        padding: 0px 10px;
+
+        p{
+            margin: 0px;
+            padding: 0px;
+
+            &:first-child{
+                font-size: 20px;
+                text-align: justify;
+            }
+        }
+
+        .createBtn{
+            width: 70%;
+            align-self: center;
+            justify-self: center;
+            box-sizing: border-box;
+            padding: 5px 20px;
+            font-size: 20px;
+            font-family: 'Quicksand', sans-serif;
+            border-radius: 10px;
+            border: none;
+            outline: none;
+            font-weight: 550;
+            background-color: lighten($bootstrap_success, 10%);
+            color: white;
+            transition: 0.2s all ease-in-out;
+
+            &:hover{
+                cursor: pointer;
+                background-color: lighten($bootstrap_success, 5%);
+            }
+        }
+    }
+}

@@ -1,0 +1,80 @@
+@import '../../../utils/sassConfig/colors';
+
+.maxGradContainerStudent{
+    width: 70%;
+    height: auto;
+    box-sizing: border-box;
+    padding: 10px 0px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    .headerGrad{
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        box-sizing: border-box;
+        justify-content: space-between;
+        align-items: flex-end;
+
+        .selectorUnitFilter{
+            width: 300px;
+            height: 100%;
+        }
+
+        button{
+            font-family: 'Quicksand', sans-serif;
+            font-weight: bold;
+            width: auto;
+            height: fit-content;
+            box-sizing: border-box;
+            padding: 8px 15px;
+            font-size: 20px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 10px;
+            justify-content: center;
+            border: none;
+            outline: none;
+            border-radius: 10px;
+            border: 2px solid $iris;
+            background-color: white;
+            color: $iris;
+            transition: 0.2s all ease-in-out;
+
+            &:hover{
+                cursor: pointer;
+                color: white;
+                background-color: $iris;
+            }
+        }
+    }
+
+    .gradStudentBody{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+}
+
+.noDataContainer{
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+
+    p{
+        padding: 0px;
+        margin: 0px;
+        font-size: 20px;
+        font-weight: bold;
+        color: $iris;
+    }
+
+    img{
+        height: 200px;
+    }
+}

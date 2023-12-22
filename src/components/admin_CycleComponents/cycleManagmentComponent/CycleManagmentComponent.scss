@@ -1,0 +1,80 @@
+@import '../../../utils/sassConfig/colors';
+
+.cycleManagmentCard{
+    width: 100%;
+    background-color: $ghostWhite;
+    border-radius: 10px;
+    height: 100%;
+    box-sizing: border-box;
+    padding: 10px 15px 25px 15px;
+
+    p{
+        margin: 0px;
+        padding: 0px;
+    }
+
+    .cardHeader{
+        font-size: 25px;
+        font-weight: 550;
+        margin-bottom: 25px;
+    }
+
+    .innerRow{
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .managmentContainer{
+        width: 100%;
+        height: 80%;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px;
+        
+        button{
+            width: 100%;
+            height: auto;
+            border: none;
+            border-radius: 5px;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 20px;
+            color: white;
+            font-weight: bold;
+
+
+            &:nth-child(1){
+                background-color: $iris;
+                &:hover{
+                    background-color: darken($iris, 10%);
+                }
+            }
+
+            &:nth-child(2){
+                background-color: $kyubiDarkOrange;
+                &:hover{
+                    background-color: darken($kyubiDarkOrange, 10%);
+                }
+            }
+
+            &:nth-child(3){
+                background-color: lighten($bootstrap_success, 10%);
+                &:hover{
+                    background-color: $bootstrap_success;
+                }
+            }
+
+            &:nth-child(4){
+                background-color: $bootstrap_danger;
+                &:hover{
+                    background-color: darken($bootstrap_danger, 10%);
+                }
+            }
+
+            &:hover{
+                cursor: pointer;
+            }
+        }
+    }
+}

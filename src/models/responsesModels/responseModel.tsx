@@ -3,13 +3,81 @@
 import { AddressModel } from "../addressModels/AddressModel";
 import { AlergiesModel } from "../alergiesModel/AlergiesModel";
 import { SingleUser, UserModel } from "../authModels/UserModel";
+import { CareerModel } from "../careersModels/CareersModel";
 import { Credentials } from "../credentialsModels/CredentialsModels";
+import { GenderStats, stattsCycleStudent } from "../stadisticsModels/stadisticsModels";
 import { City, Country, State } from "../universalApiModels/UniversalApiModel";
 import { persona } from "../usersModels/UserModel";
+import { Grade, Group, Shift } from '../schoolInfoModels/schoolInfoModels';
+import { LastYeatStudentsObj, StudentAcademicInfo, StudentObj, StudentToBe, TodoAssigment } from "../studentModels/StudentModel";
+import { CalendarEvent, CalendarInfo } from "../calendarModels/CalendarModels";
+import { CycleStatus } from "../cycleModels/CycleModels";
+import { CareerPlansActives, ValidCareersPlan } from "../careerPlansModels/CareerPlansModels";
+import { AreaModel, SubjectModel, SubjectsId } from "../subjectsModels/SubjectModels";
+import { GroupNeeded } from "../loadScheduleModels/LoadScheduleModels";
+import { ClassByTeacher, TeacherForPick } from "../teachersModels/TeacherModels";
+import { AttendanceData, GroupClassObject, ScheduleObj, studentScheduleObj, teacherScheduleObj } from "../groupsModels/GroupsModels";
+import { AssigmentObject, AssigmentStudentTurnInfo, Rubric, Unit } from "../homeworkModels/HomeworkModels";
+import { AttachmentFile } from "../fileManagmentModels/FileManagmentModels";
+import { GraderTeacherObj } from "../gradesModels/GradesModels";
+import { AttendanceDBModel } from "../attendanceModels/AttendanceModels";
+import { PaymentModel, standByPayments } from "../paymentModels/PaymentModels";
+import { confirmedInsGroupWithSubjects } from "../reins_inscrModels/InscriptionModels";
+import { ShiftData } from "../loadScheduleModels/LoadReinsScheduleModels";
 
 export interface Response {
     success: boolean;
     message: string;
-    data?:    any | UserModel | persona[] | SingleUser |Credentials | AddressModel | AlergiesModel[] | Country[] | State[] | City[];
+    data?:   any 
+            | UserModel 
+            | persona[] 
+            | SingleUser 
+            | Credentials 
+            | AddressModel 
+            | AlergiesModel[] 
+            | Country[] 
+            | State[] 
+            | City[] 
+            | GenderStats[] 
+            | CareerModel[]
+            | CareerModel
+            | Shift[]
+            | Grade[]
+            | Group[]
+            | StudentAcademicInfo
+            | CalendarInfo
+            | CalendarEvent
+            | CycleStatus
+            | ValidCareersPlan
+            | AreaModel[]
+            | SubjectModel[]
+            | StudentToBe[]
+            | GroupNeeded[]
+            | SubjectsId[]
+            | TeacherForPick[]
+            | ClassByTeacher[]
+            | GroupClassObject
+            | AttendanceData[]
+            | ScheduleObj[]
+            | Rubric[]
+            | Unit[]
+            | AssigmentObject[]
+            | teacherScheduleObj[]
+            | AttachmentFile[]
+            | studentScheduleObj[]
+            | AssigmentStudentTurnInfo
+            | AssigmentStudentTurnInfo[]
+            | TodoAssigment[]
+            | GraderTeacherObj[]
+            | AttendanceDBModel[]
+            | PaymentModel[]
+            | StudentObj[]
+            | standByPayments[]
+            | stattsCycleStudent[]
+            | LastYeatStudentsObj[]
+            | confirmedInsGroupWithSubjects[]
+            | ShiftData
+            | { [key: string]: CareerPlansActives }
+            | boolean;
     error?: string | any;
 }

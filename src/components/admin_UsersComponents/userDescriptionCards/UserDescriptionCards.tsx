@@ -101,7 +101,7 @@ export const UserDescriptionCards_Dom = ({ address, inputHandler, countries, cit
 
 export const UserDescriptionCards_InfMedic = ({ person, inputHandler, handleAlergies, alergies, deleteAlergieHandler, editable }: medCardInterface) => {
     return (
-        <DefaultCard hasActionBtn={false} hasTitle={false}>
+        <DefaultCard hasActionBtn={false} hasTitle={false} isActive={true}>
             <div className="internalHeader">
                 <p className='internalTitle'>Información Medica</p>
                 {
@@ -112,7 +112,7 @@ export const UserDescriptionCards_InfMedic = ({ person, inputHandler, handleAler
                 <SelectComp id='id_bloodType_creation' label='Tipo de Sangre' name='Tipo_De_Sagre' placeholder='Tipo de Sangre' type='text' opts={blootTypes} {...person.Tipo_De_Sagre != null && person.Tipo_De_Sagre != '' ? {value: person.Tipo_De_Sagre} : ''} onChange={inputHandler}/>
                 <InputComp id='id_emergencyNumber_creation' label='Numero de Emergencia' name='Numero_De_Emergencia' placeholder='Numero de Emergencia' type='phone' onChange={inputHandler} value={person.Numero_De_Emergencia as string}/>
             </div>
-            <AlergiesComponent alergies={alergies} handleAlergies={handleAlergies} deleteAlergie={deleteAlergieHandler}/>
+            <AlergiesComponent alergies={alergies} handleAlergies={handleAlergies} deleteAlergie={deleteAlergieHandler} showSable={false}/>
         </DefaultCard>
     )
 }

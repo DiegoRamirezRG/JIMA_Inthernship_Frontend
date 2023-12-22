@@ -1,0 +1,142 @@
+@import '../../../utils/sassConfig/colors';
+
+.attendanceMaxContainer{
+    width: 768px;
+    height: 800px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .attendaneHead, .attendanceFooter{
+        width: 100%;
+        height: 60px;
+    }
+
+    .attendaneHead{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        box-sizing: border-box;
+        padding: 0px 25px;
+        align-items: center;
+        font-size: 30px;
+
+        p{
+            width: 70%;
+            font-weight: 550;
+        }
+
+        .closeBtn{
+            width: 30%;
+            height: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end;
+            align-items: center;
+            
+            button{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 30px;
+                height: 60%;
+                aspect-ratio: 1;
+                border-radius: 50%;
+                border: none;
+                outline: none;
+            }
+        }
+    }
+
+    .attendaceBody{
+        height: calc(100% - 140px);
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        box-sizing: border-box;
+        padding: 0px 25px;
+        position: relative;
+        overflow-y: scroll;
+
+        .attendanceTakeTableHeader{
+            width: 100%;
+            height: 50px;
+            position: sticky;
+            top: 0px;
+        }
+
+        .attendanceTableBody{
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    .attendanceFooter{
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: center;
+        box-sizing: border-box;
+        padding: 0px 25px;
+        gap: 10px;
+
+        button{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            box-sizing: border-box;
+            padding: 0px 15px;
+            border-radius: 5px;
+            height: 60%;
+            border: none;
+            outline: none;
+
+            &:disabled{
+                opacity: 0.3;
+                cursor: not-allowed;
+            }
+        }
+    }
+}
+
+.no_schedule_day{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+    position: relative;
+
+    .closeNoDay{
+        display: flex;
+        position: absolute;
+        justify-content: center;
+        align-items: center;
+        font-size: 30px;
+        height: 45px;
+        aspect-ratio: 1;
+        border-radius: 50%;
+        border: none;
+        outline: none;
+        top: 0px;
+        right: 0px;
+    }
+
+    p{
+        padding: 0px;
+        margin: 0px;
+        font-size: 25px;
+        width: 80%;
+        text-align: center;
+        font-weight: 550;
+        color: $iris;
+    }
+
+    img{
+        width: 60%;
+    }
+}

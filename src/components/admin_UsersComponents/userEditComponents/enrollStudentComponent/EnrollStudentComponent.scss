@@ -1,0 +1,29 @@
+@import '../../../../utils/sassConfig/colors';
+@import '../../../../utils/sassConfig/fonts';
+
+.innerEnrolledBody{
+    width: 80%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px 50px;
+    justify-content: center;
+    align-items: flex-end;
+
+    .aspButtn{
+        font-size: 20px;
+        font-family: 'Quicksand', sans-serif;
+        font-weight: 600;
+        width: 60%;
+        border-radius: 10px;
+        border: none;
+        height: 60%;
+        background-color: lighten($bootstrap_success, 10%);
+        color: white;
+        transition: 0.2s all ease-in;
+
+        &:hover{
+            cursor: pointer;
+            background-color: lighten($bootstrap_success, 5%);
+        }
+    }
+}

@@ -1,0 +1,67 @@
+@import '../../../utils/sassConfig/colors';
+
+.createNewCalendarContainer{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-family: 'Quicksand', sans-serif;
+    box-sizing: border-box;
+    padding: 50px;
+    flex-direction: column;
+    gap: 100px;
+
+    .createNewCalendarAdvisor{
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+        transition: 0.1s all ease-in-out;
+        width: 1000px;
+
+        p{
+            margin: 0px;
+            padding: 0px;
+
+            &:first-child{
+                font-size: 65px;
+                font-weight: bold;
+                color: $iris;
+            }
+            
+            &:nth-child(2){
+                font-size: 30px;
+            }
+
+            &:last-child{
+                width: 70%;
+                font-size: 20px;
+                align-self: center;
+                color: $bootstrap_danger;
+                font-weight: 550;
+            }
+
+        }
+    }
+
+    button{
+        font-family: 'Quicksand', sans-serif;
+        font-size: 30px;
+        box-sizing: border-box;
+        padding: 5px 30px;
+        font-weight: 550;
+        border-radius: 50px;
+        border: none;
+        outline: none;
+
+        background-color: lighten($iris, 5%);
+        color: white;
+        transition: 0.2s all ease-in-out;
+
+        &:hover{
+            background-color: darken($iris, 5%);
+            cursor: pointer;
+        }
+    }
+}

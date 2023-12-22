@@ -1,0 +1,50 @@
+@import '../../../../../utils/sassConfig/colors';
+@import '../../../../../utils/sassConfig/fonts';
+
+.pickerRegisterHow{
+    width: auto;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    box-sizing: border-box;
+    margin-bottom: 40px;
+
+    .picker{
+        height: 100%;
+        width: auto;
+        box-sizing: border-box;
+        padding: 0px 25px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        font-family: 'Quicksand', sans-serif;
+        font-weight: 550;
+        font-size: 20px;
+        background-color: $cool_grey;
+        color: white;
+        transition: 0.2s all ease-in-out;
+        
+        &.active{
+            background-color: $iris;
+        }
+
+        &:first-child{
+            border-radius: 10px 0px 0px 10px;
+        }
+
+        &:last-child{
+            border-radius: 0px 10px 10px 0px;
+        }
+
+        &:hover{
+            cursor: pointer;
+            background-color: darken($cool_grey, 20%);
+
+            &.active{
+                background-color: darken($iris, 20%);
+            }
+        }
+    }
+}

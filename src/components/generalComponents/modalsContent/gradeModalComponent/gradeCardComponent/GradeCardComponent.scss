@@ -1,0 +1,43 @@
+
+@import '../../../../../utils/sassConfig/colors';
+@import '../../../../../utils/sassConfig/fonts';
+
+.GradeCardComponent{
+    width: 100%;
+    aspect-ratio: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    overflow: hidden;
+    background-color: $ghostWhite;
+    position: relative;
+    
+    p{
+        margin: 0px;
+        padding: 0px;
+        font-size: 100px;
+        font-family: 'Segoue UI', sans-serif;
+        font-weight: 550;
+    }
+
+    .edit{
+        position: absolute;
+        font-size: 25px;
+        top: 10px;
+        right: 10px;
+        transition: 0.2s all ease-in-out;
+
+        &.disable{
+            pointer-events: none;
+            transition: none;
+            color: grey;
+        }
+
+        &:hover{
+            cursor: pointer;
+            color: $iris;
+            transform: scale(1.2);
+        }
+    }
+}

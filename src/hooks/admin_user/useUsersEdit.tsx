@@ -79,6 +79,7 @@ export const useUsersEdit = () => {
     const [isCredentialsEditing, setIsCredentialsEditing] = useState(false);
     const [isAddressEditing, setIsAddressEditing] = useState(false);
     const [isAlergiesEditing, setIsAlergiesEditing] = useState(false);
+    const [isRolEditing, setIsRolEditing] = useState(false);
 
     //Edit Observers
     //Edit Observers
@@ -86,6 +87,7 @@ export const useUsersEdit = () => {
     const [isGettisImageProfileEditing, setIsGettisImageProfileEditing] = useState(false);
     const [isGettingUserEditing, setIsGettingUserEditing] = useState(false);
     const [isGettingCredentialsEditing, setIsGettingCredentialsEditing] = useState(false);
+    const [isGettingRolEditing, setIsGettingRolEditing] = useState(false);
 
     //Modals States
     //Modals States
@@ -193,6 +195,11 @@ export const useUsersEdit = () => {
         }else{
             setIsAlergiesEditing(true);
         }
+    }
+
+    //Active Rol Edit
+    const handleActivateRolEditing = () => {
+        setIsRolEditing(!isRolEditing);
     }
 
     //Edit Data Handlers
@@ -331,6 +338,22 @@ export const useUsersEdit = () => {
         setImageCropped('');
         setIsGettisImageProfileEditing(false);
         setIsImageEditing(false);
+    }
+
+    //Handle Edit Rol Data
+    //Handle Edit Rol Data
+    //Handle Edit Rol Data
+
+    //Edit Rol Data
+    const handleEdtiRolData = (name: keyof administrative | keyof teacher | keyof student, value: any) => {
+        setIsRolEditing(true);
+        if(isGettingRolEditing){
+            setIsGettingRolEditing(true);
+        }
+        setSelectedRolInfo((prevState: any) => ({
+            ...prevState,
+            [name]: value
+        }));
     }
 
     //Data Update Senders Functions
@@ -622,11 +645,13 @@ export const useUsersEdit = () => {
         handleActivateCredentialsEditing,
         handleActivateAddressEditing,
         handleActivateAlergiesEditing,
+        handleActivateRolEditing,
 
         //Editing Obervers
         isGettisImageProfileEditing,
         isGettingUserEditing,
         isGettingCredentialsEditing,
+        isGettingRolEditing,
 
         //Is Active Editing States
         isImageEditing,
@@ -634,6 +659,7 @@ export const useUsersEdit = () => {
         isCredentialsEditing,
         isAddressEditing,
         isAlergiesEditing,
+        isRolEditing,
 
         //Image Update
         onSelectFile,
@@ -664,6 +690,9 @@ export const useUsersEdit = () => {
         deleteGlobalAlergie,
         cancelAlergiesEditing,
         sendAlergiesUpdate,
+
+        //Rol Update
+        handleEdtiRolData,
 
         //Modal Handler
         sureModalState,

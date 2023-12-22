@@ -11,7 +11,8 @@ export const NotFoundScreen = () => {
     const navigation = useNavigate();
 
     const handleReturnHome = () => {
-        navigation('/home')
+        localStorage.setItem('showedPage', '0');
+        navigation('/home');
     }
 
     return (

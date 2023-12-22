@@ -1,0 +1,52 @@
+@import '../../../../utils/sassConfig/colors';
+@import '../../../../utils/sassConfig/fonts';
+
+.ScheduleContainer{
+    width: 100%;
+    height: 400px;
+
+    .fc-theme-standard .fc-scrollgrid{
+        border: none;
+    }
+
+    .fc-theme-standard td, .fc-theme-standard th{
+        border-top: 1px solid $ghostWhite;
+    }
+
+    .fc-timegrid-col-events{
+        margin: 0px;
+    }
+
+    .fc{
+        box-sizing: border-box;
+        width: 100%;
+        height: 100%;
+
+        .fc-toolbar{
+            display: none;
+        }
+
+        .fc-col-header .fc-day a{
+            text-transform: capitalize;
+            font-weight: normal;
+        }
+
+        .fc-view-harness .fc-timeGridDay-view table tbody tr{
+            &.fc-scrollgrid-section.fc-scrollgrid-section-header {
+                display: none;
+            }
+
+            & td .fc-scroller-harness.fc-scroller-harness-liquid .fc-scroller.fc-scroller-liquid-absolute .fc-timegrid-body{
+                
+                & .fc-timegrid-cols table tbody tr td{
+
+                    background-color: white;
+                }
+            }
+
+            & colgroup col{
+                width: 10px;
+            }
+        }
+    }
+}

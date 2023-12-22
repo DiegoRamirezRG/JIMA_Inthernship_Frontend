@@ -1,0 +1,152 @@
+@import '../../../utils/sassConfig/colors';
+@import '../../../utils/sassConfig/fonts';
+
+.maxGroupsContainer{
+    height: 100%;
+    width: 1400px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Quicksand', sans-serif;
+    gap: 25px;
+
+    .headerGroups{
+        height: 80px;
+        width: 100%;
+        position: sticky;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        box-sizing: border-box;
+        padding: 0px 20px;
+        
+        h2{
+            font-weight: 550;
+            font-size: 50px;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .acctionsContainer{
+            height: 100%;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+
+            .menu {
+                list-style-type: none;
+                padding: 0;
+                background-color: $iris;
+                width: 200px;
+                border-radius: 5px;
+                font-weight: 550;
+                color: $ghostWhite;
+                font-size: 20px;
+
+                li {
+                    padding: 10px;
+                    position: relative;
+                    border-radius: 5px;
+
+                    &:hover {
+                        background-color: darken($iris, 15%);
+                        cursor: pointer;
+                    }
+
+                    .submenu {
+                        display: none;
+                        position: absolute;
+                        top: 0%;
+                        right: 100%;
+                        background-color: #fff;
+                        list-style-type: none;
+                        padding: 0;
+                        width: 100%;
+                        border-radius: 5px;
+                
+                        li {
+                            padding: 10px;
+                            border-bottom: 1px solid $ghostWhite;
+                    
+                            &:hover {
+                                background-color: lighten($iris, 10%);
+                                color: white;
+                            }
+                        }
+                    }
+                
+                    &:hover .submenu {
+                        display: block;
+                        color: black;
+                    }
+                }
+            }
+        }
+    }
+
+    .groupsContent{
+        width: 100%;
+        height: auto;
+        max-height: calc(100% - 125px);
+        overflow-y: scroll;
+        overflow-x: hidden;
+        box-sizing: border-box;
+
+        .groupsDynamic{
+            margin-top: 50px;
+            height: auto;
+            width: 100%;
+            box-sizing: border-box;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            row-gap: 10px;
+            column-gap: 20px;
+            padding: 10px;
+        }
+    }
+}
+
+.no_active_clases{
+    width: 70%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Quicksand', sans-serif;
+    gap: 40px;
+
+    p{
+        padding: 0px;
+        margin: 0px;
+        font-size: 30px;
+        font-weight: 550;
+        color: $iris;
+    }
+
+    img{
+        height: 50%;
+    }
+
+    button{
+        background-color: $iris;
+        border: none;
+        border-radius: 5px;
+        width: auto;
+        box-sizing: border-box;
+        padding: 5px 15px;
+        font-size: 20px;
+        color: white;
+        font-family: 'Quicksand', sans-serif;
+        transition: 0.2s all ease-in-out;
+
+        &:hover{
+            cursor: pointer;
+            background-color: darken($iris, 10%);
+        }
+    }
+}

@@ -1,0 +1,73 @@
+@import '../../../../utils/sassConfig/fonts';
+@import '../../../../utils/sassConfig/colors';
+
+.gradeInnerContainer{
+    width: 100%;
+    height: 500px;
+    box-sizing: border-box;
+    padding: 10px 0px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+
+    .actionHeader{
+        display: flex;
+        flex-direction: row;
+        gap: 15px;
+        justify-content: space-around;
+        align-items: flex-end;
+        box-sizing: border-box;
+
+        .inputSection{
+            width: 30%;
+        }
+
+        button{
+            font-size: 20px;
+            font-family: 'Quicksand', sans-serif;
+            box-sizing: border-box;
+            padding: 5px 10px;
+            color: white;
+            font-weight: 550;
+            transition: 0.2s all ease-in-out;
+
+            &.success{
+                background-color: lighten($bootstrap_success, 10%);
+                border: none;
+                border-radius: 5px;
+                outline: none;
+
+                &:hover{
+                    background-color: lighten($bootstrap_success, 5%);
+                }
+            }
+
+            &.danger{
+                background-color: lighten($bootstrap_danger, 10%);
+                border: none;
+                border-radius: 5px;
+                outline: none;
+
+                &:hover{
+                    background-color: $bootstrap_danger;
+                }
+            }
+
+            &:hover{
+                cursor: pointer;
+            }
+        }
+    }
+
+    .gradesContainer{
+        box-sizing: border-box;
+        padding: 10px;
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        margin-top: 20px;
+        gap: 10px;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+}

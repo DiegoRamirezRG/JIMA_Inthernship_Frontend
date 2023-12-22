@@ -1,0 +1,9 @@
+.unitDividerContainer{
+    width: 100%;
+    background-color: navy;
+    box-sizing: border-box;
+
+    &.normalSep{
+        margin-top: 20px;
+    }
+}

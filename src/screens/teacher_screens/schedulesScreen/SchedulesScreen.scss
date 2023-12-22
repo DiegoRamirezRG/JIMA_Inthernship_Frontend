@@ -1,0 +1,170 @@
+@import '../../../utils/sassConfig/colors';
+
+.maxScheduleTeacherContainer{
+    height: 100%;
+    width: 1400px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Quicksand', sans-serif;
+    gap: 25px;
+
+    .scheduleHeader{
+        height: 80px;
+        width: 100%;
+        position: sticky;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        box-sizing: border-box;
+        padding: 0px 20px;
+
+        h2{
+            font-weight: 550;
+            font-size: 50px;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .acctionsContainer{
+            height: 100%;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+            
+            button{
+                width: auto;
+                box-sizing: border-box;
+                padding: 5px 15px;
+                font-size: 20px;
+                border: none;
+                outline: none;
+                border-radius: 5px;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+
+                background-color: #F40F02;
+                color: white;
+
+                &:hover{
+                    cursor: pointer;
+                    background-color: darken(#F40F02, 10%);
+                }
+            }
+        }
+    }
+
+    .scheduleBody{
+        width: 100%;
+        height: calc(100% - 80px - 25px);
+    
+        .fc-theme-standard td, .fc-theme-standard th{
+            border-top: 1px solid $ghostWhite;
+        }
+    
+        .fc-timegrid-col-events{
+            margin: 0px;
+        }
+
+        .fc{
+            box-sizing: border-box;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: white;
+
+            .fc-toolbar{
+                display: none;
+            }
+
+            .fc-col-header .fc-day a{
+                text-transform: capitalize;
+                font-weight: normal;
+            }
+
+            .fc-view-harness .fc-timeGridDay-view table tbody tr{
+                &.fc-scrollgrid-section.fc-scrollgrid-section-header {
+                    display: none;
+                }
+    
+                & td .fc-scroller-harness.fc-scroller-harness-liquid .fc-scroller.fc-scroller-liquid-absolute .fc-timegrid-body{
+                    
+                    & .fc-timegrid-cols table tbody tr td{
+    
+                        background-color: white;
+                    }
+                }
+    
+                & colgroup col{
+                    width: 10px;
+                }
+            }
+        }
+    }
+}
+
+.scheduleEventContainer{
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+
+    &:hover{
+        cursor: pointer;
+    }
+
+    p{
+        margin: 0px;
+        padding: 0px;
+    }
+
+    .event_title_p{
+        height: auto;
+        width: 100%;
+        font-size: 30px;
+        text-align: center;
+        font-weight: 550;
+    }
+
+    .innerScheduleRow{
+        width: 100%;
+        display: flex;
+        gap: 5px;
+        justify-content: center;
+        font-size: 17px;
+    }
+}
+
+.no_schedule{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    gap: 20px;
+
+    p{
+        padding: 0px;
+        margin: 0px;
+        font-size: 30px;
+        color: $iris;
+        font-weight: 550;
+        text-align: center;
+    }
+
+    img{
+        height: 40%;
+    }
+}

@@ -1,0 +1,141 @@
+@import '../../../utils/sassConfig/colors';
+@import '../../../utils/sassConfig/fonts';
+
+.planCreatorContainer{
+    width: 1300px;
+    height: 800px;
+    box-sizing: border-box;
+    overflow: hidden;
+
+    .innerPlanCreatorContainer{
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        position: relative;
+
+        .planMakerHeader{
+            height: 10%;
+            width: 100%;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            
+            h3, p{
+                margin: 0px;
+                padding: 0px;
+                font-family: 'Quicksand', sans-serif;
+            }
+
+            h3{
+                font-size: 40px;
+            }
+
+            .innerRow{
+                display: flex;
+                gap: 20px;
+                margin-top: 5px;
+            }
+        }
+
+        .planMakerBody{
+            width: 100%;
+            height: 90%;
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            
+            .careerCiclesContainer{
+                width: 75%;
+                height: 100%;
+                overflow-y: hidden;
+                overflow-y: scroll;
+                padding: 20px 30px 40px 30px;
+                display: flex;
+                flex-direction: row;
+                gap: 20px;
+                box-sizing: border-box;
+            }
+
+            .planMakerTools{
+                width: 25%;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                box-sizing: border-box;
+                overflow: hidden;
+                padding: 10px;
+                gap: 10px;
+
+                .makerToolsHeader{
+                    width: 100%;
+                    font-family: 'Quicksand', sans-serif;
+                    text-align: center;
+                    font-weight: 550;
+                    font-size: 25px;
+                    height: 5%;
+
+                    p{
+                        margin: 0px;
+                        padding: 0px;
+                    }
+                }
+
+                .contentInnerContainer{
+                    height: 95%;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+
+                    .subjectsPlace{
+                        height: 80%;
+                        width: 100%;
+                    }
+    
+                    .confirmActions{
+                        width: 100%;
+                        height: 10%;
+                        margin-bottom: 35px;
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: space-around;
+                        align-items: center;
+
+                        button{
+                            font-family: 'Quicksand';
+                            font-size: 20px;
+                            box-sizing: border-box;
+                            padding: 5px 15px;
+                        }
+                    }
+                }
+            }
+        }
+
+        .closeBtn{
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            width: 50px;
+            aspect-ratio: 1;
+            border-radius: 5px;
+            display: flex;
+            font-size: 50px;
+            overflow: hidden;
+            justify-content: center;
+            align-items: center;
+            color: $bootstrap_danger;
+            transition: 0.2s all ease;
+
+            &:hover{
+                cursor: pointer;
+                background-color: $bootstrap_danger;
+                color: white;
+            }
+        }
+    }
+}

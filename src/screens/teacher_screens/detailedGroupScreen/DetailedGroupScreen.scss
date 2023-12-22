@@ -1,0 +1,246 @@
+@import '../../../utils/sassConfig/colors';
+@import '../../../utils/sassConfig/fonts';
+
+.maxDetailedGroup{
+    width: 75%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: scroll !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    font-family: 'Quicksand', sans-serif;
+
+    .wallcoverImage{
+        width: 1100px;
+        height: 400px;
+        background-color: $iris;
+        border-radius: 10px;
+        position: relative;
+        overflow: hidden;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        flex-shrink: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        img{
+            width: 100%;
+            flex-shrink: 0;
+
+            &:hover{
+                cursor: pointer;
+            }
+        }
+
+        .acctionsFloating{
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            box-sizing: border-box;
+            padding: 15px 25px 15px 25px;
+            align-items: end;
+            background: linear-gradient(0deg, rgba(black , 0.8) 0%, rgba(black , 0.6) 30%, transparent 100%);
+
+            &:hover{
+                cursor: pointer;
+            }
+
+            .infoSubjectFloating{
+                width: fit-content;
+                height: fit-content;
+                display: flex;
+                flex-direction: column;
+                text-align: left;
+                align-items: flex-start;
+                justify-content: flex-start;
+                
+                p{
+                    margin: 0px;
+                    padding: 0px;
+                    color: white;
+
+                    &:first-child{
+                        font-size: 90px;
+                        font-weight: bold;
+                        margin-bottom: -15px;
+                    }
+
+                    &:last-child{
+                        font-size: 30px;
+                        font-weight: 550;
+                        color: rgba(white, 0.5);
+                    }
+                }
+            }
+
+            .realActionageContainer{
+                width: fit-content;
+                height: fit-content;
+                display: flex;
+                gap: 20px;
+                box-sizing: border-box;
+                padding: 5px 15px;
+
+                .icons{
+                    width: 55px;
+                    height: 55px;
+                    border-radius: 50%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    font-size: 35px;
+                    color: white;
+                    transition: 0.2s all ease-in-out;
+    
+                    &.list{
+                        background-color: lighten($kyubiDarkOrange, 10%);
+    
+                        &:hover{
+                            background-color: darken($kyubiDarkOrange, 5%);
+                        }
+                    }
+    
+                    &.add{
+                        background-color: lighten($iris, 10%);
+                        
+                        &:hover{
+                            background-color: darken($iris, 5%);
+                        }
+                    }
+    
+                    a{
+                        margin: 0px;
+                        padding: 0px;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                    }
+                }
+            }
+        }
+    }
+
+    .navigatorRender{
+        width: 1100px;
+        height: auto;
+        box-sizing: border-box;
+        padding: 10px 30px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 10px;
+        background-color: white;
+
+        .buttonageRendering{
+            width: fit-content;
+            height: fit-content;
+            border-radius: 15px;
+            box-sizing: border-box;
+            border: 4px solid $iris;
+            background-color: $iris;
+        }
+
+        button{
+            font-size: 20px;
+            border-radius: 0px;
+            outline: none;
+            border: none;
+            box-sizing: border-box;
+            padding: 5px 15px;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 550;
+            transition: 0.2s all ease-in-out;
+            background-color: white;
+
+            &.active{
+                background-color: $iris;
+                color: white;
+            }
+
+            &:first-child{
+                border-radius: 10px 0px 0px 10px;
+            }
+
+            &:last-child{
+                border-radius: 0px 10px 10px 0px;
+            }
+
+            &:hover{
+                cursor: pointer;
+                background-color: $kyubiDarkOrange;
+                color:white;
+            }
+        }
+    }
+
+    .contentRenderDynamicContainer{
+        width: 1100px;
+        height: auto;
+    }
+
+    .subjectMainContent{
+        width: 1100px;
+        height: auto;
+        overflow: visible;
+        position: relative;
+        box-sizing: border-box;
+        flex-shrink: 0;
+        display: flex;
+        flex-direction: row;
+        gap: 25px;
+
+        .siderBar{
+            width: 25%;
+            height: 100px;
+
+            .classInformationCodes{
+                width: 100%;
+                height: auto;
+                box-sizing: border-box;
+                padding: 10px 25px;
+                background-color: white;
+                border-radius: 10px;
+                border: 2px solid rgba($iris, 0.3);
+                gap: 10px;
+                display: flex;
+                flex-direction: column;
+
+                .innerTitle{
+                    font-size: 19px;
+                    width: 100%;
+                    overflow: hidden;
+                    text-align: start;
+                    font-weight: bold;
+                    color: $iris;
+                }
+
+                .innerRow{
+                    display: flex;
+                    flex-direction: column;
+                    gap: 5px;
+                    font-size: 17px;
+                }
+
+                p{
+                    margin: 0px;
+                    padding: 0px;
+                }
+            }
+        }
+
+        .contentSection{
+            width: 85%;
+            height: 100px;
+            background-color: green;
+        }
+    }
+}

@@ -1,0 +1,166 @@
+@import '../../utils/sassConfig/colors';
+@import '../../utils/sassConfig/fonts';
+
+.CalendarMaxContainer{
+    width: 75%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+
+    .calendarContent{
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        box-sizing: border-box;
+        gap: 15px;
+
+        .calendarEventsSection{
+            width: 100%;
+            height: 100%;
+            display: flex;
+            overflow: hidden;
+            gap: 10px;
+            border-radius: 0px;
+            flex-shrink: 0;
+            box-sizing: border-box;
+
+            .calendarContainerFullCalendar{
+                width: 100%;
+                height: 100%;
+                font-family: 'Quicksand', sans-serif;
+                
+                .fc{
+                    box-sizing: border-box;
+                    width: 100%;
+                    height: 100%;
+                    padding: 0px 15px;
+                    background-color: white;
+
+                    .event-title-rendering{
+                        font-weight: 550;
+                        font-style: normal;
+                    }
+
+                    .fc-multimonth-title{
+                        text-transform: capitalize;
+                    }
+
+                    .fc-day{
+                        text-transform: capitalize;
+                        font-weight: normal;
+                    }
+
+                    .fc-header-toolbar{
+
+                        .fc-toolbar-title{
+                            text-transform: capitalize;
+                        }
+
+                        .fc-button-group > .fc-button:last-child{
+                            border-radius: 0px 50px 50px 0px !important;
+                        }
+                        .fc-button-group > .fc-button:first-child{
+                            border-radius: 50px 0px 0px 50px !important;
+                        }
+
+                        .fc-button-group > .fc-button:not(:first-child):not(:last-child){
+                            border-radius: 0PX !important;
+                        }
+
+                        .fc-today-button{
+                            background-color: lighten($bootstrap_success, 10%);
+                            border-color: lighten($bootstrap_success, 10%);
+                            font-size: 20px;
+                            padding: 5px 20px;
+                            font-weight: 550;
+
+                            &:focus, &:active {
+                                outline: none !important;
+                                box-shadow: none;
+                            }
+
+                            &:hover{
+                                background-color: $bootstrap_success;
+                                border-color: $bootstrap_success;
+                            }
+
+                            &:disabled{
+                                opacity: 0;
+                            }
+                        }
+
+                        .fc-prev-button, .fc-next-button{
+                            background-color: $iris;
+                            border-color: $iris;
+
+                            &:focus, &:active {
+                                outline: none !important;
+                                box-shadow: none;
+                            }
+
+                            &:hover{
+                                background-color: darken($iris, 15%);
+                                border-color: darken($iris, 15%);
+                            }
+                        }
+                        
+                        .fc-multiMonthYear-button, .fc-dayGridMonth-button, .fc-timeGridWeek-button, .fc-timeGridDay-button{
+                            background-color: $iris;
+                            border-color: $iris;
+                            font-size: 20px;
+                            padding: 5px 20px;
+                            font-weight: 550;
+
+                            &:focus, &:active {
+                                outline: none !important;
+                                box-shadow: none;
+                            }
+
+                            &:hover{
+                                background-color: darken($iris, 15%);
+                                border-color: darken($iris, 15%);
+                            }
+                        }
+
+                        .fc-button-active{
+                            background-color: $kyubiDarkOrange;
+                            border-color: $kyubiDarkOrange;
+
+                            &:hover{
+                                background-color: darken($kyubiDarkOrange, 15%);
+                                border-color: darken($kyubiDarkOrange, 15%);
+                            }
+                        }
+                    }
+
+                    .fc-col-header .fc-day a{
+                        text-transform: capitalize;
+                    }
+
+                    .fc-daygrid-day{
+
+                        &.fc-day-today{
+                            background-color: rgba($kyubiDarkOrange, 0.2);
+                            &:hover{
+                                cursor: pointer;
+                                background-color: rgba($kyubiDarkOrange, 0.5);
+                            }
+                        }
+
+                        &:hover{
+                            cursor: pointer;
+                            background-color: $ghostWhite;
+                        }
+                    }
+                }
+                
+
+            }
+        }
+    }
+}

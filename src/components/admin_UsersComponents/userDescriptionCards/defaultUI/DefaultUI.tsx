@@ -1,5 +1,6 @@
 import { AiOutlineEdit } from "react-icons/ai"
 import { defaultProps } from "../helpers/interfaces/userDescriptionInterface"
+import { useEffect } from "react";
 
 interface btnProps{
     funct?: () => any;
@@ -14,7 +15,14 @@ export const EditBtn = ({ funct }:btnProps) => {
     )
 }
 
-export const DefaultCard = ({children, hasTitle, hasActionBtn, btnFunc, btnText, titleText}: defaultProps) => {
+export const DefaultCard = ({children, hasTitle, hasActionBtn, btnFunc, btnText, titleText, isActive}: defaultProps) => {
+
+    useEffect(() => {
+        if(isActive && btnFunc){
+            btnFunc();
+        }
+    }, [])
+
     return(
         <>
             {
